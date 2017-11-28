@@ -82,13 +82,13 @@
     <Compile Include="Converter\HomeHoverConverter.cs" />
     <Compile Include="Converter\InventoryHoverConverter.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\SideBarViewModel.cs" />
-    <Compile Include="ViewModel\TopBarViewModel.cs" />
+    <Compile Include="ViewModel\Common\SideBarViewModel.cs" />
+    <Compile Include="ViewModel\Common\TopBarViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\SideBarView.xaml.cs">
+    <Compile Include="Views\Common\SideBarView.xaml.cs">
       <DependentUpon>SideBarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TopBarView.xaml.cs">
+    <Compile Include="Views\Common\TopBarView.xaml.cs">
       <DependentUpon>TopBarView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -103,11 +103,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\SideBarView.xaml">
+    <Page Include="Views\Common\SideBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TopBarView.xaml">
+    <Page Include="Views\Common\TopBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

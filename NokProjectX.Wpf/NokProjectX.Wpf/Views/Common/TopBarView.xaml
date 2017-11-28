@@ -9,17 +9,18 @@
     d:DesignHeight="300"
     d:DesignWidth="300"
     Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{Binding TopBar, Source={StaticResource Locator}}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    mc:Ignorable="d"
-    DataContext="{Binding TopBar, Source={StaticResource Locator}}">
-    <materialDesign:Card HorizontalAlignment="Stretch"
-                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                         VerticalAlignment="Stretch">
-        <Grid></Grid>
+    mc:Ignorable="d">
+    <materialDesign:Card
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        materialDesign:ShadowAssist.ShadowDepth="Depth2">
+        <Grid />
     </materialDesign:Card>
 </UserControl>
