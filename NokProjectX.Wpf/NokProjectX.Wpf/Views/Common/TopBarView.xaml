@@ -20,7 +20,7 @@
     <materialDesign:Card
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
-        materialDesign:ShadowAssist.ShadowDepth="Depth2">
+        materialDesign:ShadowAssist.ShadowDepth="Depth1">
         <Grid />
     </materialDesign:Card>
 </UserControl>

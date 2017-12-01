@@ -15,6 +15,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using NokProjectX.Wpf.Context;
+using NokProjectX.Wpf.ViewModel.Inventory;
 
 namespace NokProjectX.Wpf.ViewModel
 {
@@ -27,24 +29,29 @@ namespace NokProjectX.Wpf.ViewModel
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
-        public ViewModelLocator()
+        
+         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
+            if (ViewModelBase.IsInDesignModeStatic)
+            {
+                // Create design time view services and models
+                SimpleIoc.Default.Register<YumiContext>();
+            }
+            else
 
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<SideBarViewModel>();
-            SimpleIoc.Default.Register<TopBarViewModel>();
+            {
+                // Create run time view services and models
+                SimpleIoc.Default.Register<YumiContext>();
+            }
+            
+        
+        SimpleIoc.Default.Register<MainViewModel>();
+        SimpleIoc.Default.Register<SideBarViewModel>();
+        SimpleIoc.Default.Register<TopBarViewModel>();
+        SimpleIoc.Default.Register<InventoryViewModel>();
+            
         }
 
         public MainViewModel Main
@@ -66,6 +73,13 @@ namespace NokProjectX.Wpf.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<TopBarViewModel>();
+            }
+        }
+        public InventoryViewModel Inventory
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<InventoryViewModel>();
             }
         }
 

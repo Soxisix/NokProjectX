@@ -1,5 +1,8 @@
+using System;
 using GalaSoft.MvvmLight;
 using Microsoft.Practices.ServiceLocation;
+using NokProjectX.Wpf.Common.Messages;
+using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Views;
 
 namespace NokProjectX.Wpf.ViewModel
@@ -21,8 +24,9 @@ namespace NokProjectX.Wpf.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(YumiContext context)
         {
+            _context = context;
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.
@@ -32,8 +36,14 @@ namespace NokProjectX.Wpf.ViewModel
             ////    // Code runs "for real"
             ////}
 //            SideBarView = ServiceLocator.Current.GetInstance<SideBarViewModel>();
+            MessengerInstance.Register<NavigateTo>(this, NavigateToContent);
             TopBarView = new TopBarView();
             SideBarView = new SideBarView();
+        }
+
+        public void NavigateToContent(NavigateTo content)
+        {
+            MainView = content.Content;
         }
 
         private object topBarView;
@@ -41,5 +51,10 @@ namespace NokProjectX.Wpf.ViewModel
 
         private object sideBarView;
         public object SideBarView { get { return sideBarView; } set { Set(ref sideBarView, value); } }
+
+        private object mainView;
+        private readonly YumiContext _context;
+
+        public object MainView { get { return mainView; } set { Set(ref mainView, value); } }
     }
 }

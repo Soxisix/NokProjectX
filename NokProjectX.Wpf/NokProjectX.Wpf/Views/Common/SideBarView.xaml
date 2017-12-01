@@ -16,11 +16,10 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
-
     <materialDesign:Card
         VerticalAlignment="Stretch"
-        materialDesign:ShadowAssist.ShadowDepth="Depth2"
-        Background="#FF231F1F">
+        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+        Background="#231f20">
         <ListView
             VerticalContentAlignment="Top"
             ItemsSource="{Binding MenuList}"
@@ -35,7 +34,9 @@
                         Width="55"
                         Height="55"
                         Margin="-9"
-                        BorderThickness="0">
+                        BorderThickness="0"
+                        Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        CommandParameter="{Binding MenuIndex}">
                         <Button.Style>
                             <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
                                 <Style.Triggers>
