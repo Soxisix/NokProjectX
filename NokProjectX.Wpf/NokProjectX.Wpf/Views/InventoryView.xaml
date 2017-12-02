@@ -239,13 +239,11 @@
             <Grid
                     VerticalAlignment="Top">
                 <ListView
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Center"
                         ItemsSource="{Binding ProductList}">
                    
                     <ListView.View>
                         <GridView >
-                            <GridViewColumn>
+                            <GridViewColumn >
                                 
                                 <GridViewColumn.CellTemplate>
                                     
@@ -256,9 +254,9 @@
                             </GridViewColumn>
                             <GridViewColumn
                                     Header="Product Code">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock 
+                                <GridViewColumn.CellTemplate >
+                                    <DataTemplate >
+                                        <TextBlock TextAlignment="Right"
                                                 Text="{Binding ProductCode}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -285,10 +283,10 @@
                                     Header="Stock">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Stock}"></TextBlock>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock TextAlignment="Right" Text="{Binding Stock}"></TextBlock>
                                             <TextBlock Text=" "></TextBlock>
-                                            <TextBlock Text="{Binding Type}"></TextBlock>
+                                            <TextBlock TextAlignment="Left" Text="{Binding Type}"></TextBlock>
 
                                         </StackPanel>
                                     </DataTemplate>
@@ -298,7 +296,7 @@
                                     Header="Price">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Price}"></TextBlock>
+                                        <TextBlock TextAlignment="Right" Text="{Binding Price}"></TextBlock>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
