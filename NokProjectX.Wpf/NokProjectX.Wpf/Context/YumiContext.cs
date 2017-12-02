@@ -9,7 +9,14 @@ namespace NokProjectX.Wpf.Context
     {
         public YumiContext() : base("name=YumiDb")
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<YumiContext>());
+            if (Database.Exists())
+            {
+                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<YumiContext>());
+            }
+            else
+            {
+                Database.SetInitializer(new CreateDatabaseIfNotExists<YumiContext>());
+            }
             
         }
 
