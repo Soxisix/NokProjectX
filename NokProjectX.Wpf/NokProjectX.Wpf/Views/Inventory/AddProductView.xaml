@@ -17,6 +17,24 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{Binding AddProduct, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+                <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="BorderBrush" Value="#89FFFFFF"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasErrors}" Value="True">
+                    <Setter Property="BorderBrush" Value="#89FF0000"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+                </Style>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="BorderBrush" Value="#89FFFFFF"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasErrors}" Value="True">
+                    <Setter Property="BorderBrush" Value="#89FF0000"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
 
     <Grid
             Background="#231f20">
@@ -45,7 +63,7 @@
                     Grid.Row="1">
                 <TextBlock Text="{Binding ProductName}"></TextBlock>
                 <TextBlock Text="{Binding Description}"></TextBlock>
-                <TextBlock Text="{Binding SelectedType}"></TextBlock>
+                <TextBlock Text="{Binding SelectedType.Name}"></TextBlock>
                 <TextBlock Text="{Binding Stock}"></TextBlock>
                 <TextBlock Text="{Binding Price}"></TextBlock>
 
@@ -105,59 +123,57 @@
                     Grid.Row="2"
                     Orientation="Vertical">
                 <TextBox
+                        materialDesign:ValidationAssist.OnlyShowOnFocus="True"
+
                         FontSize="12"
                         Foreground="White"
                         materialDesign:HintAssist.Hint="Product Name"
                         Margin="0,0,0,10"
-                        BorderBrush="#89FFFFFF"
                         FontFamily="Arial"
-                    Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}">
-                </TextBox>
+                    Text="{Binding ProductName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"  />
                 <TextBox
                         FontSize="12"
+                        materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                         Foreground="White"
                         materialDesign:HintAssist.Hint="Description"
                         Margin="0,0,0,10"
-                        BorderBrush="#89FFFFFF"
                         FontFamily="Arial"
-                        Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}">
-                </TextBox>
-                
+                        Text="{Binding Description, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+
                 <TextBox
                         FontSize="12"
                         Foreground="White"
+                        materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                         materialDesign:HintAssist.Hint="Stock"
                         Margin="0,0,0,10"
-                        BorderBrush="#89FFFFFF"
                         FontFamily="Arial"
-                        Text="{Binding Stock, UpdateSourceTrigger=PropertyChanged}">
-                </TextBox>
+                        Text="{Binding Stock, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <ComboBox
                         Width="220"
                         DisplayMemberPath="Name"
                         FontSize="12"
                         Foreground="White"
+                        materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                         materialDesign:HintAssist.Hint="Select Type"
                         Margin="0,0,0,10"
-                        BorderBrush="#89FFFFFF"
                         FontFamily="Arial"
                         ItemsSource="{Binding Types}"
-                        SelectedItem="{Binding SelectedType}"
-                >
-                </ComboBox>
+                        SelectedItem="{Binding SelectedType, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                />
                 <TextBox
                     
                         FontSize="12"
                         Foreground="White"
+                        materialDesign:ValidationAssist.OnlyShowOnFocus="True"
+                    materialDesign:ValidationAssist.UsePopup="True"
                         materialDesign:HintAssist.Hint="Price"
                         Margin="0,0,0,10"
-                        BorderBrush="#89FFFFFF"
                         FontFamily="Arial"
-                        Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}">
-                </TextBox>
+                        Text="{Binding Price, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
 
             </StackPanel>
+
             <Button
                     Grid.Row="3"
                     Height="30"
@@ -233,6 +249,70 @@
         </Grid>
     </Grid>
 </UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

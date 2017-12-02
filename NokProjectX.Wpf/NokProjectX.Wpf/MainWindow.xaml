@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="MainWindow"
+    Icon="Resources/aboutBlack.png"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         Width="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}"
         Height="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}"

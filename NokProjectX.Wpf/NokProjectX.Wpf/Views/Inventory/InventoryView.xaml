@@ -14,7 +14,8 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{Binding Inventory,Source={StaticResource Locator}}">
+        DataContext="{Binding Inventory,Source={StaticResource Locator}}"
+        d:DataContext="{Binding Inventory,Source={StaticResource Locator}}">
     <UserControl.Resources>
         <!--        <ControlTemplate-->
         <!--                x:Key="TextBoxRoundTemplate"-->
@@ -244,7 +245,7 @@
             <Grid
                     VerticalAlignment="Top">
                 <ListView
-                        ItemsSource="{Binding ProductList}">
+                        ItemsSource="{Binding ProductList, IsAsync=True}">
 
                     <ListView.View>
                         <GridView>
@@ -300,7 +301,7 @@
                                             </TextBlock>
                                             <TextBlock
                                                     TextAlignment="Left"
-                                                    Text="{Binding Type}">
+                                                    Text="{Binding Type.Name}">
                                             </TextBlock>
 
                                         </StackPanel>

@@ -36,6 +36,7 @@ namespace NokProjectX.Wpf.ViewModel
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
+                
                 // Create design time view services and models
                 SimpleIoc.Default.Register<YumiContext>();
             }

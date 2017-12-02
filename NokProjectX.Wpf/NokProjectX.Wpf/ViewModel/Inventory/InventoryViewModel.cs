@@ -31,9 +31,8 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 
         private void LoadData()
         {
-            var i = _context.Products.ToList();
-            ProductList = i;
-            TotalCount = i.Count;
+            ProductList = _context.Products.ToList();
+            TotalCount = ProductList.Count;
         }
 
         private void DoRefresh(RefreshMessage obj)

@@ -10,6 +10,7 @@ namespace NokProjectX.Wpf.Context
         public YumiContext() : base("name=YumiDb")
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<YumiContext>());
+            
         }
 
         public DbSet<Product> Products { get; set; }
