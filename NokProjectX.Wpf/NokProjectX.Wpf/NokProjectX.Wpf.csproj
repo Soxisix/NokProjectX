@@ -93,9 +93,13 @@
     </ApplicationDefinition>
     <Compile Include="Common\MenuList.cs" />
     <Compile Include="Common\Messages\NavigateTo.cs" />
+    <Compile Include="Common\Messages\RefreshMessage.cs" />
     <Compile Include="Common\SelectItemOnButtonClick.cs" />
     <Compile Include="Context\YumiContext.cs" />
+    <Compile Include="Converter\BoolToVisibilityCollapsed.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Type.cs" />
+    <Compile Include="ViewModel\Inventory\AddProductViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Common\SideBarViewModel.cs" />
@@ -107,7 +111,10 @@
     <Compile Include="Views\Common\TopBarView.xaml.cs">
       <DependentUpon>TopBarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\InventoryView.xaml.cs">
+    <Compile Include="Views\Inventory\AddProductView.xaml.cs">
+      <DependentUpon>AddProductView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventory\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -130,7 +137,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\InventoryView.xaml">
+    <Page Include="Views\Inventory\AddProductView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventory\InventoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -230,12 +241,25 @@
   <ItemGroup>
     <Resource Include="Resources\signoutBlue.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converter\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\defaultImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\btnAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\btnAddHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\btnCancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\btnCancelHover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

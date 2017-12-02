@@ -13,5 +13,6 @@ namespace NokProjectX.Wpf.Context
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Type> Types { get; set; }
     }
 }

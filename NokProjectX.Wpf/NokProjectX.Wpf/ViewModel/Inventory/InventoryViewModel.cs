@@ -4,9 +4,14 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using MaterialDesignThemes.Wpf;
+using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
+using NokProjectX.Wpf.Views.Inventory;
 
 namespace NokProjectX.Wpf.ViewModel.Inventory
 {
@@ -18,10 +23,34 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public InventoryViewModel(YumiContext context)
         {
             _context = context;
-            
-            var i = context.Products.ToList();
+            MessengerInstance.Register<RefreshMessage>(this, DoRefresh);
+            LoadData();
+
+            LoadCommands();
+        }
+
+        private void LoadData()
+        {
+            var i = _context.Products.ToList();
             ProductList = i;
             TotalCount = i.Count;
+        }
+
+        private void DoRefresh(RefreshMessage obj)
+        {
+            LoadData();
+        }
+
+        private void LoadCommands()
+        {
+            AddProductCommand = new RelayCommand(OnAddProduct);
+        }
+
+        public RelayCommand AddProductCommand { get; set; }
+
+        private async void OnAddProduct()
+        {
+            await DialogHost.Show(new AddProductView());
         }
 
         private List<Product> _productList;

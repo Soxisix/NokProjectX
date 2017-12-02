@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="MainWindow"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         Width="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}"
@@ -22,11 +23,14 @@
                     Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <ContentControl
+        <materialDesign:DialogHost Grid.Row="1"
+                Grid.Column="1" Identifier="RootDialog">
+
+            <ContentControl
                 x:Name="MainContent"
-                Grid.Row="1"
-                Grid.Column="1"
+                
                 Content="{Binding MainView}" />
+        </materialDesign:DialogHost>
         <ContentControl
                 x:Name="TopbarContent"
                 Grid.Row="0"
