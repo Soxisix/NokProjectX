@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
 using MvvmValidation;
@@ -13,35 +10,52 @@ using NokProjectX.Wpf.Common.Validator;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
 using Type = NokProjectX.Wpf.Entities.Type;
+using System.Threading.Tasks;
 
 namespace NokProjectX.Wpf.ViewModel.Inventory
 {
-    public class AddProductViewModel : ValidatableViewModelBase
+    public class EditProductViewModel : ValidatableViewModelBase
     {
         private readonly YumiContext _context;
+        private Product _currentProduct;
 
-        public AddProductViewModel(YumiContext context)
+        public EditProductViewModel(YumiContext context)
         {
             _context = context;
             LoadCommands();
             Types = _context.Types.ToList();
             ConfigureValidationRules();
+            MessengerInstance.Register<SelectedProductMessage>(this, OnProductRecieve);
+        }
 
+        private void OnProductRecieve(SelectedProductMessage obj)
+        {
+            _currentProduct = obj.SelectedProduct;
+            if (obj.SelectedProduct == null)
+            {
+                return;
+            }
+            ProductName = _currentProduct.Name;
+            Description = _currentProduct.Description;
+            Stock = _currentProduct.Stock;
+            SelectedType = _currentProduct.Type;
+            Price = _currentProduct.Price;
+            
         }
 
         public RelayCommand CloseCommand { get; set; }
-        public RelayCommand AddCommand { get; set; }
+        public RelayCommand EdicCommand { get; set; }
         public RelayCommand ViewCommand { get; set; }
         private void LoadCommands()
         {
             ViewCommand = new RelayCommand(OnView);
-            AddCommand = new RelayCommand(OnAdd);
+            EdicCommand = new RelayCommand(OnEdit);
             CloseCommand = new RelayCommand(OnClose);
         }
 
-        private void OnClose()
+        private async void OnClose()
         {
-            
+
             DialogHost.CloseDialogCommand.Execute(this, null);
             Clear();
             IsOpen = false;
@@ -49,28 +63,40 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 
         }
 
-        private async void OnAdd()
+        private async void OnEdit()
         {
             await ValidateAsync();
             if (HasErrors)
             {
                 return;
             }
-            var result =_context.Products.Select(c => c.ProductCode).OrderByDescending(c => c).FirstOrDefault();
-            int newCode = result + 1;
-            Product newProduct = new Product()
+            //            int newCode = 0;
+            //            var result = _context.Products.Select(c => c.ProductCode).OrderByDescending(c => c).FirstOrDefault();
+            //            if (result != null)
+            //            {
+            //                newCode = result + 1;
+            //            }
+//            Product newProduct = new Product()
+//            {
+//                Name = ProductName,
+//                Description = Description,
+//                Type = SelectedType,
+//                Stock = Int32.Parse(Stock),
+//                Price = Double.Parse(Price)
+//            };
+//            _context.Products.AddOrUpdate(newProduct);
+            var product = _context.Products.FirstOrDefault(c => c.ProductCode.Equals(_currentProduct.ProductCode));
+            if (product != null)
             {
-                ProductCode = newCode,
-                Name = ProductName,
-                Description = Description,
-                Type = SelectedType,
-                Stock = Int32.Parse(Stock),
-                Price = Double.Parse(Price)
-            };
-            _context.Products.Add(newProduct);
+                product.Name = ProductName;
+                product.Description = Description;
+                product.Type = SelectedType;
+                product.Stock = Stock.GetValueOrDefault();
+                product.Price = Price.GetValueOrDefault();
+            }
             _context.SaveChanges();
             MessengerInstance.Send(new RefreshMessage());
-            
+
             OnClose();
         }
 
@@ -107,13 +133,13 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public string Description { get { return _description; } set { Set(ref _description, value); } }
         private string _type;
         public string Type { get { return _type; } set { Set(ref _type, value); } }
-        private string _stock;
-        public string Stock { get { return _stock; } set { Set(ref _stock, value); } }
-        private string _price;
-        public string Price { get { return _price; } set { Set(ref _price, value); } }
+        private int? _stock;
+        public int? Stock { get { return _stock; } set { Set(ref _stock, value); } }
+        private double? _price;
+        public double? Price { get { return _price; } set { Set(ref _price, value); } }
 
         private List<Type> _types;
-        public List<Type> Types { get { return _types; }set { Set(ref _types,value); } }
+        public List<Type> Types { get { return _types; } set { Set(ref _types, value); } }
         private Type _selectedType;
         public Type SelectedType { get { return _selectedType; } set { Set(ref _selectedType, value); } }
 
@@ -126,7 +152,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public async Task ValidateAsync()
         {
             await Validator.ValidateAllAsync();
-            
+
         }
 
         private void ConfigureValidationRules()
@@ -143,14 +169,14 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             //                        string.Format("LRN {0} is taken. Please choose a different one.", LRN));
             //                });
             Validator.AddRequiredRule(() => ProductName, "Product Name is required");
-            Validator.AddRule(nameof(ProductName),
-                 () =>
-                {
-                    var count = _context.Products.Count(c => c.Name.ToLower().Equals(ProductName.Trim().ToLower()));
-                    var result = count == 0;
-                    return RuleResult.Assert(result,
-                        $"Product already exists");
-                });
+//            Validator.AddAsyncRule(nameof(ProductName),
+//                validateAction: async () =>
+//                {
+//                    var count = _context.Products.Count(c => c.Name.ToLower().Equals(ProductName.Trim().ToLower()));
+//                    var result = count == 0;
+//                    return RuleResult.Assert(result,
+//                        $"Product already exists");
+//                });
 
             Validator.AddRequiredRule(() => Description, "Description is required");
 
@@ -158,28 +184,27 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 
             Validator.AddRequiredRule(() => Stock, "Stock is required");
 
-            Validator.AddRule(nameof(Stock),
-                () =>
-                {
-                    int num;
-                    var result = int.TryParse(Stock, out num);
-                    return RuleResult.Assert(result,
-                        $"Stock must be a number.");
-                });
+//            Validator.AddAsyncRule(nameof(Stock),
+//                validateAction: async () =>
+//                {
+//                    int num;
+//                    var result = int.TryParse(Stock, out num);
+//                    return RuleResult.Assert(result,
+//                        $"Stock must be a number.");
+//                });
 
             Validator.AddRequiredRule(() => Price, "Price is required");
 
-            Validator.AddRule(nameof(Price),
-                () =>
-                {
-                    double num;
-                    var result = double.TryParse(Price, out num);
-                    return RuleResult.Assert(result,
-                        $"Price must be a number.");
-                });
+//            Validator.AddAsyncRule(nameof(Price),
+//                validateAction: async () =>
+//                {
+//                    double num;
+//                    var result = double.TryParse(Price, out num);
+//                    return RuleResult.Assert(result,
+//                        $"Price must be a number.");
+//                });
 
 
         }
-
     }
 }

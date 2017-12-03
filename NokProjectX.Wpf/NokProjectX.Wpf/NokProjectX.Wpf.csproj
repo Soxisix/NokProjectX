@@ -97,6 +97,7 @@
     <Compile Include="Common\MenuList.cs" />
     <Compile Include="Common\Messages\NavigateTo.cs" />
     <Compile Include="Common\Messages\RefreshMessage.cs" />
+    <Compile Include="Common\Messages\SelectedProductMessage.cs" />
     <Compile Include="Common\SelectItemOnButtonClick.cs" />
     <Compile Include="Common\Validator\ValidatableViewModelBase.cs" />
     <Compile Include="Context\YumiContext.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Type.cs" />
     <Compile Include="ViewModel\Inventory\AddProductViewModel.cs" />
+    <Compile Include="ViewModel\Inventory\EditProductViewModel.cs" />
     <Compile Include="ViewModel\Inventory\InventoryViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Common\SideBarViewModel.cs" />
@@ -117,6 +119,9 @@
     </Compile>
     <Compile Include="Views\Inventory\AddProductView.xaml.cs">
       <DependentUpon>AddProductView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inventory\EditProductView.xaml.cs">
+      <DependentUpon>EditProductView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Inventory\InventoryView.xaml.cs">
       <DependentUpon>InventoryView.xaml</DependentUpon>
@@ -142,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Inventory\AddProductView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Inventory\EditProductView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

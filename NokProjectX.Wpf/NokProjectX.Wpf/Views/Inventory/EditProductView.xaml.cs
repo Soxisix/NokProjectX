@@ -16,19 +16,30 @@ using System.Windows.Shapes;
 namespace NokProjectX.Wpf.Views.Inventory
 {
     /// <summary>
-    /// Interaction logic for AddProduct.xaml
+    /// Interaction logic for EditProductView.xaml
     /// </summary>
-    public partial class AddProductView : UserControl
+    public partial class EditProductView : UserControl
     {
-        public AddProductView()
+        public EditProductView()
         {
             InitializeComponent();
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            if (!char.IsDigit(e.Text, e.Text.Length - 1) )
                 e.Handled = true;
+        }
+
+        private void TextBox_PreviewTextInput_1(object sender, TextCompositionEventArgs e)
+        {
+//            if (!(char.IsDigit(e.Text, e.Text.Length - 1) || char.))
+//            { e.Handled = true; }
+//            TextBox txtDecimal = sender as TextBox;
+//            if (e.KeyChar == '.' && txtDecimal.Text.Contains("."))
+//            {
+//                e.Handled = true;
+//            }
         }
     }
 }

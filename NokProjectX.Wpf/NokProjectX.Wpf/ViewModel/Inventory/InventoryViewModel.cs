@@ -8,6 +8,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Practices.ServiceLocation;
 using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
@@ -43,6 +44,17 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         private void LoadCommands()
         {
             AddProductCommand = new RelayCommand(OnAddProduct);
+            EditProductCommand = new RelayCommand(OnEdit);
+        }
+
+        public RelayCommand EditProductCommand { get; set; }
+
+        private async void OnEdit()
+        {
+            ServiceLocator.Current.GetInstance<EditProductViewModel>();
+            MessengerInstance.Send(new SelectedProductMessage() { SelectedProduct = SelectedProduct });
+            await DialogHost.Show(new EditProductView());
+            
         }
 
         public RelayCommand AddProductCommand { get; set; }
@@ -59,6 +71,9 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             get { return _productList; }
             set { Set(ref _productList, value); }
         }
+
+        private Product _selectedProduct;
+        public Product SelectedProduct { get { return _selectedProduct; } set { Set(ref _selectedProduct,value); } }
 
         private int _totalCount;
 

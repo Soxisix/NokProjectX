@@ -147,7 +147,7 @@
                         materialDesign:HintAssist.Hint="Stock"
                         Margin="0,0,0,10"
                         FontFamily="Arial"
-                        Text="{Binding Stock, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        Text="{Binding Stock,  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="TextBox_PreviewTextInput"/>
                 <ComboBox
                         Width="220"
                         DisplayMemberPath="Name"
@@ -169,7 +169,7 @@
                         materialDesign:HintAssist.Hint="Price"
                         Margin="0,0,0,10"
                         FontFamily="Arial"
-                        Text="{Binding Price, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        Text="{Binding Price, StringFormat='#.00',  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
 
             </StackPanel>
