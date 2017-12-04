@@ -10,5 +10,9 @@
         public virtual Type Type { get; set; }
         public double Price { get; set; }
 
+        public byte Image { get; set; }
+
+
+        public bool IsSelected { get; set; }
     }
 }

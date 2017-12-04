@@ -150,7 +150,8 @@
                             BorderThickness="0"
                             Width="101"
                             Height="30"
-                            Margin="10,0,0,0">
+                            Margin="10,0,0,0"
+                            Command="{Binding BatchDeleteCommand}">
 
                         <Button.Style>
                             <Style TargetType="{x:Type Button}"
@@ -210,24 +211,22 @@
                              Margin="10,0,10,10">
             <Grid VerticalAlignment="Top">
                 <ListView SelectedIndex="0"
+                          SelectionMode="Single"
                           SelectedItem="{Binding SelectedProduct}"
                           ItemsSource="{Binding ProductList, IsAsync=True}">
                     <i:Interaction.Behaviors>
                         <common:SelectItemOnButtonClick />
                     </i:Interaction.Behaviors>
+                    
                     <ListView.View>
                         <GridView>
-                            <GridView.ColumnHeaderContainerStyle>
-                                <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
-                                    <Setter Property="Background" Value="#231f20"></Setter>
-                                </Style>
-                            </GridView.ColumnHeaderContainerStyle>
+                            
                             <GridViewColumn>
 
                                 <GridViewColumn.CellTemplate>
 
                                     <DataTemplate>
-                                        <CheckBox />
+                                        <CheckBox IsChecked="{Binding IsSelected}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

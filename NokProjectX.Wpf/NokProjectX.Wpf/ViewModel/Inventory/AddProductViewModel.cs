@@ -60,6 +60,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             int newCode = result + 1;
             Product newProduct = new Product()
             {
+                
                 ProductCode = newCode,
                 Name = ProductName,
                 Description = Description,
@@ -100,6 +101,9 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             get { return _isOpen; }
             set { Set(ref _isOpen, value); }
         }
+
+        private byte _image;
+        public byte Image { get { return _image; } set { Set(ref _image, value); } }
 
         private string _productName;
         public string ProductName { get { return _productName; } set { Set(ref _productName, value); } }

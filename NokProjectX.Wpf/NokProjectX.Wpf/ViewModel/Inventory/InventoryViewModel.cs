@@ -33,6 +33,8 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             LoadCommands();
         }
 
+        
+
         private void LoadData()
         {
             OriginalProductList = _context.Products.ToList();
@@ -50,16 +52,36 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             AddProductCommand = new RelayCommand(OnAddProduct);
             EditProductCommand = new RelayCommand(OnEdit);
             DeleteProductCommand = new RelayCommand(OnDelete);
+            BatchDeleteCommand = new RelayCommand(OnBatchDelete);
+        }
+
+        public RelayCommand BatchDeleteCommand { get; set; }
+
+        private void OnBatchDelete()
+        {
+           var list = ProductList.Where(c => c.IsSelected).ToList();
+            _context.Products.RemoveRange(list);
+            _context.SaveChanges();
+            DoRefresh(null);
         }
 
         public RelayCommand DeleteProductCommand { get; set; }
 
         private async void OnDelete()
         {
-            await DialogHost.Show(new MessageView());
-            _context.Products.Remove(SelectedProduct);
-            _context.SaveChanges();
-            DoRefresh(null);
+            await DialogHost.Show(new MessageView(), "RootDialog", delegate(object sender, DialogClosingEventArgs args)
+            {
+                if (Equals(args.Parameter, false)) return;
+
+                if (Equals(args.Parameter, true))
+                {
+                    _context.Products.Remove(SelectedProduct);
+                    _context.SaveChanges();
+                    DoRefresh(null);
+                }
+
+            });
+            
         }
 
         public RelayCommand EditProductCommand { get; set; }
