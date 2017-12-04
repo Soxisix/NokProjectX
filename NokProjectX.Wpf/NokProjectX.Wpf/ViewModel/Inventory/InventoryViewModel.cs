@@ -52,17 +52,30 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             AddProductCommand = new RelayCommand(OnAddProduct);
             EditProductCommand = new RelayCommand(OnEdit);
             DeleteProductCommand = new RelayCommand(OnDelete);
-            BatchDeleteCommand = new RelayCommand(OnBatchDelete);
+            BatchDeleteCommand = new RelayCommand(OnBatchDelete, () =>
+            
+                (ProductList.Count(c => c.IsSelected) > 0)
+            );
         }
 
         public RelayCommand BatchDeleteCommand { get; set; }
 
-        private void OnBatchDelete()
+        private async void OnBatchDelete()
         {
-           var list = ProductList.Where(c => c.IsSelected).ToList();
-            _context.Products.RemoveRange(list);
-            _context.SaveChanges();
-            DoRefresh(null);
+            await DialogHost.Show(new MessageView(), "RootDialog", delegate (object sender, DialogClosingEventArgs args)
+            {
+                if (Equals(args.Parameter, false)) return;
+
+                if (Equals(args.Parameter, true))
+                {
+                    var list = ProductList.Where(c => c.IsSelected).ToList();
+                    _context.Products.RemoveRange(list);
+                    _context.SaveChanges();
+                    DoRefresh(null);
+                }
+
+            });
+            
         }
 
         public RelayCommand DeleteProductCommand { get; set; }
