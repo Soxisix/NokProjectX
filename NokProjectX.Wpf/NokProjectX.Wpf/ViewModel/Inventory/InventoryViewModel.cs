@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -12,6 +13,7 @@ using Microsoft.Practices.ServiceLocation;
 using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
+using NokProjectX.Wpf.Views.Common;
 using NokProjectX.Wpf.Views.Inventory;
 
 namespace NokProjectX.Wpf.ViewModel.Inventory
@@ -20,6 +22,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
     public class InventoryViewModel : ViewModelBase
     {
         private readonly YumiContext _context;
+        private List<Product> OriginalProductList;
 
         public InventoryViewModel(YumiContext context)
         {
@@ -32,7 +35,8 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 
         private void LoadData()
         {
-            ProductList = _context.Products.ToList();
+            OriginalProductList = _context.Products.ToList();
+            ProductList = OriginalProductList;
             TotalCount = ProductList.Count;
         }
 
@@ -45,6 +49,17 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         {
             AddProductCommand = new RelayCommand(OnAddProduct);
             EditProductCommand = new RelayCommand(OnEdit);
+            DeleteProductCommand = new RelayCommand(OnDelete);
+        }
+
+        public RelayCommand DeleteProductCommand { get; set; }
+
+        private async void OnDelete()
+        {
+            await DialogHost.Show(new MessageView());
+            _context.Products.Remove(SelectedProduct);
+            _context.SaveChanges();
+            DoRefresh(null);
         }
 
         public RelayCommand EditProductCommand { get; set; }
@@ -76,6 +91,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public Product SelectedProduct { get { return _selectedProduct; } set { Set(ref _selectedProduct,value); } }
 
         private int _totalCount;
+        private string _searchText;
 
         public int TotalCount
         {
@@ -83,6 +99,29 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             set
             {
                 Set(ref _totalCount, value);
+            }
+        }
+
+        public string SearchText
+        {
+            get
+            {
+                return _searchText;
+            }
+            set
+            {
+                Set(ref _searchText, value);
+                if (String.IsNullOrEmpty(SearchText))
+                {
+                    ProductList = OriginalProductList;
+                }
+                else
+                {
+                    ProductList = OriginalProductList.Where(c => c.Name.ToLower().Contains(SearchText.Trim().ToLower()) ||
+                                                                 SearchText.Trim().Contains(c.ProductCode.ToString()) ||
+                                                                 c.Description.ToLower().Contains(SearchText.Trim().ToLower()))
+                        .ToList();
+                }
             }
         }
 

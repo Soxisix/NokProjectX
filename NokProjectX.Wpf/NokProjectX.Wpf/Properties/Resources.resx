@@ -199,4 +199,22 @@
   <data name="defaultImg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\defaultImg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="btnUpdate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnUpdate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnUpdateHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnUpdateHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnCancelS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnCancelS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnCancelSHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnCancelSHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnOKS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnOKS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnOKSHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnOKSHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

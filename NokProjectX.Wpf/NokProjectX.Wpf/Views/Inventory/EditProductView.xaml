@@ -82,8 +82,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid>
+            <Grid Background="#cebf00">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
@@ -92,41 +93,42 @@
                         Margin="10,0,0,0"
                         Command="{Binding ViewCommand}">
                     <materialDesign:PackIcon Kind="Eye"
-                                             Foreground="LightGray">
+                                             Foreground="White">
                     </materialDesign:PackIcon>
                 </Button>
-                <Button Grid.Column="1"
+                <TextBlock FontSize="16"
+                           Margin="0,10"
+                           Grid.Column="1"
+                           Text="Edit Product"
+                           Foreground="White"
+                           FontWeight="SemiBold">
+                </TextBlock>
+                <Button Grid.Column="2"
                         HorizontalAlignment="Right"
                         Style="{StaticResource MaterialDesignToolButton}"
                         Margin="0,0,5,0"
                         Command="{Binding CloseCommand}">
-                    <materialDesign:PackIcon Foreground="LightGray"
+                    <materialDesign:PackIcon Foreground="White"
                                              Kind="Close">
                     </materialDesign:PackIcon>
                 </Button>
             </Grid>
-            <TextBlock FontSize="16"
-                       Margin="15,10,10,10"
-                       Grid.Row="1"
-                       Text="Edit Product"
-                       Foreground="LightGray"
-                       FontWeight="SemiBold">
-            </TextBlock>
-            <StackPanel Margin="15,10"
+
+            <StackPanel Margin="15,15,15,10"
                         Grid.Row="2"
                         Orientation="Vertical">
                 <TextBox materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          FontSize="12"
                          Foreground="White"
                          materialDesign:HintAssist.Hint="Product Name"
-                         Margin="0,0,0,10"
+                         Margin="0,0,0,15"
                          FontFamily="Arial"
                          Text="{Binding ProductName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox FontSize="12"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          Foreground="White"
                          materialDesign:HintAssist.Hint="Description"
-                         Margin="0,0,0,10"
+                         Margin="0,0,0,15"
                          FontFamily="Arial"
                          Text="{Binding Description, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -134,9 +136,8 @@
                          Foreground="White"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          materialDesign:HintAssist.Hint="Stock"
-                         Margin="0,0,0,10"
+                         Margin="0,0,0,15"
                          FontFamily="Arial"
-                         TextAlignment="Right"
                          Text="{Binding Stock, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          PreviewTextInput="TextBox_PreviewTextInput" />
                 <ComboBox Width="220"
@@ -145,7 +146,7 @@
                           Foreground="White"
                           materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                           materialDesign:HintAssist.Hint="Select Type"
-                          Margin="0,0,0,10"
+                          Margin="0,0,0,15"
                           FontFamily="Arial"
                           ItemsSource="{Binding Types}"
                           SelectedItem="{Binding SelectedType, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
@@ -154,9 +155,8 @@
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          materialDesign:ValidationAssist.UsePopup="True"
                          materialDesign:HintAssist.Hint="Price"
-                         Margin="0,0,0,10"
+                         Margin="0,0,0,15"
                          FontFamily="Arial"
-                         TextAlignment="Right"
                                     
                          Text="{Binding Price,  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="TextBox_PreviewTextInput_1"/>
 
@@ -167,13 +167,13 @@
                     Height="30"
                     Width="220"
                     BorderThickness="0"
-                    Command="{Binding EdicCommand}">
+                    Command="{Binding EditCommand}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}"
                            BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnAdd.png">
+                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnUpdate.png">
                                 </ImageBrush>
 
                             </Setter.Value>
@@ -183,7 +183,7 @@
                                      Value="True">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnAddHover.png" />
+                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnUpdateHover.png" />
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -196,6 +196,7 @@
                     Height="30"
                     Width="220"
                     Margin="0,10,0,0"
+                    Command="{Binding CloseCommand}"
                     BorderThickness="0">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}"

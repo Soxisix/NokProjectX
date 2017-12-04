@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:NokProjectX.Wpf.Views"
              mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:common="clr-namespace:NokProjectX.Wpf.Common"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -65,6 +67,7 @@
                                  VerticalAlignment="Stretch"
                                  Background="Transparent"
                                  materialDesign:HintAssist.Hint="Search"
+                                 Text="{Binding SearchText, Delay=500, UpdateSourceTrigger=PropertyChanged}"
                                  Padding="5,4,2,2">
 
                         </TextBox>
@@ -209,9 +212,16 @@
                 <ListView SelectedIndex="0"
                           SelectedItem="{Binding SelectedProduct}"
                           ItemsSource="{Binding ProductList, IsAsync=True}">
-
+                    <i:Interaction.Behaviors>
+                        <common:SelectItemOnButtonClick />
+                    </i:Interaction.Behaviors>
                     <ListView.View>
                         <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
+                                    <Setter Property="Background" Value="#231f20"></Setter>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn>
 
                                 <GridViewColumn.CellTemplate>
@@ -288,6 +298,7 @@
                                         <Button ToolTip="Edit"
                                                 Margin="0,-8"
                                                 Height="30"
+                                                Command="{Binding DataContext.EditProductCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource MaterialDesignToolButton}">
                                             <materialDesign:PackIcon Kind="Pencil">
                                             </materialDesign:PackIcon>
@@ -301,6 +312,7 @@
                                         <Button ToolTip="Delete"
                                                 Margin="0,-8"
                                                 Height="30"
+                                                Command="{Binding DataContext.DeleteProductCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource MaterialDesignToolButton}">
                                             <materialDesign:PackIcon Kind="Delete">
                                             </materialDesign:PackIcon>

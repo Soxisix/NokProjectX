@@ -44,12 +44,12 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         }
 
         public RelayCommand CloseCommand { get; set; }
-        public RelayCommand EdicCommand { get; set; }
+        public RelayCommand EditCommand { get; set; }
         public RelayCommand ViewCommand { get; set; }
         private void LoadCommands()
         {
             ViewCommand = new RelayCommand(OnView);
-            EdicCommand = new RelayCommand(OnEdit);
+            EditCommand = new RelayCommand(OnEdit);
             CloseCommand = new RelayCommand(OnClose);
         }
 
