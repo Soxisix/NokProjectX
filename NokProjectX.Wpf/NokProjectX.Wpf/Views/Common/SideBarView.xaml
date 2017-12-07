@@ -7,6 +7,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     Background="{DynamicResource MaterialDesignPaper}"
     DataContext="{Binding SideBar, Source={StaticResource Locator}}"
     FontFamily="{DynamicResource MaterialDesignFont}"
@@ -25,9 +26,9 @@
             ItemsSource="{Binding MenuList}"
             SelectedIndex="0"
             SelectionMode="Single">
-            <i:Interaction.Behaviors>
+            <interactivity:Interaction.Behaviors>
                 <common:SelectItemOnButtonClick />
-            </i:Interaction.Behaviors>
+            </interactivity:Interaction.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Button

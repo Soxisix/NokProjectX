@@ -54,6 +54,7 @@ namespace NokProjectX.Wpf.ViewModel
         SimpleIoc.Default.Register<InventoryViewModel>();
             SimpleIoc.Default.Register<AddProductViewModel>();
             SimpleIoc.Default.Register<EditProductViewModel>();
+            SimpleIoc.Default.Register<AddStockViewModel>();
         }
 
         public MainViewModel Main
@@ -96,6 +97,13 @@ namespace NokProjectX.Wpf.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<EditProductViewModel>();
+            }
+        }
+        public AddStockViewModel AddStock
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddStockViewModel>();
             }
         }
 

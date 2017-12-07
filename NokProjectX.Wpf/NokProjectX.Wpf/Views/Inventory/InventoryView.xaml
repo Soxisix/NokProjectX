@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:NokProjectX.Wpf.Views"
              mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:common="clr-namespace:NokProjectX.Wpf.Common"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -31,6 +30,7 @@
         <!--            </Border>-->
         <!---->
         <!--        </ControlTemplate>-->
+        
 
     </UserControl.Resources>
     <Grid>
@@ -94,7 +94,7 @@
                                    BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addProduct.png">
+                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addProduct.png" >
                                         </ImageBrush>
 
                                     </Setter.Value>
@@ -104,8 +104,7 @@
                                              Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
-                                                <ImageBrush
-                                                    ImageSource="/NokProjectX.Wpf;component/Resources/addProductHover.png" />
+                                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addProductHover.png"/>
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
@@ -119,14 +118,14 @@
                             Width="101"
                             Height="30"
                             Margin="10,0,0,0"
-                            Command="{Binding EditProductCommand}">
+                            Command="{Binding BatchAddStockCommand}">
 
                         <Button.Style>
                             <Style TargetType="{x:Type Button}"
                                    BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/editProduct.png">
+                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addStock.png">
                                         </ImageBrush>
 
                                     </Setter.Value>
@@ -137,7 +136,7 @@
                                         <Setter Property="Background">
                                             <Setter.Value>
                                                 <ImageBrush
-                                                    ImageSource="/NokProjectX.Wpf;component/Resources/editProductHover.png" />
+                                                    ImageSource="/NokProjectX.Wpf;component/Resources/addStockHover.png" />
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
@@ -215,7 +214,7 @@
                           SelectedItem="{Binding SelectedProduct}"
                           ItemsSource="{Binding ProductList, IsAsync=True}">
                     <i:Interaction.Behaviors>
-                        <common:SelectItemOnButtonClick />
+                        <common:SelectItemOnButtonClick></common:SelectItemOnButtonClick>
                     </i:Interaction.Behaviors>
                     
                     <ListView.View>
@@ -327,6 +326,38 @@
 
     </Grid>
 </UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

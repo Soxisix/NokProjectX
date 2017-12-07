@@ -52,11 +52,23 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             AddProductCommand = new RelayCommand(OnAddProduct);
             EditProductCommand = new RelayCommand(OnEdit);
             DeleteProductCommand = new RelayCommand(OnDelete);
+            BatchAddStockCommand = new RelayCommand(OnBatchAddStock, () => (ProductList.Count(c => c.IsSelected) > 0));
             BatchDeleteCommand = new RelayCommand(OnBatchDelete, () =>
             
                 (ProductList.Count(c => c.IsSelected) > 0)
             );
         }
+
+        public RelayCommand BatchAddStockCommand { get; set; }
+
+        private async void OnBatchAddStock()
+        {
+            ServiceLocator.Current.GetInstance<AddStockViewModel>();
+            MessengerInstance.Send(new ListOfProductsMessage(){Products = ListOfProducts});
+            await DialogHost.Show(new AddStockView(), "RootDialog");
+        }
+
+        public List<Product> ListOfProducts { get { return ProductList.Where(c => c.IsSelected == true).ToList(); } }
 
         public RelayCommand BatchDeleteCommand { get; set; }
 

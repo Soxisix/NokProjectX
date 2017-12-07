@@ -12,19 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using NokProjectX.Wpf.Common;
 
-namespace NokProjectX.Wpf.Views
+namespace NokProjectX.Wpf.Views.Inventory
 {
     /// <summary>
-    /// Interaction logic for SideBarView.xaml
+    /// Interaction logic for AddStockView.xaml
     /// </summary>
-    public partial class SideBarView : UserControl
+    public partial class AddStockView : UserControl
     {
-        public SideBarView()
+        public AddStockView()
         {
             InitializeComponent();
-            
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+                e.Handled = true;
         }
     }
 }

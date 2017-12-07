@@ -124,12 +124,6 @@
   <data name="aboutBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\aboutBlue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="addProduct" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addProduct.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="addProductHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addProductHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="delProduct" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delProduct.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -216,5 +210,17 @@
   </data>
   <data name="btnOKSHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btnOKSHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addProduct" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addProduct.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addProductHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addProductHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addStock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addStock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addStockHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addStockHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
