@@ -53,13 +53,22 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Image
-                    
+                Stretch="Fill"
                     Grid.Row="0"
                     Width="200"
                     Height="200"
-                    Source="/NokProjectX.Wpf;component/Resources/defaultImg.png"
-                    Margin="0,25,0,0" />
-            <Button Width="20" Height="20" Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Margin="200,30,30,175">
+                    Source="{Binding Picture}"
+                    Margin="0,25,0,0" >
+                <Image.OpacityMask>
+                    <ImageBrush/>
+                </Image.OpacityMask>
+            </Image>
+            <Button Width="20"
+                    Height="20"
+                    Grid.Row="0"
+                    Command="{Binding UploadCommand}"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                    Margin="200,30,30,175">
                 <materialDesign:PackIcon Kind="Upload"></materialDesign:PackIcon>
             </Button>
             <StackPanel

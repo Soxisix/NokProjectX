@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using MvvmValidation;
 using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Common.Validator;
@@ -32,11 +33,45 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public RelayCommand CloseCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
         public RelayCommand ViewCommand { get; set; }
+        public RelayCommand UploadCommand { get; set; }
         private void LoadCommands()
         {
             ViewCommand = new RelayCommand(OnView);
             AddCommand = new RelayCommand(OnAdd);
             CloseCommand = new RelayCommand(OnClose);
+            UploadCommand = new RelayCommand(OnUpload);
+        }
+
+        private void OnUpload()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files (JPG,PNG)|*.JPG;*.PNG";
+            openFileDialog.ShowDialog();
+            if (!openFileDialog.CheckFileExists)
+            {
+                MessageBox.Show("File not exist");
+                return;
+            }
+       
+            if (Path.GetExtension(openFileDialog.FileName) == ".jpg" || Path.GetExtension(openFileDialog.FileName) == ".png")
+            {
+                MessageBox.Show((openFileDialog.FileName));
+
+                Picture = ImageToByteArray(new Bitmap(openFileDialog.FileName));
+            }
+        }
+
+        public byte[] ImageToByteArray(Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
+        }
+        public Image ByteArrayToImage(byte[] byteArrayIn)
+        {
+            MemoryStream ms = new MemoryStream(byteArrayIn);
+            var returnImage = System.Drawing.Image.FromStream(ms);
+            return returnImage;
         }
 
         private void OnClose()
@@ -58,6 +93,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             }
             var result =_context.Products.Select(c => c.ProductCode).OrderByDescending(c => c).FirstOrDefault();
             int newCode = result + 1;
+            //var picture = ImageToByteArray(Picture); 
             Product newProduct = new Product()
             {
                 
@@ -66,7 +102,8 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
                 Description = Description,
                 Type = SelectedType,
                 Stock = Int32.Parse(Stock),
-                Price = Double.Parse(Price)
+                Price = Double.Parse(Price),
+                Image = Picture
             };
             _context.Products.Add(newProduct);
             _context.SaveChanges();
@@ -115,6 +152,8 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public string Stock { get { return _stock; } set { Set(ref _stock, value); } }
         private string _price;
         public string Price { get { return _price; } set { Set(ref _price, value); } }
+        private byte[] _picture;
+        public byte[] Picture { get { return _picture; } set { Set(ref _picture, value); } }
 
         private List<Type> _types;
         public List<Type> Types { get { return _types; }set { Set(ref _types,value); } }
