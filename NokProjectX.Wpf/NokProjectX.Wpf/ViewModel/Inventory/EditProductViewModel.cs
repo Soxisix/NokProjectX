@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
@@ -11,6 +13,8 @@ using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
 using Type = NokProjectX.Wpf.Entities.Type;
 using System.Threading.Tasks;
+using System.Windows;
+using Microsoft.Win32;
 
 namespace NokProjectX.Wpf.ViewModel.Inventory
 {
@@ -40,18 +44,48 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             Stock = _currentProduct.Stock;
             SelectedType = _currentProduct.Type;
             Price = _currentProduct.Price;
-            
+            Picture = _currentProduct.Image;
+        }
+
+        private void OnUpload()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files (JPG,PNG)|*.JPG;*.PNG";
+            openFileDialog.ShowDialog();
+            if (!openFileDialog.CheckFileExists)
+            {
+                MessageBox.Show("File not exist");
+                return;
+            }
+
+            if (Path.GetExtension(openFileDialog.FileName) == ".jpg" || Path.GetExtension(openFileDialog.FileName) == ".png")
+            {
+                //                MessageBox.Show((openFileDialog.FileName));
+
+                Picture = ImageToByteArray(new Bitmap(openFileDialog.FileName));
+            }
+        }
+        public byte[] ImageToByteArray(Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            return ms.ToArray();
         }
 
         public RelayCommand CloseCommand { get; set; }
         public RelayCommand EditCommand { get; set; }
         public RelayCommand ViewCommand { get; set; }
+        public RelayCommand UploadCommand { get; set; }
         private void LoadCommands()
         {
             ViewCommand = new RelayCommand(OnView);
             EditCommand = new RelayCommand(OnEdit);
             CloseCommand = new RelayCommand(OnClose);
+            UploadCommand = new RelayCommand(OnUpload);
+
         }
+
 
         private async void OnClose()
         {
@@ -93,6 +127,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
                 product.Type = SelectedType;
                 product.Stock = Stock.GetValueOrDefault();
                 product.Price = Price.GetValueOrDefault();
+                product.Image = Picture;
             }
             _context.SaveChanges();
             MessengerInstance.Send(new RefreshMessage());
@@ -137,6 +172,8 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public int? Stock { get { return _stock; } set { Set(ref _stock, value); } }
         private double? _price;
         public double? Price { get { return _price; } set { Set(ref _price, value); } }
+        private byte[] _picture;
+        public byte[] Picture { get { return _picture; } set { Set(ref _picture, value); } }
 
         private List<Type> _types;
         public List<Type> Types { get { return _types; } set { Set(ref _types, value); } }

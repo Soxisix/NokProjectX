@@ -57,15 +57,20 @@
                     Grid.Row="0"
                     Width="200"
                     Height="200"
-                    Source="{Binding Picture}"
+                
                     Margin="0,25,0,0" >
-                <Image.OpacityMask>
-                    <ImageBrush/>
-                </Image.OpacityMask>
+                <Image.Source>
+                    <Binding Path="Picture" >
+                        <Binding.TargetNullValue>
+                            <ImageSource >/NokProjectX.Wpf;component/Resources/defaultImg.png</ImageSource>
+                        </Binding.TargetNullValue>
+                    </Binding>
+                </Image.Source>
             </Image>
             <Button Width="20"
                     Height="20"
                     Grid.Row="0"
+                    ToolTip="Upload Image"
                     Command="{Binding UploadCommand}"
                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                     Margin="200,30,30,175">
@@ -191,7 +196,7 @@
                         FontSize="12"
                         Foreground="White"
                         materialDesign:ValidationAssist.OnlyShowOnFocus="True"
-                    materialDesign:ValidationAssist.UsePopup="True"
+                        materialDesign:ValidationAssist.UsePopup="True"
                         materialDesign:HintAssist.Hint="Price"
                         Margin="0,0,0,15"
                         FontFamily="Arial"

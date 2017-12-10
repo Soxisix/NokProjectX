@@ -55,7 +55,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
        
             if (Path.GetExtension(openFileDialog.FileName) == ".jpg" || Path.GetExtension(openFileDialog.FileName) == ".png")
             {
-                MessageBox.Show((openFileDialog.FileName));
+//                MessageBox.Show((openFileDialog.FileName));
 
                 Picture = ImageToByteArray(new Bitmap(openFileDialog.FileName));
             }
@@ -65,14 +65,15 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         {
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            
             return ms.ToArray();
         }
-        public Image ByteArrayToImage(byte[] byteArrayIn)
-        {
-            MemoryStream ms = new MemoryStream(byteArrayIn);
-            var returnImage = System.Drawing.Image.FromStream(ms);
-            return returnImage;
-        }
+//        public Image ByteArrayToImage(byte[] byteArrayIn)
+//        {
+//            MemoryStream ms = new MemoryStream(byteArrayIn);
+//            var returnImage = System.Drawing.Image.FromStream(ms);
+//            return returnImage;
+//        }
 
         private void OnClose()
         {

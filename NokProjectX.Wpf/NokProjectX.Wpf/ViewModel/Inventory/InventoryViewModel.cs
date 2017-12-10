@@ -49,6 +49,9 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 
         private void LoadCommands()
         {
+            CloseCommand = new RelayCommand(OnClose);
+
+            ViewProductCommand = new RelayCommand(OnView);
             AddProductCommand = new RelayCommand(OnAddProduct);
             EditProductCommand = new RelayCommand(OnEdit);
             DeleteProductCommand = new RelayCommand(OnDelete);
@@ -57,6 +60,22 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             
                 (ProductList.Count(c => c.IsSelected) > 0)
             );
+        }
+
+        public RelayCommand CloseCommand { get; set; }
+
+        private void OnClose()
+        {
+
+            DialogHost.CloseDialogCommand.Execute(this, null);
+
+        }
+
+        public RelayCommand ViewProductCommand { get; set; }
+
+        private async void OnView()
+        {
+            await DialogHost.Show(new ProductView() {DataContext = this});
         }
 
         public RelayCommand BatchAddStockCommand { get; set; }

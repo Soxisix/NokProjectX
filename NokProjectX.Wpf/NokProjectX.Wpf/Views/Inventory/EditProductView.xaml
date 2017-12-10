@@ -62,15 +62,48 @@
             <Image Grid.Row="0"
                    Width="200"
                    Height="200"
-                   Source="/NokProjectX.Wpf;component/Resources/defaultImg.png"
-                   Margin="0,25,0,0" />
+                   Stretch="Fill"
+                   Margin="0,25,0,0">
+                <Image.Source>
+                    <Binding Path="Picture">
+                        <Binding.TargetNullValue>
+                            <ImageSource>/NokProjectX.Wpf;component/Resources/defaultImg.png</ImageSource>
+                        </Binding.TargetNullValue>
+                    </Binding>
+                </Image.Source>
+            </Image>
+            <Button Width="20"
+                    Height="20"
+                    Grid.Row="0"
+                    ToolTip="Upload Image"
+                    Command="{Binding UploadCommand}"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                    Margin="200,30,30,175">
+                <materialDesign:PackIcon Kind="Upload"></materialDesign:PackIcon>
+            </Button>
+
             <StackPanel Margin="25,15,25,25"
                         Grid.Row="1">
-                <TextBlock Text="{Binding ProductName}"></TextBlock>
-                <TextBlock Text="{Binding Description}"></TextBlock>
-                <TextBlock Text="{Binding SelectedType.Name}"></TextBlock>
-                <TextBlock Text="{Binding Stock}"></TextBlock>
-                <TextBlock Text="{Binding Price}"></TextBlock>
+                <TextBlock FontWeight="Bold"
+                           FontSize="16"
+                           Text="{Binding ProductName}" />
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,5,0,0">
+                    <TextBlock Text="Description : " />
+                    <TextBlock Text="{Binding Description}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,5,0,0">
+                    <TextBlock Text="Stock : " />
+                    <TextBlock Text="{Binding Stock}" />
+                    <TextBlock Text=" " />
+                    <TextBlock Text="{Binding SelectedType.Name}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,5,0,0">
+                    <TextBlock Text="Price : " />
+                    <TextBlock Text="{Binding Price}" />
+                </StackPanel>
 
             </StackPanel>
         </Grid>
@@ -157,8 +190,8 @@
                          materialDesign:HintAssist.Hint="Price"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                                    
-                         Text="{Binding Price,  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="TextBox_PreviewTextInput_1"/>
+                         Text="{Binding Price,  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="TextBox_PreviewTextInput_1" />
 
 
             </StackPanel>
@@ -183,7 +216,8 @@
                                      Value="True">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnUpdateHover.png" />
+                                        <ImageBrush
+                                            ImageSource="/NokProjectX.Wpf;component/Resources/btnUpdateHover.png" />
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -227,3 +261,4 @@
     </Grid>
 
 </UserControl>
+
