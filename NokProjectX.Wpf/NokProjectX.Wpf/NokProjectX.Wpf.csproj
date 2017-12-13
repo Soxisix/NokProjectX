@@ -137,6 +137,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Common\SideBarViewModel.cs" />
     <Compile Include="ViewModel\Common\TopBarViewModel.cs" />
+    <Compile Include="ViewModel\Transaction\TransactionViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\Common\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>

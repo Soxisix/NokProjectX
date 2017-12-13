@@ -7,6 +7,7 @@ using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.ViewModel.Common;
 using NokProjectX.Wpf.ViewModel.Inventory;
 using System.Windows;
+using NokProjectX.Wpf.ViewModel.Transaction;
 
 namespace NokProjectX.Wpf.ViewModel
 {
@@ -45,6 +46,7 @@ namespace NokProjectX.Wpf.ViewModel
             SimpleIoc.Default.Register<AddProductViewModel>();
             SimpleIoc.Default.Register<EditProductViewModel>();
             SimpleIoc.Default.Register<AddStockViewModel>();
+            SimpleIoc.Default.Register<TransactionViewModel>();
         }
         
         
@@ -96,6 +98,13 @@ namespace NokProjectX.Wpf.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<AddStockViewModel>();
+            }
+        }
+        public TransactionViewModel Transaction
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TransactionViewModel>();
             }
         }
 

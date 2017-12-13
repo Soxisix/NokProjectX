@@ -16,6 +16,7 @@
              FontFamily="Arial"
              mc:Ignorable="d"
              d:DesignWidth="1333"
+             DataContext="{Binding Transaction, Source={StaticResource Locator}}"
              Foreground="Black">
 
     <Grid Margin="20">
@@ -33,8 +34,16 @@
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth0"
                              Padding="10">
             <Image Width="260"
-                   Height="260"
-                   Source="/NokProjectX.Wpf;component/Resources/defaultImg.png" />
+                   Stretch="Fill"
+                   Height="260">
+                <Image.Source>
+                    <Binding Path="SelectedProduct.Image">
+                        <Binding.TargetNullValue>
+                            <ImageSource>/NokProjectX.Wpf;component/Resources/defaultImg.png</ImageSource>
+                        </Binding.TargetNullValue>
+                    </Binding>
+                </Image.Source>
+            </Image>
         </materialDesign:Card>
         <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth0"
                              Padding="9"
@@ -87,36 +96,55 @@
                 </Grid.RowDefinitions>
                 <TextBlock Margin="20,20,20,5"
                            FontSize="18"
-                           FontWeight="SemiBold">
-                    <Run Text="Tarpaulin" />
+                           FontWeight="SemiBold"
+                           Text="{Binding SelectedProduct.Name}">
                 </TextBlock>
-                <TextBlock Margin="20,10"
-                           FontSize="14"
-                           Grid.Row="1">
-                    <Run Text="Description : Tarpaulin" />
-                </TextBlock>
-                <TextBlock Margin="20,10"
-                           FontSize="14"
-                           Grid.Row="2">
-                    <Run Text="Current Stock: 120 ft" />
-                </TextBlock>
+                <StackPanel  Margin="20,10" Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock
+                        FontSize="14"
+                           Height="16"><Run Text="Description : " /></TextBlock>
+                    <TextBlock Text="{Binding SelectedProduct.Description}"></TextBlock>
+                </StackPanel>
+                <StackPanel Margin="20,10" Orientation="Horizontal" Grid.Row="2">
+                    <TextBlock
+                        FontSize="14"
+                           Height="16"><Run Text="Current Stock: " /></TextBlock>
+                    <TextBlock Text="{Binding SelectedProduct.Stock}"></TextBlock>
+                    <TextBlock Text="{Binding SelectedProduct.Type.Name}" Margin="5,0,0,0"></TextBlock>
+                </StackPanel>
                 <Border Grid.Row="2"
                         BorderBrush="#FFE0E0E0"
                         BorderThickness="0,0,0,1" />
-                <TextBox FontWeight="SemiBold"
-                         FontSize="16"
-                         BorderThickness="0,0,0,0"
-                         materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
-                         Margin="20,9"
-                         Grid.Row="3"
-                         Text="P 120.00" />
+                <Grid Margin="20,9" Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="0,3,0,2" Orientation="Horizontal">
+                        <TextBlock FontWeight="SemiBold"
+                            FontSize="16"
+                            VerticalAlignment="Center"
+                            
+                            Text="P " />
+                        <TextBox IsReadOnly="True"
+                                 VerticalAlignment="Center"
+                                 FontWeight="SemiBold"
+                                 FontSize="16"
+                                 BorderThickness="0,0,0,0"
+                                 materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                                 Text="{Binding SelectedProduct.Price}"></TextBox>
+                    </StackPanel>
+                    <Button ToolTip="Edit Price" Grid.Column="1" Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon Kind="Pencil"/>
+                    </Button>
+                </Grid>
                 <Border Grid.Row="3"
                         BorderBrush="#FFE0E0E0"
                         BorderThickness="0,0,0,1" />
                 <Grid Grid.Row="4"
                       Margin="20,9">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="74" />
                         <ColumnDefinition Width="96*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock VerticalAlignment="Center"
@@ -125,14 +153,15 @@
                         <Run Text="Quantity :" />
                     </TextBlock>
                     <Border Grid.Column="1"
-                            Margin="0,0,5,0"
+                            Margin="5
+                            ,0,0,0"
                             VerticalAlignment="Center">
                         <Border.Background>
                             <ImageBrush Stretch="Fill"
                                         ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
                         </Border.Background>
                         <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                 BorderThickness="0,0,0,0" />
+                                 BorderThickness="0,0,0,0" Margin="5,0,0,0" />
 
                     </Border>
 
@@ -144,44 +173,49 @@
                 <Grid Grid.Row="5"
                       Margin="20,9">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="132*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="131*" />
+                        <ColumnDefinition Width="74"  />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="0,0,5,0">
+                               Margin="0,4,5,4" Height="16">
                         <Run Text="Size" />
                     </TextBlock>
-                    <Border Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Margin="0,0,5,0">
-                        <Border.Background>
-                            <ImageBrush Stretch="Fill"
-                                        ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
-                        </Border.Background>
-                        <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                 BorderThickness="0,0,0,0" />
+                    <Grid Grid.Column="1" Margin="5,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Margin="0,0,5,0" Height="24">
+                            <Border.Background>
+                                <ImageBrush Stretch="Fill"
+                                            ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
+                            </Border.Background>
+                            <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                     BorderThickness="0,0,0,0" />
 
-                    </Border>
-                    <TextBlock Grid.Column="2"
-                               VerticalAlignment="Center"
-                               FontSize="10"
-                               Margin="0,0,5,0">
-                        <Run Text="x" />
-                    </TextBlock>
-                    <Border Grid.Column="3"
-                            VerticalAlignment="Center"
-                            Margin="0,0,5,0">
-                        <Border.Background>
-                            <ImageBrush Stretch="Fill"
-                                        ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
-                        </Border.Background>
-                        <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                 BorderThickness="0,0,0,0" />
+                        </Border>
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontSize="10"
+                                   Margin="0,6,5,6" Height="12">
+                            <Run Text="x" />
+                        </TextBlock>
+                        <Border Grid.Column="2"
+                                VerticalAlignment="Center"
+                                Margin="0,0,0,0" Height="24">
+                            <Border.Background>
+                                <ImageBrush Stretch="Fill"
+                                            ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
+                            </Border.Background>
+                            <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                     BorderThickness="0,0,0,0" />
 
-                    </Border>
+                        </Border>
+                    </Grid>
                 </Grid>
                 <Grid Grid.Row="6"
                       Margin="20,10">
@@ -213,7 +247,7 @@
                         BorderThickness="0"
                         Grid.Row="7"
                         Height="30"
-                        Margin="10,10"
+                        Margin="20,10"
                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}"
@@ -248,7 +282,8 @@
                              Grid.Column="0"
                              Grid.ColumnSpan="2"
                              Margin="0,5,0,0">
-            <ListView>
+            <ListView ItemsSource="{Binding Products}" SelectionMode="Single" SelectedIndex="0"
+                      SelectedItem="{Binding SelectedProduct}">
                 <ListView.View>
                     <GridView>
 
@@ -264,7 +299,7 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock TextAlignment="Right"
-                                               Text="{Binding ProductName}" />
+                                               Text="{Binding Name}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -299,7 +334,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock FontSize="18"
                            FontWeight="SemiBold">
-                    <Run Text="INVOICE" />
+                    <Run Text="Invoice" />
                 </TextBlock>
                 <TextBlock Grid.Row="1"
                            Grid.Column="0"
@@ -336,54 +371,67 @@
                           HorizontalContentAlignment="Stretch"
                           OverridesDefaultStyle="True"
                           Grid.Column="0">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}" >
+                            <Style.Triggers>
+                                <Trigger Property="IsFocused" Value="False">
+                                    <Setter Property="IsSelected" Value="False"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
 
                     <ListViewItem>
 
                         <Grid>
+
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock HorizontalAlignment="Left"
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock HorizontalAlignment="Left"
                                        Width="30">
                                 <Run Text="1" />
-                            </TextBlock>
-                            <StackPanel HorizontalAlignment="Left"
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Orientation="Horizontal">
-                                <TextBlock>
+                                </TextBlock>
+
+                                <TextBlock Grid.Row="0" HorizontalAlignment="Left"
+                                           Grid.Column="1" TextWrapping="Wrap"  MaxWidth="100">
                                     <Run Text="Tarpaulin" />
                                 </TextBlock>
-                                <TextBlock>
-                                    <Run Text="(" />
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text="Standard" />
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text=")" />
-                                </TextBlock>
-                            </StackPanel>
-                            <TextBlock Grid.Row="0"
+
+                                <TextBlock Grid.Row="0"
                                        Grid.Column="2"
-                                       HorizontalAlignment="Right">
+                                       Grid.RowSpan="2"
+                                           HorizontalAlignment="Right"
+                                       VerticalAlignment="Center">
                                 <Run Text="P 120.00" />
-                            </TextBlock>
-                            <TextBlock Grid.Row="1"
+                                </TextBlock>
+                                <TextBlock Grid.Row="1"
                                        Grid.Column="1"
                                        Foreground="#6d6e71"
                                        Margin="0,0,0,10">
-                                <Run Text="HP Superstore" />
-                            </TextBlock>
-                            <Rectangle Grid.Row="1"
-                                       Grid.Column="0"
-                                       Grid.ColumnSpan="3"
+                                <Run Text="Standard" />
+                                </TextBlock>
+                                <Button Grid.Column="3" Grid.RowSpan="2" Grid.Row="0"
+                                        Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityCollapsed}, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
+                                        Style="{StaticResource MaterialDesignToolButton}" Margin="10,0,0,0">
+                                    <materialDesign:PackIcon Width="20" Height="20"  Foreground="#FFFF5959" Kind="Delete"></materialDesign:PackIcon>
+                                </Button>
+
+
+                            </Grid>
+                            <Rectangle Grid.Row="1" Grid.Column="0"
                                        VerticalAlignment="Bottom"
                                        Stroke="#FFE0E0E0"
                                        Height="1"
@@ -395,50 +443,54 @@
                     <ListViewItem>
 
                         <Grid>
+
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock HorizontalAlignment="Left"
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock HorizontalAlignment="Left"
                                        Width="30">
                                 <Run Text="1" />
-                            </TextBlock>
-                            <StackPanel HorizontalAlignment="Left"
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Orientation="Horizontal">
-                                <TextBlock>
-                                    <Run Text="Tarpaulin" />
                                 </TextBlock>
-                                <TextBlock>
-                                    <Run Text="(" />
+
+                                <TextBlock Grid.Row="0" HorizontalAlignment="Left"
+                                           Grid.Column="1" TextWrapping="Wrap"  MaxWidth="100">
+                                    <Run Text="Tarpaulin  " />
                                 </TextBlock>
-                                <TextBlock>
-                                    <Run Text="Standard" />
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text=")" />
-                                </TextBlock>
-                            </StackPanel>
-                            <TextBlock Grid.Row="0"
+
+                                <TextBlock Grid.Row="0"
                                        Grid.Column="2"
-                                       HorizontalAlignment="Right">
+                                       Grid.RowSpan="2"
+                                           HorizontalAlignment="Right"
+                                       VerticalAlignment="Center">
                                 <Run Text="P 120.00" />
-                            </TextBlock>
-                            <TextBlock Grid.Row="1"
+                                </TextBlock>
+                                <TextBlock Grid.Row="1"
                                        Grid.Column="1"
                                        Foreground="#6d6e71"
-                                       Margin="0,0,0,5">
-                                <Run Text="HP Superstore" />
-                            </TextBlock>
-                            <Rectangle Grid.Row="1"
-                                       Grid.Column="0"
-                                       Grid.ColumnSpan="3"
+                                       Margin="0,0,0,10">
+                                <Run Text="Special" />
+                                </TextBlock>
+                                <Button Grid.Column="3" Grid.RowSpan="2" Grid.Row="0"
+                                        Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityCollapsed}, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
+                                        Style="{StaticResource MaterialDesignToolButton}" Margin="10,0,0,0">
+                                    <materialDesign:PackIcon Width="20" Height="20"  Foreground="#FFFF4D4D" Kind="Close"></materialDesign:PackIcon>
+                                </Button>
+
+
+                            </Grid>
+                            <Rectangle Grid.Row="1" Grid.Column="0"
                                        VerticalAlignment="Bottom"
                                        Stroke="#FFE0E0E0"
                                        Height="1"
@@ -456,21 +508,212 @@
                 <TextBlock Grid.Row="3"
                            Grid.Column="0"
                            FontSize="12"
-                           Grid.ColumnSpan="2"
                            FontWeight="SemiBold"
                            Margin="0,5,0,0">
                     <Run Text="TOTAL" />
                 </TextBlock>
+                <TextBlock Grid.Row="3"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Margin="0,5,0,0">
+                    <Run Text="P 240.00" />
+                </TextBlock>
             </Grid>
         </materialDesign:Card>
-        <materialDesign:Card Grid.Column="3"
+        <Grid Grid.Row="0"
+                    Grid.Column="3"
+                    
+                    VerticalAlignment="Stretch"
+                    Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Row="1"
+                             Padding="9"
+                             Margin="5,0,0,5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border HorizontalAlignment="Stretch">
+                        <Border.Background>
+                            <ImageBrush Stretch="Fill"
+                                ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                     Grid.Column="0"
+                                     VerticalContentAlignment="Center"
+                                     BorderThickness="0, 0 ,0 ,0"
+                                     VerticalAlignment="Stretch"
+                                     Background="Transparent"
+                                     materialDesign:HintAssist.Hint="Search"
+                                     Text="{Binding SearchText, Delay=500, UpdateSourceTrigger=PropertyChanged}"
+                                     Padding="5,2,2,2" />
+                                <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                    Grid.Column="1"
+                                    Margin="0,0,5,0">
+                                    <materialDesign:PackIcon Kind="Magnify" />
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+                    <Button ToolTip="Add Customer" Grid.Column="1" Margin="5,0,0,0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                   ImageSource="/NokProjectX.Wpf;component/Resources/addClient.png" />
+
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                            Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                           ImageSource="/NokProjectX.Wpf;component/Resources/addClientHover.png" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card 
+                Grid.Row="2"
+                VerticalAlignment="Stretch"
                              materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                             VerticalAlignment="Stretch"
-                             Grid.Row="0"
-                             Grid.RowSpan="3"
                              Padding="10"
                              Margin="5,0,0,0">
-            <Grid />
-        </materialDesign:Card>
+                <Grid>
+                    <ListView>
+                        <ListViewItem>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock><Run Text="Name : "/></TextBlock>
+                                    <TextBlock>HP Superstore</TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <TextBlock><Run Text="Contact : "/></TextBlock>
+                                    <TextBlock>09120123123</TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock><Run Text="Name : "/></TextBlock>
+                                    <TextBlock>SM Superstore</TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <TextBlock><Run Text="Contact : "/></TextBlock>
+                                    <TextBlock>09120123123</TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </ListViewItem>
+                    </ListView>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="0" Margin="5,0,0,5" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontWeight="SemiBold"><Run Text="Customer : "></Run></TextBlock>
+                    <TextBlock Grid.Column="1" FontWeight="SemiBold">HP Superstore</TextBlock>
+                </Grid>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="3" Margin="5,5,0,0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button Margin="5,0,0,0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                    ImageSource="/NokProjectX.Wpf;component/Resources/confirmTransaction.png" />
+
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                            ImageSource="/NokProjectX.Wpf;component/Resources/confirmTransactionHover.png" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Grid.Row="1"  Margin="5,5,0,0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                    ImageSource="/NokProjectX.Wpf;component/Resources/btnCancel.png" />
+
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                            ImageSource="/NokProjectX.Wpf;component/Resources/btnCancelHover.png" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+
+        </Grid>
     </Grid>
 </UserControl>
