@@ -4,6 +4,7 @@ using Microsoft.Practices.ServiceLocation;
 using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Views;
+using NokProjectX.Wpf.Views.Transaction;
 
 namespace NokProjectX.Wpf.ViewModel
 {
@@ -39,6 +40,7 @@ namespace NokProjectX.Wpf.ViewModel
             MessengerInstance.Register<NavigateTo>(this, NavigateToContent);
             TopBarView = new TopBarView();
             SideBarView = new SideBarView();
+            MainView = new TransactionView();
         }
 
         public void NavigateToContent(NavigateTo content)

@@ -7,13 +7,13 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:common="clr-namespace:NokProjectX.Wpf.Common"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.Foreground="Black"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
+             UseLayoutRounding="True"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Background="{DynamicResource MaterialDesignPaper}"
-             FontFamily="{DynamicResource MaterialDesignFont}"
+             Background="#f1f2f2"             FontFamily="{DynamicResource MaterialDesignFont}"
              DataContext="{Binding Inventory,Source={StaticResource Locator}}"
              d:DataContext="{Binding Inventory,Source={StaticResource Locator}}">
     <UserControl.Resources>
@@ -43,7 +43,7 @@
         <materialDesign:Card Padding="10"
                              Grid.Row="0"
                              Margin="10,10,10,10"
-                             materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                             materialDesign:ShadowAssist.ShadowDepth="Depth0">
             <Grid HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -80,10 +80,12 @@
                     </Grid>
                 </Border>
 
-                <StackPanel Grid.Column="1"
+                <StackPanel Grid.Column="1" SnapsToDevicePixels="True"
                             Orientation="Horizontal">
-                    <Button HorizontalAlignment="Right"
+                    <Button HorizontalAlignment="Right" 
+                            SnapsToDevicePixels="True"
                             BorderThickness="0"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth0"
                             Width="101"
                             Height="30"
                             Margin="10,0,0,0"
@@ -94,7 +96,7 @@
                                    BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addProduct.png" >
+                                        <ImageBrush Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" ImageSource="/NokProjectX.Wpf;component/Resources/addProduct.png" >
                                         </ImageBrush>
 
                                     </Setter.Value>
@@ -104,7 +106,7 @@
                                              Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
-                                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addProductHover.png"/>
+                                                <ImageBrush Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" ImageSource="/NokProjectX.Wpf;component/Resources/addProductHover.png"/>
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
@@ -116,7 +118,9 @@
                     <Button HorizontalAlignment="Right"
                             BorderThickness="0"
                             Width="101"
+                            SnapsToDevicePixels="True"
                             Height="30"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth0"
                             Margin="10,0,0,0"
                             Command="{Binding BatchAddStockCommand}">
 
@@ -125,7 +129,7 @@
                                    BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addStock.png">
+                                        <ImageBrush Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" ImageSource="/NokProjectX.Wpf;component/Resources/addStock.png">
                                         </ImageBrush>
 
                                     </Setter.Value>
@@ -135,7 +139,7 @@
                                              Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
-                                                <ImageBrush
+                                                <ImageBrush Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor"
                                                     ImageSource="/NokProjectX.Wpf;component/Resources/addStockHover.png" />
                                             </Setter.Value>
                                         </Setter>
@@ -148,16 +152,18 @@
                     <Button HorizontalAlignment="Right"
                             BorderThickness="0"
                             Width="101"
+                            SnapsToDevicePixels="True"
                             Height="30"
-                            
+                            materialDesign:ShadowAssist.ShadowDepth="Depth0"
+   
                             Margin="10,0,0,0"
                             Command="{Binding BatchDeleteCommand}">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}"
                                    BasedOn="{StaticResource {x:Type Button}}">
-                                <Setter Property="Background">
+                                <Setter Property="Background" >
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/delProduct.png">
+                                        <ImageBrush  Stretch="None" ImageSource="/NokProjectX.Wpf;component/Resources/delProduct.png">
                                         </ImageBrush>
 
                                     </Setter.Value>
@@ -167,7 +173,7 @@
                                              Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
-                                                <ImageBrush
+                                                <ImageBrush Stretch="None"
                                                     ImageSource="/NokProjectX.Wpf;component/Resources/delProductHover.png" />
                                             </Setter.Value>
                                         </Setter>
@@ -205,7 +211,7 @@
                            Text="{Binding TotalCount}" />
             </StackPanel>
         </Grid>
-        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth0"
                              Grid.Row="2"
                              Margin="10,0,10,10">
             <Grid VerticalAlignment="Top">

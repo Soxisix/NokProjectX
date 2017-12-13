@@ -162,6 +162,9 @@
     <Compile Include="Views\Inventory\ProductView.xaml.cs">
       <DependentUpon>ProductView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Transaction\TransactionView.xaml.cs">
+      <DependentUpon>TransactionView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -203,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Inventory\ProductView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Transaction\TransactionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -344,6 +351,39 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\addStockHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addClient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addClientHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addtoCart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addtoCartHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\confirmTransaction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\confirmTransactionHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\siginTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\signin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\signinHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\signinImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Transaction\addtoCart_thumb.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

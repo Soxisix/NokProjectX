@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using NokProjectX.Wpf.Common;
 using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Views;
+using NokProjectX.Wpf.Views.Transaction;
 
 namespace NokProjectX.Wpf.ViewModel
 {
@@ -25,7 +26,7 @@ namespace NokProjectX.Wpf.ViewModel
             switch (obj)
             {
                 case 1:
-                    MessengerInstance.Send(new NavigateTo{Content = null});
+                    MessengerInstance.Send(new NavigateTo{Content = new TransactionView()});
                     break;
                 case 2:
                     MessengerInstance.Send(new NavigateTo { Content = new InventoryView() });

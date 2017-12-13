@@ -83,6 +83,26 @@ namespace NokProjectX.Wpf.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap addClient {
+            get {
+                object obj = ResourceManager.GetObject("addClient", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap addClientHover {
+            get {
+                object obj = ResourceManager.GetObject("addClientHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap addProduct {
             get {
                 object obj = ResourceManager.GetObject("addProduct", resourceCulture);
@@ -116,6 +136,26 @@ namespace NokProjectX.Wpf.Properties {
         internal static System.Drawing.Bitmap addStockHover {
             get {
                 object obj = ResourceManager.GetObject("addStockHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap addtoCart {
+            get {
+                object obj = ResourceManager.GetObject("addtoCart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap addtoCartHover {
+            get {
+                object obj = ResourceManager.GetObject("addtoCartHover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -216,6 +256,26 @@ namespace NokProjectX.Wpf.Properties {
         internal static System.Drawing.Bitmap btnUpdateHover {
             get {
                 object obj = ResourceManager.GetObject("btnUpdateHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap confirmTransaction {
+            get {
+                object obj = ResourceManager.GetObject("confirmTransaction", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap confirmTransactionHover {
+            get {
+                object obj = ResourceManager.GetObject("confirmTransactionHover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -386,6 +446,46 @@ namespace NokProjectX.Wpf.Properties {
         internal static System.Drawing.Bitmap settingsBlue {
             get {
                 object obj = ResourceManager.GetObject("settingsBlue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap siginTop {
+            get {
+                object obj = ResourceManager.GetObject("siginTop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap signin {
+            get {
+                object obj = ResourceManager.GetObject("signin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap signinHover {
+            get {
+                object obj = ResourceManager.GetObject("signinHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap signinImage {
+            get {
+                object obj = ResourceManager.GetObject("signinImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

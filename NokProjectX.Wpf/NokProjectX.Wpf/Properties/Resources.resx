@@ -223,4 +223,34 @@
   <data name="addStockHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\addStockHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="addClient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addClient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addClientHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addClientHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addtoCart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addtoCart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addtoCartHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addtoCartHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="confirmTransaction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\confirmTransaction.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="confirmTransactionHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\confirmTransactionHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="siginTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\siginTop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="signin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\signin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="signinHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\signinHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="signinImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\signinImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
