@@ -5,6 +5,8 @@
              xmlns:local="clr-namespace:NokProjectX.Wpf.Views.Transaction"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:Converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:common="clr-namespace:NokProjectX.Wpf.Common"
              x:Class="NokProjectX.Wpf.Views.Transaction.TransactionView"
              Background="#f1f2f2"
              TextElement.Foreground="Black"
@@ -132,7 +134,7 @@
                                  FontSize="16"
                                  BorderThickness="0,0,0,0"
                                  materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
-                                 Text="{Binding SelectedProduct.Price}"></TextBox>
+                                 Text="{Binding Price}"></TextBox>
                     </StackPanel>
                     <Button ToolTip="Edit Price" Grid.Column="1" Style="{StaticResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon Kind="Pencil"/>
@@ -161,6 +163,7 @@
                                         ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
                         </Border.Background>
                         <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                 Text="{Binding Quantity}"
                                  BorderThickness="0,0,0,0" Margin="5,0,0,0" />
 
                     </Border>
@@ -246,6 +249,7 @@
                         SnapsToDevicePixels="True"
                         BorderThickness="0"
                         Grid.Row="7"
+                        Command="{Binding AddInvoiceCommand}"
                         Height="30"
                         Margin="20,10"
                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
@@ -368,137 +372,86 @@
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
                           Foreground="Black"
+                          ItemsSource="{Binding InvoiceList}"
+                          SelectedItem="{Binding SelectedInvoice}"
                           HorizontalContentAlignment="Stretch"
                           OverridesDefaultStyle="True"
-                          Grid.Column="0">
+                          Grid.Column="0" Margin="0,5,0,0">
+                    <i:Interaction.Behaviors>
+                        <common:SelectItemOnButtonClick />
+                    </i:Interaction.Behaviors>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}" >
                             <Style.Triggers>
-                                <Trigger Property="IsFocused" Value="False">
+                                <Trigger Property="IsMouseOver" Value="False">
                                     <Setter Property="IsSelected" Value="False"></Setter>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
                     </ListView.ItemContainerStyle>
 
-                    <ListViewItem>
-
-                        <Grid>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                   <ListView.ItemTemplate>
+                        <DataTemplate>
                             <Grid>
+
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock HorizontalAlignment="Left"
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Left"
                                        Width="30">
-                                <Run Text="1" />
-                                </TextBlock>
+                                <Run Text="{Binding Quantity}" />
+                                    </TextBlock>
 
-                                <TextBlock Grid.Row="0" HorizontalAlignment="Left"
+                                    <TextBlock Grid.Row="0" HorizontalAlignment="Left"
                                            Grid.Column="1" TextWrapping="Wrap"  MaxWidth="100">
-                                    <Run Text="Tarpaulin" />
-                                </TextBlock>
+                                    <Run Text="{Binding Product.Name}" />
+                                    </TextBlock>
 
-                                <TextBlock Grid.Row="0"
+                                    <TextBlock Grid.Row="0"
                                        Grid.Column="2"
                                        Grid.RowSpan="2"
                                            HorizontalAlignment="Right"
                                        VerticalAlignment="Center">
-                                <Run Text="P 120.00" />
-                                </TextBlock>
-                                <TextBlock Grid.Row="1"
+                                <Run Text="{Binding Price}" />
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="1"
                                        Grid.Column="1"
                                        Foreground="#6d6e71"
                                        Margin="0,0,0,10">
-                                <Run Text="Standard" />
-                                </TextBlock>
-                                <Button Grid.Column="3" Grid.RowSpan="2" Grid.Row="0"
+                                <Run Text="{Binding Product.Description}" />
+                                    </TextBlock>
+                                    <Button Grid.Column="3" Grid.RowSpan="2" Grid.Row="0"
+                                            Command="{Binding DataContext.RemoveInvoiceCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                         Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityCollapsed}, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
                                         Style="{StaticResource MaterialDesignToolButton}" Margin="10,0,0,0">
-                                    <materialDesign:PackIcon Width="20" Height="20"  Foreground="#FFFF5959" Kind="Delete"></materialDesign:PackIcon>
-                                </Button>
+                                        <materialDesign:PackIcon Width="20" Height="20"  Foreground="#FFFF5959" Kind="Delete"></materialDesign:PackIcon>
+                                    </Button>
 
 
-                            </Grid>
-                            <Rectangle Grid.Row="1" Grid.Column="0"
+                                </Grid>
+                                <Rectangle Grid.Row="1" Grid.Column="0"
                                        VerticalAlignment="Bottom"
                                        Stroke="#FFE0E0E0"
                                        Height="1"
                                        StrokeThickness="1"
                                        StrokeDashArray="10 10"
                                        SnapsToDevicePixels="True" />
-                        </Grid>
-                    </ListViewItem>
-                    <ListViewItem>
-
-                        <Grid>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock HorizontalAlignment="Left"
-                                       Width="30">
-                                <Run Text="1" />
-                                </TextBlock>
-
-                                <TextBlock Grid.Row="0" HorizontalAlignment="Left"
-                                           Grid.Column="1" TextWrapping="Wrap"  MaxWidth="100">
-                                    <Run Text="Tarpaulin  " />
-                                </TextBlock>
-
-                                <TextBlock Grid.Row="0"
-                                       Grid.Column="2"
-                                       Grid.RowSpan="2"
-                                           HorizontalAlignment="Right"
-                                       VerticalAlignment="Center">
-                                <Run Text="P 120.00" />
-                                </TextBlock>
-                                <TextBlock Grid.Row="1"
-                                       Grid.Column="1"
-                                       Foreground="#6d6e71"
-                                       Margin="0,0,0,10">
-                                <Run Text="Special" />
-                                </TextBlock>
-                                <Button Grid.Column="3" Grid.RowSpan="2" Grid.Row="0"
-                                        Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityCollapsed}, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
-                                        Style="{StaticResource MaterialDesignToolButton}" Margin="10,0,0,0">
-                                    <materialDesign:PackIcon Width="20" Height="20"  Foreground="#FFFF4D4D" Kind="Close"></materialDesign:PackIcon>
-                                </Button>
-
-
                             </Grid>
-                            <Rectangle Grid.Row="1" Grid.Column="0"
-                                       VerticalAlignment="Bottom"
-                                       Stroke="#FFE0E0E0"
-                                       Height="1"
-                                       StrokeThickness="1"
-                                       StrokeDashArray="10 10"
-                                       SnapsToDevicePixels="True" />
-                        </Grid>
-                    </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    
                 </ListView>
                 <Border Grid.Row="2"
                         Grid.Column="0"
