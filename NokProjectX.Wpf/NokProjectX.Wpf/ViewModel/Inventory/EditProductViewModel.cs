@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -49,8 +47,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 
         private void OnUpload()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files (JPG,PNG)|*.JPG;*.PNG";
+            OpenFileDialog openFileDialog = new OpenFileDialog {Filter = "Image Files (JPG,PNG)|*.JPG;*.PNG"};
             openFileDialog.ShowDialog();
             if (!openFileDialog.CheckFileExists)
             {
@@ -58,13 +55,15 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
                 return;
             }
 
-            if (Path.GetExtension(openFileDialog.FileName) == ".jpg" || Path.GetExtension(openFileDialog.FileName) == ".png")
+            if (Path.GetExtension(openFileDialog.FileName) == ".jpg" ||
+                Path.GetExtension(openFileDialog.FileName) == ".png")
             {
                 //                MessageBox.Show((openFileDialog.FileName));
 
                 Picture = ImageToByteArray(new Bitmap(openFileDialog.FileName));
             }
         }
+
         public byte[] ImageToByteArray(Image imageIn)
         {
             MemoryStream ms = new MemoryStream();
@@ -77,24 +76,22 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public RelayCommand EditCommand { get; set; }
         public RelayCommand ViewCommand { get; set; }
         public RelayCommand UploadCommand { get; set; }
+
         private void LoadCommands()
         {
             ViewCommand = new RelayCommand(OnView);
             EditCommand = new RelayCommand(OnEdit);
             CloseCommand = new RelayCommand(OnClose);
             UploadCommand = new RelayCommand(OnUpload);
-
         }
 
 
-        private async void OnClose()
+        private void OnClose()
         {
-
             DialogHost.CloseDialogCommand.Execute(this, null);
             Clear();
             IsOpen = false;
             Validator.Reset();
-
         }
 
         private async void OnEdit()
@@ -163,39 +160,82 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         }
 
         private string _productName;
-        public string ProductName { get { return _productName; } set { Set(ref _productName, value); } }
+
+        public string ProductName
+        {
+            get { return _productName; }
+            set { Set(ref _productName, value); }
+        }
+
         private string _description;
-        public string Description { get { return _description; } set { Set(ref _description, value); } }
+
+        public string Description
+        {
+            get { return _description; }
+            set { Set(ref _description, value); }
+        }
+
         private string _type;
-        public string Type { get { return _type; } set { Set(ref _type, value); } }
+
+        public string Type
+        {
+            get { return _type; }
+            set { Set(ref _type, value); }
+        }
+
         private int? _stock;
-        public int? Stock { get { return _stock; } set { Set(ref _stock, value); } }
+
+        public int? Stock
+        {
+            get { return _stock; }
+            set { Set(ref _stock, value); }
+        }
+
         private double? _price;
-        public double? Price { get { return _price; } set { Set(ref _price, value); } }
+
+        public double? Price
+        {
+            get { return _price; }
+            set { Set(ref _price, value); }
+        }
+
         private byte[] _picture;
-        public byte[] Picture { get { return _picture; } set { Set(ref _picture, value); } }
+
+        public byte[] Picture
+        {
+            get { return _picture; }
+            set { Set(ref _picture, value); }
+        }
 
         private List<Type> _types;
-        public List<Type> Types { get { return _types; } set { Set(ref _types, value); } }
-        private Type _selectedType;
-        public Type SelectedType { get { return _selectedType; } set { Set(ref _selectedType, value); } }
 
-
-        private async void Validate()
+        public List<Type> Types
         {
-            await ValidateAsync();
+            get { return _types; }
+            set { Set(ref _types, value); }
         }
+
+        private Type _selectedType;
+
+        public Type SelectedType
+        {
+            get { return _selectedType; }
+            set { Set(ref _selectedType, value); }
+        }
+
+
+//        private async void Validate()
+//        {
+//            await ValidateAsync();
+//        }
 
         public async Task ValidateAsync()
         {
             await Validator.ValidateAllAsync();
-
         }
 
         private void ConfigureValidationRules()
         {
-
-
             //            Validator.AddAsyncRule(nameof(LRN),
             //                async () =>
             //                {
@@ -240,8 +280,6 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 //                    return RuleResult.Assert(result,
 //                        $"Price must be a number.");
 //                });
-
-
         }
     }
 }

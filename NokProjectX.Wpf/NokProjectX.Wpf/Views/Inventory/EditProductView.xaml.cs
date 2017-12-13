@@ -27,7 +27,7 @@ namespace NokProjectX.Wpf.Views.Inventory
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (!char.IsDigit(e.Text, e.Text.Length - 1) )
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
                 e.Handled = true;
         }
 

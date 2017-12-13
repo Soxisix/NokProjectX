@@ -24,54 +24,44 @@
                    Text="Delete Product"
                    Foreground="White"
                    VerticalAlignment="Center"
-                   Margin="10,0,0,0">
-        </TextBlock>
+                   Margin="10,0,0,0" />
         <TextBlock Grid.Row="1"
                    Text="Are you sure that you want to delete this product?"
                    VerticalAlignment="Center"
                    Foreground="White"
                    Margin="10"
-                   
-                   TextWrapping="Wrap" FontFamily="Arial">
-        </TextBlock>
-        <Grid Grid.Row="2" >
+                   TextWrapping="Wrap"
+                   FontFamily="Arial" />
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="101" />
             </Grid.ColumnDefinitions>
 
-            <Button
-                Width="100"
-                Height="30"
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                Command="materialDesign:DialogHost.CloseDialogCommand"    
-                BorderThickness="0">
+            <Button Width="100"
+                    Height="30"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Command="materialDesign:DialogHost.CloseDialogCommand"
+                    BorderThickness="0">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
                 <Button.Style>
-                    <Style
-                        TargetType="{x:Type Button}"
-                        BasedOn="{StaticResource {x:Type Button}}">
-                        <Setter
-                            Property="Background">
+                    <Style TargetType="{x:Type Button}"
+                           BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush
-                                    ImageSource="/NokProjectX.Wpf;component/Resources/btnOKS.png">
-                                </ImageBrush>
+                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnOKS.png" />
 
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
-                            <Trigger
-                                Property="IsMouseOver"
-                                Value="True">
-                                <Setter
-                                    Property="Background">
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush
-                                            ImageSource="/NokProjectX.Wpf;component/Resources/btnOKSHover.png" />
+                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnOKSHover.png" />
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -81,37 +71,29 @@
                 </Button.Style>
             </Button>
 
-            <Button
-                Width="100"
-                
-                Height="30" 
-                Grid.Column="0"
-                Margin="10,0,26,0"
-                BorderThickness="0"
-                Command="materialDesign:DialogHost.CloseDialogCommand">
+            <Button Width="100"
+                    Height="30"
+                    Grid.Column="0"
+                    Margin="10,0,26,0"
+                    BorderThickness="0"
+                    Command="materialDesign:DialogHost.CloseDialogCommand">
 
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>
                 <Button.Style>
-                    <Style
-                        TargetType="{x:Type Button}"
-                        BasedOn="{StaticResource {x:Type Button}}">
-                        <Setter
-                            Property="Background">
+                    <Style TargetType="{x:Type Button}"
+                           BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush
-                                    ImageSource="/NokProjectX.Wpf;component/Resources/btnCancelS.png">
-                                </ImageBrush>
+                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnCancelS.png" />
 
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
-                            <Trigger
-                                Property="IsMouseOver"
-                                Value="True">
-                                <Setter
-                                    Property="Background">
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background">
                                     <Setter.Value>
                                         <ImageBrush
                                             ImageSource="/NokProjectX.Wpf;component/Resources/btnCancelSHover.png" />
@@ -126,7 +108,6 @@
         </Grid>
         <Border Grid.Row="2"
                 BorderBrush="#6d6e71"
-                BorderThickness="0,1,0,0">
-        </Border>
+                BorderThickness="0,1,0,0" />
     </Grid>
 </UserControl>

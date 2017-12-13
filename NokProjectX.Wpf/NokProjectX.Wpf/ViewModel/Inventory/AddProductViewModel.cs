@@ -27,13 +27,13 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             LoadCommands();
             Types = _context.Types.ToList();
             ConfigureValidationRules();
-
         }
 
         public RelayCommand CloseCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
         public RelayCommand ViewCommand { get; set; }
         public RelayCommand UploadCommand { get; set; }
+
         private void LoadCommands()
         {
             ViewCommand = new RelayCommand(OnView);
@@ -44,16 +44,16 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 
         private void OnUpload()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files (JPG,PNG)|*.JPG;*.PNG";
+            var openFileDialog = new OpenFileDialog {Filter = "Image Files (JPG,PNG)|*.JPG;*.PNG"};
             openFileDialog.ShowDialog();
             if (!openFileDialog.CheckFileExists)
             {
                 MessageBox.Show("File not exist");
                 return;
             }
-       
-            if (Path.GetExtension(openFileDialog.FileName) == ".jpg" || Path.GetExtension(openFileDialog.FileName) == ".png")
+
+            if (Path.GetExtension(openFileDialog.FileName) == ".jpg" ||
+                Path.GetExtension(openFileDialog.FileName) == ".png")
             {
 //                MessageBox.Show((openFileDialog.FileName));
 
@@ -65,7 +65,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         {
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-            
+
             return ms.ToArray();
         }
 //        public Image ByteArrayToImage(byte[] byteArrayIn)
@@ -77,12 +77,10 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 
         private void OnClose()
         {
-            
             DialogHost.CloseDialogCommand.Execute(this, null);
             Clear();
             IsOpen = false;
             Validator.Reset();
-
         }
 
         private async void OnAdd()
@@ -92,12 +90,11 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             {
                 return;
             }
-            var result =_context.Products.Select(c => c.ProductCode).OrderByDescending(c => c).FirstOrDefault();
+            var result = _context.Products.Select(c => c.ProductCode).OrderByDescending(c => c).FirstOrDefault();
             int newCode = result + 1;
             //var picture = ImageToByteArray(Picture); 
             Product newProduct = new Product()
             {
-                
                 ProductCode = newCode,
                 Name = ProductName,
                 Description = Description,
@@ -109,7 +106,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             _context.Products.Add(newProduct);
             _context.SaveChanges();
             MessengerInstance.Send(new RefreshMessage());
-            
+
             OnClose();
         }
 
@@ -141,25 +138,76 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         }
 
         private byte _image;
-        public byte Image { get { return _image; } set { Set(ref _image, value); } }
+
+        public byte Image
+        {
+            get { return _image; }
+            set { Set(ref _image, value); }
+        }
 
         private string _productName;
-        public string ProductName { get { return _productName; } set { Set(ref _productName, value); } }
+
+        public string ProductName
+        {
+            get { return _productName; }
+            set { Set(ref _productName, value); }
+        }
+
         private string _description;
-        public string Description { get { return _description; } set { Set(ref _description, value); } }
+
+        public string Description
+        {
+            get { return _description; }
+            set { Set(ref _description, value); }
+        }
+
         private string _type;
-        public string Type { get { return _type; } set { Set(ref _type, value); } }
+
+        public string Type
+        {
+            get { return _type; }
+            set { Set(ref _type, value); }
+        }
+
         private string _stock;
-        public string Stock { get { return _stock; } set { Set(ref _stock, value); } }
+
+        public string Stock
+        {
+            get { return _stock; }
+            set { Set(ref _stock, value); }
+        }
+
         private string _price;
-        public string Price { get { return _price; } set { Set(ref _price, value); } }
+
+        public string Price
+        {
+            get { return _price; }
+            set { Set(ref _price, value); }
+        }
+
         private byte[] _picture;
-        public byte[] Picture { get { return _picture; } set { Set(ref _picture, value); } }
+
+        public byte[] Picture
+        {
+            get { return _picture; }
+            set { Set(ref _picture, value); }
+        }
 
         private List<Type> _types;
-        public List<Type> Types { get { return _types; }set { Set(ref _types,value); } }
+
+        public List<Type> Types
+        {
+            get { return _types; }
+            set { Set(ref _types, value); }
+        }
+
         private Type _selectedType;
-        public Type SelectedType { get { return _selectedType; } set { Set(ref _selectedType, value); } }
+
+        public Type SelectedType
+        {
+            get { return _selectedType; }
+            set { Set(ref _selectedType, value); }
+        }
 
 
         private async void Validate()
@@ -170,13 +218,10 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public async Task ValidateAsync()
         {
             await Validator.ValidateAllAsync();
-            
         }
 
         private void ConfigureValidationRules()
         {
-
-
             //            Validator.AddAsyncRule(nameof(LRN),
             //                async () =>
             //                {
@@ -188,7 +233,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             //                });
             Validator.AddRequiredRule(() => ProductName, "Product Name is required");
             Validator.AddRule(nameof(ProductName),
-                 () =>
+                () =>
                 {
                     var count = _context.Products.Count(c => c.Name.ToLower().Equals(ProductName.Trim().ToLower()));
                     var result = count == 0;
@@ -221,9 +266,6 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
                     return RuleResult.Assert(result,
                         $"Price must be a number.");
                 });
-
-
         }
-
     }
 }

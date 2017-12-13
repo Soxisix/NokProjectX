@@ -20,12 +20,13 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         {
             _context = context;
             MessengerInstance.Register<ListOfProductsMessage>(this, OnListRecieve);
-            var t = _context.Products.GetType();
+//            var t = _context.Products.GetType();
             LoadCommands();
         }
 
         public RelayCommand CloseCommand { get; set; }
         public RelayCommand EditCommand { get; set; }
+
         private void LoadCommands()
         {
             EditCommand = new RelayCommand(OnEdit);
@@ -61,7 +62,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             _context.SaveChanges();
 
             MessengerInstance.Send(new RefreshMessage());
-            
+
             OnClose();
         }
 
@@ -75,19 +76,22 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         }
 
 
-
         private int? _stock;
-        public int? Stock { get { return _stock; } set { Set(ref _stock, value); } }
 
-        private async void Validate()
+        public int? Stock
         {
-            await ValidateAsync();
+            get { return _stock; }
+            set { Set(ref _stock, value); }
         }
+
+//        private async void Validate()
+//        {
+//            await ValidateAsync();
+//        }
 
         public async Task ValidateAsync()
         {
             await Validator.ValidateAllAsync();
-
         }
 
         private void ConfigureValidationRules()
@@ -108,7 +112,5 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         //
         //        private string _selectedName;
         //        public string SelectedName { get { return _selectedName; } set { Set(ref _selectedName, value); } }
-
-
     }
 }

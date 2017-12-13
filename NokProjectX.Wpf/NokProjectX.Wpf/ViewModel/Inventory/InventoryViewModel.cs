@@ -18,7 +18,6 @@ using NokProjectX.Wpf.Views.Inventory;
 
 namespace NokProjectX.Wpf.ViewModel.Inventory
 {
-    
     public class InventoryViewModel : ViewModelBase
     {
         private readonly YumiContext _context;
@@ -33,7 +32,6 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             LoadCommands();
         }
 
-        
 
         private void LoadData()
         {
@@ -57,7 +55,6 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
             DeleteProductCommand = new RelayCommand(OnDelete);
             BatchAddStockCommand = new RelayCommand(OnBatchAddStock, () => (ProductList.Count(c => c.IsSelected) > 0));
             BatchDeleteCommand = new RelayCommand(OnBatchDelete, () =>
-            
                 (ProductList.Count(c => c.IsSelected) > 0)
             );
         }
@@ -66,9 +63,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
 
         private void OnClose()
         {
-
             DialogHost.CloseDialogCommand.Execute(this, null);
-
         }
 
         public RelayCommand ViewProductCommand { get; set; }
@@ -83,17 +78,20 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         private async void OnBatchAddStock()
         {
             ServiceLocator.Current.GetInstance<AddStockViewModel>();
-            MessengerInstance.Send(new ListOfProductsMessage(){Products = ListOfProducts});
+            MessengerInstance.Send(new ListOfProductsMessage() {Products = ListOfProducts});
             await DialogHost.Show(new AddStockView(), "RootDialog");
         }
 
-        public List<Product> ListOfProducts { get { return ProductList.Where(c => c.IsSelected == true).ToList(); } }
+        public List<Product> ListOfProducts
+        {
+            get { return ProductList.Where(c => c.IsSelected == true).ToList(); }
+        }
 
         public RelayCommand BatchDeleteCommand { get; set; }
 
         private async void OnBatchDelete()
         {
-            await DialogHost.Show(new MessageView(), "RootDialog", delegate (object sender, DialogClosingEventArgs args)
+            await DialogHost.Show(new MessageView(), "RootDialog", delegate(object sender, DialogClosingEventArgs args)
             {
                 if (Equals(args.Parameter, false)) return;
 
@@ -104,9 +102,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
                     _context.SaveChanges();
                     DoRefresh(null);
                 }
-
             });
-            
         }
 
         public RelayCommand DeleteProductCommand { get; set; }
@@ -123,9 +119,7 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
                     _context.SaveChanges();
                     DoRefresh(null);
                 }
-
             });
-            
         }
 
         public RelayCommand EditProductCommand { get; set; }
@@ -133,9 +127,8 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         private async void OnEdit()
         {
             ServiceLocator.Current.GetInstance<EditProductViewModel>();
-            MessengerInstance.Send(new SelectedProductMessage() { SelectedProduct = SelectedProduct });
+            MessengerInstance.Send(new SelectedProductMessage() {SelectedProduct = SelectedProduct});
             await DialogHost.Show(new EditProductView());
-            
         }
 
         public RelayCommand AddProductCommand { get; set; }
@@ -154,7 +147,12 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         }
 
         private Product _selectedProduct;
-        public Product SelectedProduct { get { return _selectedProduct; } set { Set(ref _selectedProduct,value); } }
+
+        public Product SelectedProduct
+        {
+            get { return _selectedProduct; }
+            set { Set(ref _selectedProduct, value); }
+        }
 
         private int _totalCount;
         private string _searchText;
@@ -162,18 +160,12 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
         public int TotalCount
         {
             get { return _totalCount; }
-            set
-            {
-                Set(ref _totalCount, value);
-            }
+            set { Set(ref _totalCount, value); }
         }
 
         public string SearchText
         {
-            get
-            {
-                return _searchText;
-            }
+            get { return _searchText; }
             set
             {
                 Set(ref _searchText, value);
@@ -183,13 +175,13 @@ namespace NokProjectX.Wpf.ViewModel.Inventory
                 }
                 else
                 {
-                    ProductList = OriginalProductList.Where(c => c.Name.ToLower().Contains(SearchText.Trim().ToLower()) ||
-                                                                 SearchText.Trim().Contains(c.ProductCode.ToString()) ||
-                                                                 c.Description.ToLower().Contains(SearchText.Trim().ToLower()))
+                    ProductList = OriginalProductList.Where(c =>
+                            c.Name.ToLower().Contains(SearchText.Trim().ToLower()) ||
+                            SearchText.Trim().Contains(c.ProductCode.ToString()) ||
+                            c.Description.ToLower().Contains(SearchText.Trim().ToLower()))
                         .ToList();
                 }
             }
         }
-
     }
 }

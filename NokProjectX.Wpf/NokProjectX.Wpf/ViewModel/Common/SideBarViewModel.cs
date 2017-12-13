@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using NokProjectX.Wpf.Common;
 using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Views;
 using NokProjectX.Wpf.Views.Transaction;
+using InventoryView = NokProjectX.Wpf.Views.Inventory.InventoryView;
 
-namespace NokProjectX.Wpf.ViewModel
+namespace NokProjectX.Wpf.ViewModel.Common
 {
     public class SideBarViewModel : ViewModelBase
     {
@@ -21,17 +20,16 @@ namespace NokProjectX.Wpf.ViewModel
         }
 
         public RelayCommand<int> NavigateCommand { get; set; }
+
         private void NavTo(int obj)
         {
             switch (obj)
             {
                 case 1:
-                    MessengerInstance.Send(new NavigateTo{Content = new TransactionView()});
+                    MessengerInstance.Send(new NavigateTo {Content = new TransactionView()});
                     break;
                 case 2:
-                    MessengerInstance.Send(new NavigateTo { Content = new InventoryView() });
-                    break;
-                default:
+                    MessengerInstance.Send(new NavigateTo {Content = new InventoryView()});
                     break;
             }
         }
