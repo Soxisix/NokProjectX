@@ -17,7 +17,6 @@ namespace NokProjectX.Wpf.Context
             {
                 Database.SetInitializer(new CreateDatabaseIfNotExists<YumiContext>());
             }
-            
         }
 
         public DbSet<Product> Products { get; set; }

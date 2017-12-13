@@ -10,18 +10,20 @@ namespace NokProjectX.Wpf.Common
         protected override void OnAttached()
         {
             base.OnAttached();
-            this.AssociatedObject.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Handler), true);
+            AssociatedObject.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Handler), true);
         }
+
         protected override void OnDetaching()
         {
-            this.AssociatedObject.RemoveHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Handler));
+            AssociatedObject.RemoveHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Handler));
             base.OnDetaching();
         }
+
         private void Handler(object s, RoutedEventArgs e)
         {
-            object clicked = (e.OriginalSource as FrameworkElement)?.DataContext;
-            var lbi = AssociatedObject.ItemContainerGenerator.ContainerFromItem(clicked) as ListBoxItem;
-            if (lbi != null) lbi.IsSelected = true;
+            var clicked = (e.OriginalSource as FrameworkElement)?.DataContext;
+            if (AssociatedObject.ItemContainerGenerator.ContainerFromItem(clicked) is ListBoxItem lbi)
+                lbi.IsSelected = true;
         }
     }
 }

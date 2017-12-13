@@ -19,28 +19,24 @@
         <Style TargetType="{x:Type TextBox}"
                BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="BorderBrush"
-                    Value="#89FFFFFF">
-            </Setter>
+                    Value="#89FFFFFF" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding HasErrors}"
                              Value="True">
                     <Setter Property="BorderBrush"
-                            Value="#89FF0000">
-                    </Setter>
+                            Value="#89FF0000" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style TargetType="{x:Type ComboBox}"
                BasedOn="{StaticResource {x:Type ComboBox}}">
             <Setter Property="BorderBrush"
-                    Value="#89FFFFFF">
-            </Setter>
+                    Value="#89FFFFFF" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding HasErrors}"
                              Value="True">
                     <Setter Property="BorderBrush"
-                            Value="#89FF0000">
-                    </Setter>
+                            Value="#89FF0000" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -79,7 +75,7 @@
                     Command="{Binding UploadCommand}"
                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                     Margin="200,30,30,175">
-                <materialDesign:PackIcon Kind="Upload"></materialDesign:PackIcon>
+                <materialDesign:PackIcon Kind="Upload" />
             </Button>
 
             <StackPanel Margin="25,15,25,25"
@@ -126,24 +122,21 @@
                         Margin="10,0,0,0"
                         Command="{Binding ViewCommand}">
                     <materialDesign:PackIcon Kind="Eye"
-                                             Foreground="White">
-                    </materialDesign:PackIcon>
+                                             Foreground="White" />
                 </Button>
                 <TextBlock FontSize="16"
                            Margin="0,10"
                            Grid.Column="1"
                            Text="Edit Product"
                            Foreground="White"
-                           FontWeight="SemiBold">
-                </TextBlock>
+                           FontWeight="SemiBold" />
                 <Button Grid.Column="2"
                         HorizontalAlignment="Right"
                         Style="{StaticResource MaterialDesignToolButton}"
                         Margin="0,0,5,0"
                         Command="{Binding CloseCommand}">
                     <materialDesign:PackIcon Foreground="White"
-                                             Kind="Close">
-                    </materialDesign:PackIcon>
+                                             Kind="Close" />
                 </Button>
             </Grid>
 
@@ -206,8 +199,7 @@
                            BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnUpdate.png">
-                                </ImageBrush>
+                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnUpdate.png" />
 
                             </Setter.Value>
                         </Setter>
@@ -237,8 +229,7 @@
                            BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnCancel.png">
-                                </ImageBrush>
+                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnCancel.png" />
 
                             </Setter.Value>
                         </Setter>
@@ -261,4 +252,3 @@
     </Grid>
 
 </UserControl>
-

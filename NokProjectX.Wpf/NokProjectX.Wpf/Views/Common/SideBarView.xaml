@@ -1,47 +1,46 @@
-﻿<UserControl
-    x:Class="NokProjectX.Wpf.Views.SideBarView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="clr-namespace:NokProjectX.Wpf.Common"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    Background="{DynamicResource MaterialDesignPaper}"
-    DataContext="{Binding SideBar, Source={StaticResource Locator}}"
-    FontFamily="{DynamicResource MaterialDesignFont}"
-    TextElement.FontSize="13"
-    TextElement.FontWeight="Regular"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    TextOptions.TextFormattingMode="Ideal"
-    TextOptions.TextRenderingMode="Auto"
-    mc:Ignorable="d">
-    <materialDesign:Card
-        VerticalAlignment="Stretch"
-        materialDesign:ShadowAssist.ShadowDepth="Depth1"
-        Background="#231f20">
-        <ListView
-            VerticalContentAlignment="Top"
-            ItemsSource="{Binding MenuList}"
-            SelectedIndex="0"
-            SelectionMode="Single">
+﻿<UserControl x:Class="NokProjectX.Wpf.Views.Common.SideBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:common="clr-namespace:NokProjectX.Wpf.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Background="{DynamicResource MaterialDesignPaper}"
+             DataContext="{Binding SideBar, Source={StaticResource Locator}}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             TextElement.FontSize="13"
+             TextElement.FontWeight="Regular"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             mc:Ignorable="d">
+    <materialDesign:Card VerticalAlignment="Stretch"
+                         materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                         Background="#231f20">
+        <ListView VerticalContentAlignment="Top"
+                  ItemsSource="{Binding MenuList}"
+                  SelectedIndex="0"
+                  SelectionMode="Single">
             <interactivity:Interaction.Behaviors>
                 <common:SelectItemOnButtonClick />
             </interactivity:Interaction.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Button
-                        Width="55"
-                        Height="55"
-                        Margin="-9"
-                        BorderThickness="0"
-                        Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                        CommandParameter="{Binding MenuIndex}">
+                    <Button Width="55"
+                            Height="55"
+                            Margin="-9"
+                            BorderThickness="0"
+                            Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding MenuIndex}">
                         <Button.Style>
-                            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+                            <Style BasedOn="{StaticResource {x:Type Button}}"
+                                   TargetType="{x:Type Button}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
+                                    <DataTrigger
+                                        Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                        Value="True">
                                         <DataTrigger.Setters>
                                             <Setter Property="Background">
                                                 <Setter.Value>
@@ -50,7 +49,9 @@
                                             </Setter>
                                         </DataTrigger.Setters>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="False">
+                                    <DataTrigger
+                                        Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                        Value="False">
                                         <DataTrigger.Setters>
                                             <Setter Property="Background">
                                                 <Setter.Value>
@@ -59,7 +60,8 @@
                                             </Setter>
                                         </DataTrigger.Setters>
                                     </DataTrigger>
-                                    <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
                                                 <ImageBrush ImageSource="{Binding Hovered}" />
@@ -75,5 +77,3 @@
         </ListView>
     </materialDesign:Card>
 </UserControl>
-
-

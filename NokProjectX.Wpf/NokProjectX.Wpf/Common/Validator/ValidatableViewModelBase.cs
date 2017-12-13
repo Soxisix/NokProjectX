@@ -43,11 +43,10 @@ namespace NokProjectX.Wpf.Common.Validator
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged
         {
-            add { NotifyDataErrorInfoAdapter.ErrorsChanged += value; }
-            remove { NotifyDataErrorInfoAdapter.ErrorsChanged -= value; }
+            add => NotifyDataErrorInfoAdapter.ErrorsChanged += value;
+            remove => NotifyDataErrorInfoAdapter.ErrorsChanged -= value;
         }
 
         #endregion
     }
-
 }

@@ -4,6 +4,9 @@ using Microsoft.Practices.ServiceLocation;
 using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Views;
+using NokProjectX.Wpf.Views.Transaction;
+using SideBarView = NokProjectX.Wpf.Views.Common.SideBarView;
+using TopBarView = NokProjectX.Wpf.Views.Common.TopBarView;
 
 namespace NokProjectX.Wpf.ViewModel
 {
@@ -27,18 +30,19 @@ namespace NokProjectX.Wpf.ViewModel
         public MainViewModel(YumiContext context)
         {
             _context = context;
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+//            if (IsInDesignMode)
+//            {
+//                // Code runs in Blend --> create design time data.
+//            }
+//            else
+//            {
+//                // Code runs "for real"
+//            }
 //            SideBarView = ServiceLocator.Current.GetInstance<SideBarViewModel>();
             MessengerInstance.Register<NavigateTo>(this, NavigateToContent);
             TopBarView = new TopBarView();
             SideBarView = new SideBarView();
+            MainView = new TransactionView();
         }
 
         public void NavigateToContent(NavigateTo content)
