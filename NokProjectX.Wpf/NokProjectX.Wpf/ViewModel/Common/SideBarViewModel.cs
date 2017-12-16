@@ -1,39 +1,40 @@
-﻿using System.Collections.Generic;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using NokProjectX.Wpf.Common;
-using NokProjectX.Wpf.Common.Messages;
-using NokProjectX.Wpf.Views;
-using NokProjectX.Wpf.Views.Transaction;
-using InventoryView = NokProjectX.Wpf.Views.Inventory.InventoryView;
-
-namespace NokProjectX.Wpf.ViewModel.Common
+﻿namespace NokProjectX.Wpf.ViewModel.Common
 {
+    using GalaSoft.MvvmLight;
+    using GalaSoft.MvvmLight.Command;
+    using NokProjectX.Wpf.Common;
+    using NokProjectX.Wpf.Common.Messages;
+    using NokProjectX.Wpf.Views.Transaction;
+    using System.Collections.Generic;
+    using InventoryView = NokProjectX.Wpf.Views.Inventory.InventoryView;
+
+    /// <summary>
+    /// Defines the <see cref="SideBarViewModel" />
+    /// </summary>
     public class SideBarViewModel : ViewModelBase
     {
-        public List<MenuList> MenuList { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SideBarViewModel"/> class.
+        /// </summary>
         public SideBarViewModel()
         {
             LoadMenu();
             NavigateCommand = new RelayCommand<int>(NavTo);
         }
 
+        /// <summary>
+        /// Gets or sets the MenuList
+        /// </summary>
+        public List<MenuList> MenuList { get; set; }
+
+        /// <summary>
+        /// Gets or sets the NavigateCommand
+        /// </summary>
         public RelayCommand<int> NavigateCommand { get; set; }
 
-        private void NavTo(int obj)
-        {
-            switch (obj)
-            {
-                case 1:
-                    MessengerInstance.Send(new NavigateTo {Content = new TransactionView()});
-                    break;
-                case 2:
-                    MessengerInstance.Send(new NavigateTo {Content = new InventoryView()});
-                    break;
-            }
-        }
-
+        /// <summary>
+        /// The LoadMenu
+        /// </summary>
         private void LoadMenu()
         {
             MenuList = new List<MenuList>()
@@ -75,6 +76,23 @@ namespace NokProjectX.Wpf.ViewModel.Common
                     UnHovered = "/NokProjectX.Wpf;component/Resources/signoutBlack.png"
                 },
             };
+        }
+
+        /// <summary>
+        /// The NavTo
+        /// </summary>
+        /// <param name="obj">The <see cref="int"/></param>
+        private void NavTo(int obj)
+        {
+            switch (obj)
+            {
+                case 1:
+                    MessengerInstance.Send(new NavigateTo { Content = new TransactionView() });
+                    break;
+                case 2:
+                    MessengerInstance.Send(new NavigateTo { Content = new InventoryView() });
+                    break;
+            }
         }
     }
 }

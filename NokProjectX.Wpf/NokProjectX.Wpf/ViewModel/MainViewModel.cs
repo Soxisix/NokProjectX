@@ -1,15 +1,12 @@
-using System;
-using GalaSoft.MvvmLight;
-using Microsoft.Practices.ServiceLocation;
-using NokProjectX.Wpf.Common.Messages;
-using NokProjectX.Wpf.Context;
-using NokProjectX.Wpf.Views;
-using NokProjectX.Wpf.Views.Transaction;
-using SideBarView = NokProjectX.Wpf.Views.Common.SideBarView;
-using TopBarView = NokProjectX.Wpf.Views.Common.TopBarView;
-
 namespace NokProjectX.Wpf.ViewModel
 {
+    using GalaSoft.MvvmLight;
+    using NokProjectX.Wpf.Common.Messages;
+    using NokProjectX.Wpf.Context;
+    using NokProjectX.Wpf.Views.Transaction;
+    using SideBarView = NokProjectX.Wpf.Views.Common.SideBarView;
+    using TopBarView = NokProjectX.Wpf.Views.Common.TopBarView;
+
     /// <summary>
     /// This class contains properties that the main View can data bind to.
     /// <para>
@@ -25,40 +22,80 @@ namespace NokProjectX.Wpf.ViewModel
     public class MainViewModel : ViewModelBase
     {
         /// <summary>
+        /// Defines the _context
+        /// </summary>
+        private readonly YumiContext _context;
+
+        /// <summary>
+        /// Defines the mainView
+        /// </summary>
+        private object mainView;
+
+        /// <summary>
+        /// Defines the sideBarView
+        /// </summary>
+        private object sideBarView;
+
+        /// <summary>
+        /// Defines the topBarView
+        /// </summary>
+        private object topBarView;
+
+        /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel(YumiContext context)
         {
             _context = context;
-//            if (IsInDesignMode)
-//            {
-//                // Code runs in Blend --> create design time data.
-//            }
-//            else
-//            {
-//                // Code runs "for real"
-//            }
-//            SideBarView = ServiceLocator.Current.GetInstance<SideBarViewModel>();
+            //            if (IsInDesignMode)
+            //            {
+            //                // Code runs in Blend --> create design time data.
+            //            }
+            //            else
+            //            {
+            //                // Code runs "for real"
+            //            }
+            //            SideBarView = ServiceLocator.Current.GetInstance<SideBarViewModel>();
             MessengerInstance.Register<NavigateTo>(this, NavigateToContent);
             TopBarView = new TopBarView();
             SideBarView = new SideBarView();
             MainView = new TransactionView();
         }
 
+        /// <summary>
+        /// Gets or sets the MainView
+        /// </summary>
+        public object MainView
+        {
+            get { return mainView; }
+            set { Set(ref mainView, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the SideBarView
+        /// </summary>
+        public object SideBarView
+        {
+            get { return sideBarView; }
+            set { Set(ref sideBarView, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the TopBarView
+        /// </summary>
+        public object TopBarView
+        {
+            get { return topBarView; }
+            set { Set(ref topBarView, value); }
+        }
+
+        /// <summary>
+        /// The NavigateToContent
+        /// </summary>
+        /// <param name="content">The <see cref="NavigateTo"/></param>
         public void NavigateToContent(NavigateTo content)
         {
             MainView = content.Content;
         }
-
-        private object topBarView;
-        public object TopBarView { get { return topBarView; } set { Set(ref topBarView, value); } }
-
-        private object sideBarView;
-        public object SideBarView { get { return sideBarView; } set { Set(ref sideBarView, value); } }
-
-        private object mainView;
-        private readonly YumiContext _context;
-
-        public object MainView { get { return mainView; } set { Set(ref mainView, value); } }
     }
 }

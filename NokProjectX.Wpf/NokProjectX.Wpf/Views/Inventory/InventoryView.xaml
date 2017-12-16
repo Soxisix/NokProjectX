@@ -277,10 +277,13 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Price">
+                               
                                 <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Price}"
-                                                   TextAlignment="Right" />
+                                    <DataTemplate >
+                                        <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal">
+                                            <TextBlock Text="P "></TextBlock>
+                                            <TextBlock Text="{Binding Price, StringFormat=N2}" />
+                                        </StackPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

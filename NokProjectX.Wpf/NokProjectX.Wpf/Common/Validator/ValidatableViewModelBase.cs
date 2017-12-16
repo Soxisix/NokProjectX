@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
-using MvvmValidation;
-
-namespace NokProjectX.Wpf.Common.Validator
+﻿namespace NokProjectX.Wpf.Common.Validator
 {
+    using GalaSoft.MvvmLight;
+    using MvvmValidation;
+    using System;
+    using System.Collections;
+    using System.ComponentModel;
+    using System.Threading.Tasks;
+
+
+
     public abstract class ValidatableViewModelBase : ViewModelBase, IValidatable, INotifyDataErrorInfo
     {
         protected ValidationHelper Validator { get; }
@@ -32,7 +34,6 @@ namespace NokProjectX.Wpf.Common.Validator
             return Validator.ValidateAllAsync();
         }
 
-        #region Implementation of INotifyDataErrorInfo
 
         public IEnumerable GetErrors(string propertyName)
         {
@@ -47,6 +48,5 @@ namespace NokProjectX.Wpf.Common.Validator
             remove => NotifyDataErrorInfoAdapter.ErrorsChanged -= value;
         }
 
-        #endregion
     }
 }

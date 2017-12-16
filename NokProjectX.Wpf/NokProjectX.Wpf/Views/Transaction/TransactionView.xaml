@@ -80,6 +80,7 @@
             </Border>
         </materialDesign:Card>
         <materialDesign:Card Width="350"
+                             VerticalAlignment="Stretch"
                              materialDesign:ShadowAssist.ShadowDepth="Depth0"
                              Grid.Row="0"
                              Grid.Column="1"
@@ -93,8 +94,8 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Margin="20,20,20,5"
                            FontSize="18"
@@ -122,23 +123,39 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Margin="0,3,0,2" Orientation="Horizontal">
+                    <Grid Margin="0,3,0,2"  HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <TextBlock FontWeight="SemiBold"
-                            FontSize="16"
+                            FontSize="16" Grid.Column="0"
                             VerticalAlignment="Center"
                             
                             Text="P " />
-                        <TextBox IsReadOnly="True"
+                        <TextBox IsReadOnly="{Binding IsChecked, ElementName=EditPrice}"
                                  VerticalAlignment="Center"
                                  FontWeight="SemiBold"
-                                 FontSize="16"
+                                 Grid.Column="1"
+                                 FontSize="16" TextAlignment="Left"
                                  BorderThickness="0,0,0,0"
                                  materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
-                                 Text="{Binding Price}"></TextBox>
-                    </StackPanel>
-                    <Button ToolTip="Edit Price" Grid.Column="1" Style="{StaticResource MaterialDesignToolButton}">
-                        <materialDesign:PackIcon Kind="Pencil"/>
-                    </Button>
+                                 Text="{Binding Price, StringFormat=N2}" PreviewTextInput="TextBox_PreviewTextInput"></TextBox>
+                    </Grid>
+                    <ToggleButton
+                        x:Name="EditPrice"
+                        Grid.Column="1"
+                        IsChecked="True"
+                        Style="{StaticResource MaterialDesignActionLightToggleButton}"
+                        ToolTip="Edit Price">
+                        <ToggleButton.Content>
+                            <materialDesign:PackIcon  Kind="Close" />
+                        </ToggleButton.Content>
+                        <materialDesign:ToggleButtonAssist.OnContent >
+                            <materialDesign:PackIcon Kind="Pencil" />
+                        </materialDesign:ToggleButtonAssist.OnContent>
+
+                    </ToggleButton>
                 </Grid>
                 <Border Grid.Row="3"
                         BorderBrush="#FFE0E0E0"
@@ -164,7 +181,9 @@
                         </Border.Background>
                         <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                  Text="{Binding Quantity}"
-                                 BorderThickness="0,0,0,0" Margin="5,0,0,0" />
+                                 materialDesign:ValidationAssist.UsePopup="True"
+                                 Padding="5,0"
+                                 BorderThickness="0,0,0,0" PreviewTextInput="TextBox_PreviewTextInput_1"  />
 
                     </Border>
 
@@ -173,8 +192,11 @@
                 <Border Grid.Row="4"
                         BorderBrush="#FFE0E0E0"
                         BorderThickness="0,0,0,1" />
+                <Border Grid.Row="5"
+                        BorderBrush="#FFE0E0E0" Visibility="{Binding IsPieces, Converter={StaticResource BoolToVisibilityCollapsed}}"
+                        BorderThickness="0,0,0,1" />
                 <Grid Grid.Row="5"
-                      Margin="20,9">
+                      Margin="20,9" Visibility="{Binding IsPieces, Converter={StaticResource BoolToVisibilityCollapsed}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="74"  />
                         <ColumnDefinition Width="1*" />
@@ -198,7 +220,11 @@
                                             ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
                             </Border.Background>
                             <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                     BorderThickness="0,0,0,0" />
+                                     BorderThickness="0,0,0,0"
+                                     Padding="5,0"
+                                     materialDesign:ValidationAssist.UsePopup="True"
+                                     Text="{Binding Size1}"
+                                     materialDesign:HintAssist.Hint="Length"/>
 
                         </Border>
                         <TextBlock Grid.Column="1"
@@ -215,12 +241,16 @@
                                             ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
                             </Border.Background>
                             <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                     BorderThickness="0,0,0,0" />
+                                     BorderThickness="0,0,0,0" 
+                                     Padding="5,0"
+                                     materialDesign:ValidationAssist.UsePopup="True"
+                                     Text="{Binding Size2}"
+                                     materialDesign:HintAssist.Hint="Width"/>
 
                         </Border>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="6"
+                <Grid Grid.Row="6" VerticalAlignment="Top"
                       Margin="20,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -237,7 +267,10 @@
                                         ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
                         </Border.Background>
                         <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                 BorderThickness="0,0,0,0" />
+                                 BorderThickness="0,0,0,0"
+                                 Text="{Binding Description}"
+                                 materialDesign:ValidationAssist.UsePopup="True"
+                                 Padding="5,0"/>
 
                     </Border>
                 </Grid>
@@ -390,7 +423,7 @@
                         </Style>
                     </ListView.ItemContainerStyle>
 
-                   <ListView.ItemTemplate>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
 
@@ -400,8 +433,10 @@
                                 </Grid.RowDefinitions>
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -410,6 +445,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
                                        Width="30">
                                 <Run Text="{Binding Quantity}" />
                                     </TextBlock>
@@ -419,20 +455,37 @@
                                     <Run Text="{Binding Product.Name}" />
                                     </TextBlock>
 
-                                    <TextBlock Grid.Row="0"
-                                       Grid.Column="2"
-                                       Grid.RowSpan="2"
-                                           HorizontalAlignment="Right"
-                                       VerticalAlignment="Center">
-                                <Run Text="{Binding Price}" />
-                                    </TextBlock>
+                                    <StackPanel Grid.Row="0"
+                                                Grid.Column="2"
+                                                Orientation="Horizontal"
+                                                Grid.RowSpan="4"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center">
+                                        <TextBlock FontWeight="SemiBold" Text="P "></TextBlock>
+                                        <TextBlock FontWeight="SemiBold"
+                                                   >
+                                            <Run Text="{Binding Price, StringFormat=N2}" />
+                                        </TextBlock>
+                                    </StackPanel>
+
                                     <TextBlock Grid.Row="1"
                                        Grid.Column="1"
-                                       Foreground="#6d6e71"
-                                       Margin="0,0,0,10">
+                                       Foreground="#6d6e71">
                                 <Run Text="{Binding Product.Description}" />
+
                                     </TextBlock>
-                                    <Button Grid.Column="3" Grid.RowSpan="2" Grid.Row="0"
+                                    <TextBlock Grid.Row="2"
+                                               Visibility="{Binding DataContext.IsPieces, Converter={StaticResource BoolToVisibilityCollapsed}, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                               Grid.Column="1"
+                                               Foreground="#6d6e71">
+                                        <Run Text="{Binding Size}" />
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="3"
+                                               Grid.Column="1"
+                                               Foreground="#6d6e71" Margin="0,0,0,5">
+                                        <Run Text="{Binding Description}" />
+                                    </TextBlock>
+                                    <Button Grid.Column="3" Grid.RowSpan="4" Grid.Row="0"
                                             Command="{Binding DataContext.RemoveInvoiceCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                         Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityCollapsed}, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
                                         Style="{StaticResource MaterialDesignToolButton}" Margin="10,0,0,0">
@@ -451,7 +504,7 @@
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                    
+
                 </ListView>
                 <Border Grid.Row="2"
                         Grid.Column="0"
@@ -465,14 +518,17 @@
                            Margin="0,5,0,0">
                     <Run Text="TOTAL" />
                 </TextBlock>
-                <TextBlock Grid.Row="3"
-                           Grid.Column="1"
-                           HorizontalAlignment="Right"
-                           FontSize="12"
-                           FontWeight="SemiBold"
-                           Margin="0,5,0,0">
-                    <Run Text="P 240.00" />
-                </TextBlock>
+                <StackPanel Margin="0,5,0,0" HorizontalAlignment="Right" Grid.Column="1"  Orientation="Horizontal" Grid.Row="3">
+                    <TextBlock FontSize="12"
+                               FontWeight="SemiBold"
+                               Text="P "></TextBlock>
+                    <TextBlock
+                        
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                           
+                           ><Run Text="{Binding Total, StringFormat=N2}" /></TextBlock>
+                </StackPanel>
             </Grid>
         </materialDesign:Card>
         <Grid Grid.Row="0"
