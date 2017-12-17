@@ -388,5 +388,11 @@
   <ItemGroup>
     <Resource Include="Views\Transaction\addtoCart_thumb.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\btnCash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\btnCredit.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

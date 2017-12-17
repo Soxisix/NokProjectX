@@ -77,6 +77,8 @@
         private double _total;
 
         private bool _isPieces;
+        private double _payment;
+        private double _change;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionViewModel"/> class.
@@ -188,6 +190,7 @@
                         IsPieces = true;
                     }
                 }
+                Validator.Reset();
             }
         }
 
@@ -218,6 +221,10 @@
             set { Set(ref _total, value); }
         }
 
+        public double Payment { get { return _payment; } set { Set(ref _payment, value); } }
+
+        public double Change { get { return _change; } set { Set(ref _change, value); }}
+
         /// <summary>
         /// The ValidateAsync
         /// </summary>
@@ -245,7 +252,7 @@
             
             Validator.AddRequiredRule(() => Description, "Description is required");
 
-            if (IsPieces)
+            if (!IsPieces)
             {
                 Validator.AddRequiredRule(() => Size1, "Length is required");
                 Validator.AddRequiredRule(() => Size2, "Width is required");
@@ -280,11 +287,21 @@
         {
             await ValidateAsync();
             if (HasErrors)  return;
-            
+            double price = 0.0d;
+            if (SelectedProduct.Type.Name == "pcs" || SelectedProduct.Type.Name == "pieces" || SelectedProduct.Type.Name == "pc")
+            {
+                price = Price * Quantity.GetValueOrDefault();
+            }
+            else
+            {
+                price = Price * (Quantity.GetValueOrDefault() *
+                                 (Size1.GetValueOrDefault() * Size2.GetValueOrDefault()));
+            }
+
             var newInvoice = new Invoice()
             {
                 Product = SelectedProduct,
-                Price = Price * (Quantity.GetValueOrDefault() *(Size1.GetValueOrDefault() * Size2.GetValueOrDefault())),
+                Price = price,
                 Quantity = Quantity.GetValueOrDefault(),
                 Size = $"{Size1} x {Size2}",
                 Description = Description
