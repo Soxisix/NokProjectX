@@ -218,10 +218,28 @@
         public double Total
         {
             get { return _total; }
-            set { Set(ref _total, value); }
+            set
+            {
+                Set(ref _total, value);
+                Change = Payment - Total;
+            }
         }
 
-        public double Payment { get { return _payment; } set { Set(ref _payment, value); } }
+        public double Payment
+        {
+            get
+            {
+                return _payment;
+            }
+            set
+            {
+                Set(ref _payment, value);
+                
+                    Change = Payment - Total;
+                
+               
+            }
+        }
 
         public double Change { get { return _change; } set { Set(ref _change, value); }}
 
@@ -268,7 +286,14 @@
         {
             AddInvoiceCommand = new RelayCommand(OnAddInvoice);
             RemoveInvoiceCommand = new RelayCommand(OnRemoveInvoice);
-            
+            ClearPaymentCommand = new RelayCommand(OnClearPayment);
+        }
+
+        public RelayCommand ClearPaymentCommand { get; set; }
+
+        private void OnClearPayment()
+        {
+            Payment = 0.0d;
         }
 
         /// <summary>

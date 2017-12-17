@@ -800,13 +800,13 @@
                                 TextAlignment="Center" Text="P " Margin="10,0,0,0" FontSize="16" FontWeight="SemiBold"></TextBlock>
                             <TextBox Grid.Column="0" materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
+                                HorizontalAlignment="Stretch"
                                 TextAlignment="Center"
                                 Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityCollapsed}, ElementName=Cash}"
                         
                                 BorderThickness="0,0,0,0"
-                                Text="{Binding Description}"
-                                materialDesign:HintAssist.Hint="0.00"
+                                Text="{Binding Payment, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
+                                
                                 materialDesign:ValidationAssist.UsePopup="True"
                                 Padding="5,0" FontSize="16" FontWeight="SemiBold"  />
 
@@ -821,8 +821,13 @@
                         SelectedIndex="0"
                         
                         Style="{StaticResource MaterialDesignToolToggleListBox}">
-                        
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ClearPaymentCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ListBoxItem x:Name="Cash">
+                            
                             <ListBoxItem.Style>
                                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                     <Style.Triggers>
@@ -836,13 +841,16 @@
                             <TextBlock  Width="125" TextAlignment="Center" Text="CASH"></TextBlock>
                         </ListBoxItem>
                         <ListBoxItem x:Name="Credit">
+                            
                             <ListBoxItem.Style>
                                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                     <Style.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter Property="Background" Value="#231f20"></Setter>
                                             <Setter Property="Foreground" Value="White"></Setter>
+                                            
                                         </Trigger>
+                                        
                                     </Style.Triggers>
                                 </Style>
                             </ListBoxItem.Style>
