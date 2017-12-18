@@ -361,6 +361,10 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         {
             
             await ValidateAsync();
+            if (HasErrors)
+            {
+                return;
+            }
             var newCustomer = new Customer()
             {
                 Name = CustomerName,
