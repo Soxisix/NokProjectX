@@ -2,9 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:NokProjectX.Wpf.Views.Transaction"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:Converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:common="clr-namespace:NokProjectX.Wpf.Common"
              x:Class="NokProjectX.Wpf.Views.Transaction.TransactionView"
@@ -24,7 +22,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -77,7 +76,7 @@
                              VerticalAlignment="Stretch"
                              Background="Transparent"
                              materialDesign:HintAssist.Hint="Search"
-                             Text="{Binding SearchText, Delay=500, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding SearchProduct, Delay=500, UpdateSourceTrigger=PropertyChanged}"
                              Padding="5,2,2,2" />
                     <Button Style="{DynamicResource MaterialDesignToolButton}"
                             Grid.Column="1"
@@ -88,13 +87,14 @@
             </Border>
         </materialDesign:Card>
         <materialDesign:Card Width="350"
+                             Height="340"
                              VerticalAlignment="Stretch"
                              materialDesign:ShadowAssist.ShadowDepth="Depth0"
                              Grid.Row="0"
                              Grid.Column="1"
                              Grid.RowSpan="2"
                              Margin="5,0,0,0">
-            <Grid>
+            <Grid Height="340">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -140,6 +140,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
+
                     <Grid Margin="0,3,0,2"
                           HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
@@ -151,29 +152,49 @@
                                    Grid.Column="0"
                                    VerticalAlignment="Center"
                                    Text="P " />
-                        <TextBox IsReadOnly="{Binding IsChecked, ElementName=EditPrice}"
+                        <TextBox x:Name="PriceTextBox"
+                                 IsReadOnly="{Binding IsChecked, ElementName=EditPrice, Converter={StaticResource BoolNegateConverter}}"
                                  VerticalAlignment="Center"
                                  FontWeight="SemiBold"
                                  Grid.Column="1"
                                  FontSize="16"
                                  TextAlignment="Left"
                                  BorderThickness="0,0,0,0"
-                                 materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                                 materialDesign:TextFieldAssist.DecorationVisibility="{Binding IsChecked, ElementName=EditPrice, Converter={StaticResource BoolToVisibilityCollapsed}}"
                                  Text="{Binding Price, StringFormat=N2}"
-                                 PreviewTextInput="TextBox_PreviewTextInput">
+                                 PreviewTextInput="NumberValidationTextBox">
                         </TextBox>
                     </Grid>
                     <ToggleButton x:Name="EditPrice"
                                   Grid.Column="1"
-                                  IsChecked="True"
-                                  Style="{StaticResource MaterialDesignActionLightToggleButton}"
+                                  IsChecked="False"
                                   ToolTip="Edit Price">
+                        <ToggleButton.Style>
+                            <Style TargetType="ToggleButton"
+                                   BasedOn="{StaticResource MaterialDesignFlatPrimaryToggleButton}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="#FF343132">
+                                        </Setter>
+                                        <Setter Property="Foreground"
+                                                Value="White">
+                                        </Setter>
+
+                                    </Trigger>
+                                    <Trigger Property="IsChecked"
+                                             Value="False">
+                                        <Setter Property="FocusManager.FocusedElement"
+                                                Value="{Binding ElementName=PriceTextBox}">
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
                         <ToggleButton.Content>
-                            <materialDesign:PackIcon Kind="Close" />
-                        </ToggleButton.Content>
-                        <materialDesign:ToggleButtonAssist.OnContent>
                             <materialDesign:PackIcon Kind="Pencil" />
-                        </materialDesign:ToggleButtonAssist.OnContent>
+                        </ToggleButton.Content>
 
                     </ToggleButton>
                 </Grid>
@@ -181,7 +202,7 @@
                         BorderBrush="#FFE0E0E0"
                         BorderThickness="0,0,0,1" />
                 <Grid Grid.Row="4"
-                      Margin="20,9">
+                      Margin="20,7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="74" />
                         <ColumnDefinition Width="96*" />
@@ -218,7 +239,7 @@
                         Visibility="{Binding IsPieces, Converter={StaticResource BoolToVisibilityCollapsed}}"
                         BorderThickness="0,0,0,1" />
                 <Grid Grid.Row="5"
-                      Margin="20,8"
+                      Margin="20,7"
                       Visibility="{Binding IsPieces, Converter={StaticResource BoolToVisibilityCollapsed}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="74" />
@@ -250,6 +271,7 @@
                                      Padding="5,0"
                                      materialDesign:ValidationAssist.UsePopup="True"
                                      Text="{Binding Size1}"
+                                     PreviewTextInput="NumberValidationTextBox"
                                      materialDesign:HintAssist.Hint="Length" />
 
                         </Border>
@@ -273,6 +295,7 @@
                                      Padding="5,0"
                                      materialDesign:ValidationAssist.UsePopup="True"
                                      Text="{Binding Size2}"
+                                     PreviewTextInput="NumberValidationTextBox"
                                      materialDesign:HintAssist.Hint="Width" />
 
                         </Border>
@@ -280,7 +303,7 @@
                 </Grid>
                 <Grid Grid.Row="6"
                       VerticalAlignment="Top"
-                      Margin="20,8">
+                      Margin="20,7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
@@ -306,8 +329,7 @@
                 <Border Grid.Row="6"
                         BorderBrush="#FFE0E0E0"
                         BorderThickness="0,0,0,1" />
-                <Button 
-                        HorizontalAlignment="Stretch"
+                <Button HorizontalAlignment="Stretch"
                         SnapsToDevicePixels="True"
                         BorderThickness="0"
                         Grid.Row="7"
@@ -516,7 +538,7 @@
 
                                     </TextBlock>
                                     <TextBlock Grid.Row="2"
-                                               Visibility="{Binding DataContext.IsPieces, Converter={StaticResource BoolToVisibilityCollapsed}, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                               Visibility="{Binding Product.Type.Name, Converter={StaticResource TypeConverter}}"
                                                Grid.Column="1"
                                                Foreground="#6d6e71">
                                         <Run Text="{Binding Size}" />
@@ -618,9 +640,37 @@
                     <TextBlock FontSize="12"
                                FontWeight="SemiBold"
                                Text="P ">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Path=Change,
+                                   Converter={StaticResource ChangeValidation}}">
+                                        <DataTrigger.Value>true</DataTrigger.Value>
+                                        <Setter Property="Foreground"
+                                                Value="#FFF11F1F" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
                     </TextBlock>
                     <TextBlock FontSize="12"
                                FontWeight="SemiBold">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Path=Change,
+                                   Converter={StaticResource ChangeValidation}}">
+                                        <DataTrigger.Value>true</DataTrigger.Value>
+                                        <Setter Property="Foreground"
+                                                Value="#FFF11F1F" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
                         <Run Text="{Binding Change, StringFormat=N2}" />
                     </TextBlock>
                 </StackPanel>
@@ -668,7 +718,7 @@
                                          VerticalAlignment="Stretch"
                                          Background="Transparent"
                                          materialDesign:HintAssist.Hint="Search"
-                                         Text="{Binding SearchText, Delay=500, UpdateSourceTrigger=PropertyChanged}"
+                                         Text="{Binding SearchCustomer, Delay=500, UpdateSourceTrigger=PropertyChanged}"
                                          Padding="5,2,2,2" />
                                 <Button Style="{DynamicResource MaterialDesignToolButton}"
                                         Grid.Column="1"
@@ -682,6 +732,7 @@
                     <Button ToolTip="Add Customer"
                             Grid.Column="1"
                             Margin="5,0,0,0"
+                            Command="{Binding NewCustomerCommand}"
                             materialDesign:ShadowAssist.ShadowDepth="Depth0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}"
@@ -716,49 +767,49 @@
                                  Padding="10"
                                  Margin="5,0,0,0">
                 <Grid>
-                    <ListView>
-                        <ListViewItem>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>
-                                        <Run Text="Name : " />
-                                    </TextBlock>
-                                    <TextBlock>HP Superstore</TextBlock>
-                                </StackPanel>
-                                <StackPanel Grid.Row="1"
-                                            Orientation="Horizontal">
-                                    <TextBlock>
-                                        <Run Text="Contact : " />
-                                    </TextBlock>
-                                    <TextBlock>09120123123</TextBlock>
-                                </StackPanel>
-                            </Grid>
-                        </ListViewItem>
-                        <ListViewItem>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>
-                                        <Run Text="Name : " />
-                                    </TextBlock>
-                                    <TextBlock>SM Superstore</TextBlock>
-                                </StackPanel>
-                                <StackPanel Grid.Row="1"
-                                            Orientation="Horizontal">
-                                    <TextBlock>
-                                        <Run Text="Contact : " />
-                                    </TextBlock>
-                                    <TextBlock>09120123123</TextBlock>
-                                </StackPanel>
-                            </Grid>
-                        </ListViewItem>
+                    <ListView ItemsSource="{Binding Customers}"
+                              SelectedItem="{Binding SelectedCustomer}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem"
+                                   BasedOn="{StaticResource {x:Type ListViewItem}}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="#231f20">
+                                        </Setter>
+                                        <Setter Property="Foreground"
+                                                Value="White">
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>
+                                            <Run Text="Name : " />
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1"
+                                                Orientation="Horizontal">
+                                        <TextBlock>
+                                            <Run Text="Contact : " />
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Mobile}"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
                     </ListView>
                 </Grid>
             </materialDesign:Card>
@@ -774,8 +825,9 @@
                         <Run Text="Customer : "></Run>
                     </TextBlock>
                     <TextBlock Grid.Column="1"
-                               FontWeight="SemiBold">
-                        HP Superstore
+                               FontWeight="SemiBold"
+                               Text="{Binding SelectedCustomer.Name}">
+
                     </TextBlock>
                 </Grid>
             </materialDesign:Card>
@@ -794,67 +846,89 @@
                             <ImageBrush Stretch="Fill"
                                         ImageSource="/NokProjectX.Wpf;component/Resources/searchInput.png" />
                         </Border.Background>
-                        <Grid >
+                        <Grid>
                             <TextBlock VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                TextAlignment="Center" Text="P " Margin="10,0,0,0" FontSize="16" FontWeight="SemiBold"></TextBlock>
-                            <TextBox Grid.Column="0" materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Stretch"
-                                TextAlignment="Center"
-                                Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityCollapsed}, ElementName=Cash}"
-                        
-                                BorderThickness="0,0,0,0"
-                                Text="{Binding Payment, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
-                                
-                                materialDesign:ValidationAssist.UsePopup="True"
-                                Padding="5,0" FontSize="16" FontWeight="SemiBold"  />
+                                       HorizontalAlignment="Left"
+                                       TextAlignment="Center"
+                                       Text="P "
+                                       Margin="10,0,0,0"
+                                       FontSize="16"
+                                       FontWeight="SemiBold">
+                            </TextBlock>
+                            <TextBox Grid.Column="0"
+                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Stretch"
+                                     TextAlignment="Center"
+                                     Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityCollapsed}, ElementName=Cash}"
+                                     BorderThickness="0,0,0,0"
+                                     Text="{Binding Payment, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
+                                     materialDesign:ValidationAssist.UsePopup="True"
+                                     Padding="5,0"
+                                     FontSize="16"
+                                     FontWeight="SemiBold" />
 
                         </Grid>
 
                     </Border>
-                    <ListBox
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
-                        Grid.Row="1"
-                        HorizontalAlignment="Center"
-                        HorizontalContentAlignment="Stretch"
-                        SelectedIndex="0"
-                        
-                        Style="{StaticResource MaterialDesignToolToggleListBox}">
+                    <ListBox materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                             Grid.Row="1"
+                             HorizontalAlignment="Center"
+                             HorizontalContentAlignment="Stretch"
+                             SelectedIndex="0"
+                             Style="{StaticResource MaterialDesignToolToggleListBox}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding ClearPaymentCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding ClearPaymentCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <ListBoxItem x:Name="Cash">
-                            
+
                             <ListBoxItem.Style>
-                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                <Style TargetType="ListBoxItem"
+                                       BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                     <Style.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="#231f20"></Setter>
-                                            <Setter Property="Foreground" Value="White"></Setter>
+                                        <Trigger Property="IsSelected"
+                                                 Value="True">
+                                            <Setter Property="Background"
+                                                    Value="#231f20">
+                                            </Setter>
+                                            <Setter Property="Foreground"
+                                                    Value="White">
+                                            </Setter>
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </ListBoxItem.Style>
-                            <TextBlock  Width="125" TextAlignment="Center" Text="CASH"></TextBlock>
+                            <TextBlock Width="125"
+                                       TextAlignment="Center"
+                                       Text="CASH">
+                            </TextBlock>
                         </ListBoxItem>
                         <ListBoxItem x:Name="Credit">
-                            
+
                             <ListBoxItem.Style>
-                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                <Style TargetType="ListBoxItem"
+                                       BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                     <Style.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="#231f20"></Setter>
-                                            <Setter Property="Foreground" Value="White"></Setter>
-                                            
+                                        <Trigger Property="IsSelected"
+                                                 Value="True">
+                                            <Setter Property="Background"
+                                                    Value="#231f20">
+                                            </Setter>
+                                            <Setter Property="Foreground"
+                                                    Value="White">
+                                            </Setter>
+
                                         </Trigger>
-                                        
+
                                     </Style.Triggers>
                                 </Style>
                             </ListBoxItem.Style>
-                            <TextBlock Width="125" TextAlignment="Center" Text="CREDIT"></TextBlock>
+                            <TextBlock Width="125"
+                                       TextAlignment="Center"
+                                       Text="CREDIT">
+                            </TextBlock>
                         </ListBoxItem>
 
                     </ListBox>

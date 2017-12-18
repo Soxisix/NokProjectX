@@ -34,5 +34,7 @@
         /// Gets or sets the Types
         /// </summary>
         public DbSet<Type> Types { get; set; }
+
+        public DbSet<Customer> Customers { get; set; }
     }
 }

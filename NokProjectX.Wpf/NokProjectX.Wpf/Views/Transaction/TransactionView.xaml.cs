@@ -1,4 +1,7 @@
-﻿namespace NokProjectX.Wpf.Views.Transaction
+﻿using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace NokProjectX.Wpf.Views.Transaction
 {
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -39,6 +42,18 @@
         {
             if (!char.IsDigit(e.Text, e.Text.Length - 1))
                 e.Handled = true;
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9.]+");
+            if (e.Text.Last() == '.'
+                && ((TextBox) sender).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+                return;
+            }
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

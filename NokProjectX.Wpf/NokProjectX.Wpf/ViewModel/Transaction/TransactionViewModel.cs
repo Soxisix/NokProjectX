@@ -1,4 +1,9 @@
-﻿namespace NokProjectX.Wpf.ViewModel.Transaction
+﻿using System;
+using MaterialDesignThemes.Wpf;
+using NokProjectX.Wpf.Common;
+using NokProjectX.Wpf.Views.Customer;
+
+namespace NokProjectX.Wpf.ViewModel.Transaction
 {
     using GalaSoft.MvvmLight.Command;
     using MvvmValidation;
@@ -79,6 +84,11 @@
         private bool _isPieces;
         private double _payment;
         private double _change;
+        private Customer _selectedCustomer;
+        private string _searchCustomer;
+        private List<Customer> _originalCustomers;
+        private List<Customer> _customers;
+        private string _searchProduct;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionViewModel"/> class.
@@ -91,7 +101,35 @@
             MessengerInstance.Register<RefreshMessage>(this, OnRefresh);
             LoadCommand();
             InvoiceList = new ObservableCollection<Invoice>();
-            ConfigureValidationRules();
+            
+        }
+
+        public string SearchProduct
+        {
+            get
+            {
+                return _searchProduct;
+            }
+            set
+            {
+                Set(ref _searchProduct, value);
+                if (String.IsNullOrEmpty(SearchProduct))
+                {
+                    Products = _originalProducts;
+                }
+                else
+                {
+                    Products = _originalProducts.Where(c =>
+                            c.Name.ToLower().Contains(SearchProduct.Trim().ToLower()) ||
+                            SearchProduct.Trim().Contains(c.ProductCode.ToString()) ||
+                            c.Description.ToLower().Contains(SearchProduct.Trim().ToLower()))
+                        .ToList();
+                    if (Products.Count < 1)
+                    {
+                        Price = 0.0d;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -221,6 +259,11 @@
             set
             {
                 Set(ref _total, value);
+                if (Payment == 0.0d)
+                {
+                    Change = 0.0d;
+                    return;
+                }
                 Change = Payment - Total;
             }
         }
@@ -234,10 +277,12 @@
             set
             {
                 Set(ref _payment, value);
-                
-                    Change = Payment - Total;
-                
-               
+                if (Payment == 0.0d)
+                {
+                    Change = 0.0d;
+                    return;
+                }
+                Change = Payment - Total;
             }
         }
 
@@ -270,7 +315,7 @@
             
             Validator.AddRequiredRule(() => Description, "Description is required");
 
-            if (!IsPieces)
+            if (IsPieces)
             {
                 Validator.AddRequiredRule(() => Size1, "Length is required");
                 Validator.AddRequiredRule(() => Size2, "Width is required");
@@ -287,7 +332,94 @@
             AddInvoiceCommand = new RelayCommand(OnAddInvoice);
             RemoveInvoiceCommand = new RelayCommand(OnRemoveInvoice);
             ClearPaymentCommand = new RelayCommand(OnClearPayment);
+            NewCustomerCommand = new RelayCommand(OnNewCustomer);
+            AddCustomerCommand = new RelayCommand(OnAddCustomer);
+            CloseCommand = new RelayCommand(OnClose);
         }
+
+        public RelayCommand CloseCommand { get; set; }
+
+        private void OnClose()
+        {
+            Validator.Reset();
+            ClearNewCustomer();
+            DialogHost.CloseDialogCommand.Execute(this, null);
+        }
+
+        void ClearNewCustomer()
+        {
+            CustomerName = null;
+            CustomerMobile = null;
+            CustomerAddress = null;
+        }
+
+
+
+        public RelayCommand AddCustomerCommand { get; set; }
+
+        private async void OnAddCustomer()
+        {
+            
+            await ValidateAsync();
+            var newCustomer = new Customer()
+            {
+                Name = CustomerName,
+                Mobile = CustomerMobile,
+                Address = CustomerAddress
+            };
+            _originalCustomers.Add(newCustomer);
+            
+            _context.Customers.Add(newCustomer);
+            _context.SaveChanges();
+            LoadData();
+            OnClose();
+        }
+
+        private void ValidateCustomer()
+        {
+            
+            Validator.AddRequiredRule(() => CustomerName, "Customer Name is Required!");
+            Validator.AddRequiredRule(() => CustomerMobile, "Mobile Number is Required!");
+        }
+
+        public RelayCommand NewCustomerCommand { get; set; }
+
+        private async void OnNewCustomer()
+        {
+            
+            Validator.RemoveAllRules();
+            ValidateCustomer();
+            await DialogHost.Show(new NewCustomerView() {DataContext = this}, "RootDialog");
+        }
+
+        public string CustomerName { get; set; }
+        public string CustomerMobile { get; set; }
+        public string CustomerAddress { get; set; }
+
+        public List<Customer> Customers { get { return _customers; } set { Set(ref _customers, value); } }
+
+        public string SearchCustomer
+        {
+            get
+            {
+                return _searchCustomer;
+            }
+            set
+            {
+                Set(ref _searchCustomer, value);
+
+                if (String.IsNullOrEmpty(SearchCustomer))
+                {
+                    Customers = _originalCustomers;
+                }
+                else
+                {
+                    Customers = _originalCustomers.Where(c => c.Name.ToLower().Contains(SearchCustomer.ToLower().Trim())).ToList();
+                }
+            }
+        }
+
+        public Customer SelectedCustomer { get { return _selectedCustomer; } set { Set(ref _selectedCustomer, value); } }
 
         public RelayCommand ClearPaymentCommand { get; set; }
 
@@ -303,6 +435,8 @@
         {
             _originalProducts = _context.Products.ToList();
             Products = _originalProducts;
+            _originalCustomers = _context.Customers.ToList();
+            Customers = _originalCustomers;
         }
 
         /// <summary>
@@ -310,6 +444,13 @@
         /// </summary>
         private async void OnAddInvoice()
         {
+            if (SelectedProduct == null)
+            {
+                return;
+                
+            }
+            Validator.RemoveAllRules();
+            ConfigureValidationRules();
             await ValidateAsync();
             if (HasErrors)  return;
             double price = 0.0d;

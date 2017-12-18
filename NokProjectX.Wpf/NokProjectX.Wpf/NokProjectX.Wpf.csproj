@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>NokProjectX.Wpf</RootNamespace>
     <AssemblyName>NokProjectX.Wpf</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -95,7 +96,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -114,6 +118,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\ListExtension.cs" />
     <Compile Include="Common\MenuList.cs" />
     <Compile Include="Common\Messages\ListOfProductsMessage.cs" />
     <Compile Include="Common\Messages\NavigateTo.cs" />
@@ -122,7 +127,11 @@
     <Compile Include="Common\SelectItemOnButtonClick.cs" />
     <Compile Include="Common\Validator\ValidatableViewModelBase.cs" />
     <Compile Include="Context\YumiContext.cs" />
+    <Compile Include="Converter\BoolNegateConverter.cs" />
+    <Compile Include="Converter\BoolNegateToVisibilityCollapsed.cs" />
     <Compile Include="Converter\BoolToVisibilityCollapsed.cs" />
+    <Compile Include="Converter\ChangeValidationConverter.cs" />
+    <Compile Include="Converter\TypeConverter.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Invoice.cs" />
     <Compile Include="Entities\Product.cs" />
@@ -144,6 +153,9 @@
     </Compile>
     <Compile Include="Views\Common\TopBarView.xaml.cs">
       <DependentUpon>TopBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customer\NewCustomerView.xaml.cs">
+      <DependentUpon>NewCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Inventory\AddProductView.xaml.cs">
       <DependentUpon>AddProductView.xaml</DependentUpon>
@@ -184,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Common\TopBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customer\NewCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -388,6 +404,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\btnCredit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addCustomer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addCustomerHover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,7 +9,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <converter:BoolToVisibilityCollapsed x:Key="BoolToVisibilityCollapsed" />
-
+            <converter:BoolNegateToVisibilityCollapsed x:Key="BoolNegateToVisibility" />
+            <converter:BoolNegateConverter x:Key="BoolNegateConverter" />
+            <converter:ChangeValidationConverter x:Key="ChangeValidation" />
+            <converter:TypeConverter x:Key="TypeConverter" />
             <vm:ViewModelLocator xmlns:vm="clr-namespace:NokProjectX.Wpf.ViewModel"
                                  x:Key="Locator"
                                  d:IsDataSource="True" />

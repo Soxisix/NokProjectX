@@ -103,6 +103,26 @@ namespace NokProjectX.Wpf.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap addCustomer {
+            get {
+                object obj = ResourceManager.GetObject("addCustomer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap addCustomerHover {
+            get {
+                object obj = ResourceManager.GetObject("addCustomerHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap addProduct {
             get {
                 object obj = ResourceManager.GetObject("addProduct", resourceCulture);
