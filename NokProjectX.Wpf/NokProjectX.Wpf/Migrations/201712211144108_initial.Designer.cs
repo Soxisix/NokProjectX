@@ -7,13 +7,13 @@ namespace NokProjectX.Wpf.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class initialcjbaisa : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initialcjbaisa));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712210706084_initialcjbaisa"; }
+            get { return "201712211144108_initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -519,6 +519,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             {
                 InvoiceList.Remove(SelectedInvoice);
                 
+
             }
             CalculateTotal();
         }
