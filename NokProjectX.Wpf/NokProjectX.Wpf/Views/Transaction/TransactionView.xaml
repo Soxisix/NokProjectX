@@ -433,14 +433,18 @@
                            Foreground="#6d6e71">
                     <Run Text="12/10/2017" />
                 </TextBlock>
-                <TextBlock FontSize="14"
-                           Grid.Row="0"
-                           Grid.Column="1"
-                           Foreground="#6d6e71"
-                           HorizontalAlignment="Right">
-                    <Run Text="#T0000001" />
-                </TextBlock>
-                <TextBlock Grid.Row="1"
+				<StackPanel Grid.Row="0" 
+				            Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+					<TextBlock FontSize="14"
+						Foreground="#6d6e71"
+						HorizontalAlignment="Right" Height="21"><Run Text="#" /></TextBlock>
+					<TextBlock FontSize="14"
+					           Foreground="#6d6e71"
+					           HorizontalAlignment="Right" Height="21"
+							   Text="{Binding NewInvoice.InvoiceCode}"></TextBlock>
+
+				</StackPanel>
+				<TextBlock Grid.Row="1"
                            Grid.Column="1"
                            FontSize="10"
                            Foreground="#6d6e71"
@@ -873,6 +877,7 @@
                     </Border>
                     <ListBox materialDesign:ShadowAssist.ShadowDepth="Depth0"
                              Grid.Row="1"
+							 SelectedItem="{Binding PaymentMode}"
                              HorizontalAlignment="Center"
                              HorizontalContentAlignment="Stretch"
                              SelectedIndex="0"
@@ -882,7 +887,7 @@
                                 <i:InvokeCommandAction Command="{Binding ClearPaymentCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <ListBoxItem x:Name="Cash">
+                        <ListBoxItem x:Name="Cash" >
 
                             <ListBoxItem.Style>
                                 <Style TargetType="ListBoxItem"
@@ -897,6 +902,7 @@
                                                     Value="White">
                                             </Setter>
                                         </Trigger>
+										
                                     </Style.Triggers>
                                 </Style>
                             </ListBoxItem.Style>
@@ -944,6 +950,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Button Margin="5,0,0,0"
+							Command="{Binding ConfirmCommand}"
                             materialDesign:ShadowAssist.ShadowDepth="Depth0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}"

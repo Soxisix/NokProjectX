@@ -12,7 +12,6 @@ namespace NokProjectX.Wpf.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            MigrateDatabaseToLatestVersion<>
         }
 
         protected override void Seed(NokProjectX.Wpf.Context.YumiContext context)
@@ -29,17 +28,27 @@ namespace NokProjectX.Wpf.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
             var pcs = new Entities.Type { Name = "pcs" };
+
             var ft = new Entities.Type { Name = "ft" };
+
             context.Types.AddOrUpdate(c => c.Name,
+
                 pcs,
+
                 ft
+
             );
+
+
 
             var product1 = new Product() { };
+
             context.Products.AddOrUpdate(c => c.ProductCode
+
             );
+
+            context.SaveChanges();
         }
     }
 }

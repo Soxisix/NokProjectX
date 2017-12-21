@@ -18,7 +18,9 @@
         
         public double Price { get; set; }
         
-        public int ProductCode { get; set; }
+        public string ProductCode { get { return CodeString + CodeNumber; }}
+        public string CodeString { get; set; }
+        public int CodeNumber { get; set; }
 
         public int Stock { get; set; }
 

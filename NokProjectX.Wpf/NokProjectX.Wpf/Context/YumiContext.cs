@@ -1,4 +1,6 @@
-﻿namespace NokProjectX.Wpf.Context
+﻿using System.Data.Entity.Migrations.Model;
+
+namespace NokProjectX.Wpf.Context
 {
     using MySql.Data.Entity;
     using NokProjectX.Wpf.Entities;
@@ -15,14 +17,15 @@
         /// </summary>
         public YumiContext() : base("name=YumiDb")
         {
-//            if (Database.Exists())
-//            {
-//                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<YumiContext>());
-//            }
-//            else
-//            {
-//                Database.SetInitializer(new CreateDatabaseIfNotExists<YumiContext>());
-//            }
+            //            if (Database.Exists())
+            //            {
+            //                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<YumiContext>());
+            //            }
+            //            else
+            //            {
+            //                Database.SetInitializer(new CreateDatabaseIfNotExists<YumiContext>());
+            //            }
+//            Database.SetInitializer(new MigrateDatabaseToLatestVersion<YumiContext, Configuration>());
         }
 
         /// <summary>

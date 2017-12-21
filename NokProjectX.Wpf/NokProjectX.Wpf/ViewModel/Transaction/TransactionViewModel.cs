@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
 using NokProjectX.Wpf.Common;
 using NokProjectX.Wpf.Views.Customer;
@@ -89,6 +90,11 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         private List<Customer> _originalCustomers;
         private List<Customer> _customers;
         private string _searchProduct;
+        private Invoice _newInvoice;
+        private bool _isCash
+            ;
+
+        private object _paymentMode;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionViewModel"/> class.
@@ -101,15 +107,11 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             MessengerInstance.Register<RefreshMessage>(this, OnRefresh);
             LoadCommand();
             InvoiceList = new ObservableCollection<Invoice>();
-            
         }
 
         public string SearchProduct
         {
-            get
-            {
-                return _searchProduct;
-            }
+            get { return _searchProduct; }
             set
             {
                 Set(ref _searchProduct, value);
@@ -140,8 +142,6 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         /// <summary>
         /// Gets or sets the ChangePriceCommand
         /// </summary>
-        
-
         /// <summary>
         /// Gets or sets the Description
         /// </summary>
@@ -157,7 +157,11 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         public ObservableCollection<Invoice> InvoiceList
         {
             get { return _invoiceList; }
-            set { Set(ref _invoiceList, value); }
+            set
+            {
+                Set(ref _invoiceList, value);
+                ConfirmCommand.RaiseCanExecuteChanged();
+            }
         }
 
         /// <summary>
@@ -202,10 +206,16 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             {
                 Set(ref _selectedInvoice, value);
                 Validator.Reset();
+                RaisePropertyChanged(() => AddInvoiceCommand);
             }
         }
 
-        public bool IsPieces { get { return _isPieces; } set { Set(ref _isPieces, value); } }
+        public bool IsPieces
+        {
+            get { return _isPieces; }
+            set { Set(ref _isPieces, value); }
+        }
+
         /// <summary>
         /// Gets or sets the SelectedProduct
         /// </summary>
@@ -229,6 +239,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                     }
                 }
                 Validator.Reset();
+                AddInvoiceCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -265,15 +276,13 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                     return;
                 }
                 Change = Payment - Total;
+                ConfirmCommand.RaiseCanExecuteChanged();
             }
         }
 
         public double Payment
         {
-            get
-            {
-                return _payment;
-            }
+            get { return _payment; }
             set
             {
                 Set(ref _payment, value);
@@ -283,10 +292,15 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                     return;
                 }
                 Change = Payment - Total;
+                ConfirmCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public double Change { get { return _change; } set { Set(ref _change, value); }}
+        public double Change
+        {
+            get { return _change; }
+            set { Set(ref _change, value); }
+        }
 
         /// <summary>
         /// The ValidateAsync
@@ -312,7 +326,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             //                        string.Format("LRN {0} is taken. Please choose a different one.", LRN));
             //                });
             Validator.AddRequiredRule(() => Quantity, "Quantity is required");
-            
+
             Validator.AddRequiredRule(() => Description, "Description is required");
 
             if (IsPieces)
@@ -320,8 +334,6 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 Validator.AddRequiredRule(() => Size1, "Length is required");
                 Validator.AddRequiredRule(() => Size2, "Width is required");
             }
-            
-
         }
 
         /// <summary>
@@ -337,12 +349,30 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             CloseCommand = new RelayCommand(OnClose);
             ConfirmCommand = new RelayCommand(OnConfirm, () =>
             {
-                if (InvoiceList != null && SelectedCustomer != null )
+                
+                if (InvoiceList != null && SelectedCustomer != null && PaymentMethod())
                 {
                     return true;
                 }
                 return false;
             });
+        }
+
+        bool PaymentMethod()
+        {
+            if (IsCash)
+            {
+                if (Payment >= Total)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
         }
 
         public RelayCommand ConfirmCommand { get; set; }
@@ -368,13 +398,10 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             CustomerAddress = null;
         }
 
-
-
         public RelayCommand AddCustomerCommand { get; set; }
 
         private async void OnAddCustomer()
         {
-            
             await ValidateAsync();
             if (HasErrors)
             {
@@ -387,7 +414,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 Address = CustomerAddress
             };
             _originalCustomers.Add(newCustomer);
-            
+
             _context.Customers.Add(newCustomer);
             _context.SaveChanges();
             LoadData();
@@ -396,7 +423,6 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
 
         private void ValidateCustomer()
         {
-            
             Validator.AddRequiredRule(() => CustomerName, "Customer Name is Required!");
             Validator.AddRequiredRule(() => CustomerMobile, "Mobile Number is Required!");
         }
@@ -405,7 +431,6 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
 
         private async void OnNewCustomer()
         {
-            
             Validator.RemoveAllRules();
             ValidateCustomer();
             await DialogHost.Show(new NewCustomerView() {DataContext = this}, "RootDialog");
@@ -415,16 +440,15 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         public string CustomerMobile { get; set; }
         public string CustomerAddress { get; set; }
 
-        
-
-        public List<Customer> Customers { get { return _customers; } set { Set(ref _customers, value); } }
+        public List<Customer> Customers
+        {
+            get { return _customers; }
+            set { Set(ref _customers, value); }
+        }
 
         public string SearchCustomer
         {
-            get
-            {
-                return _searchCustomer;
-            }
+            get { return _searchCustomer; }
             set
             {
                 Set(ref _searchCustomer, value);
@@ -435,12 +459,22 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 }
                 else
                 {
-                    Customers = _originalCustomers.Where(c => c.Name.ToLower().Contains(SearchCustomer.ToLower().Trim())).ToList();
+                    Customers = _originalCustomers
+                        .Where(c => c.Name.ToLower().Contains(SearchCustomer.ToLower().Trim())).ToList();
                 }
             }
         }
 
-        public Customer SelectedCustomer { get { return _selectedCustomer; } set { Set(ref _selectedCustomer, value); } }
+        public Customer SelectedCustomer
+        {
+            get { return _selectedCustomer; }
+            set
+            {
+                Set(ref _selectedCustomer, value);
+                ConfirmCommand.RaiseCanExecuteChanged();
+                
+            }
+        }
 
         public RelayCommand ClearPaymentCommand { get; set; }
 
@@ -468,14 +502,14 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             if (SelectedProduct == null)
             {
                 return;
-                
             }
             Validator.RemoveAllRules();
             ConfigureValidationRules();
             await ValidateAsync();
-            if (HasErrors)  return;
+            if (HasErrors) return;
             double price = 0.0d;
-            if (SelectedProduct.Type.Name == "pcs" || SelectedProduct.Type.Name == "pieces" || SelectedProduct.Type.Name == "pc")
+            if (SelectedProduct.Type.Name == "pcs" || SelectedProduct.Type.Name == "pieces" ||
+                SelectedProduct.Type.Name == "pc")
             {
                 price = Price * Quantity.GetValueOrDefault();
             }
@@ -484,9 +518,19 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 price = Price * (Quantity.GetValueOrDefault() *
                                  (Size1.GetValueOrDefault() * Size2.GetValueOrDefault()));
             }
-
-            var newInvoice = new Invoice()
+            var code = _context.Invoices.Select(c => c.InvoiceCode).OrderByDescending(c => c).FirstOrDefault();
+            int finalNumber = 0;
+            if (code > 0)
             {
+                finalNumber = code + 1;
+            }
+            else
+            {
+                finalNumber = 1000001;
+            }
+            NewInvoice = new Invoice()
+            {
+                InvoiceCode = finalNumber,
                 Product = SelectedProduct,
                 Unit = Price,
                 Price = price,
@@ -494,12 +538,17 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 Size = $"{Size1} x {Size2}",
                 Description = Description
             };
-            InvoiceList.Add(newInvoice);
+            InvoiceList.Add(NewInvoice);
             CalculateTotal();
             Total = Total;
             ClearFields();
         }
 
+        public Invoice NewInvoice
+        {
+            get { return _newInvoice; }
+            set { Set(ref _newInvoice, value); }
+        }
 
         /// <summary>
         /// The OnRefresh
@@ -518,8 +567,6 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             if (SelectedInvoice != null)
             {
                 InvoiceList.Remove(SelectedInvoice);
-                
-
             }
             CalculateTotal();
         }
@@ -540,6 +587,43 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             Size1 = null;
             Size2 = null;
             Description = null;
+        }
+
+        public bool IsCash
+        {
+            get
+            {
+                return _isCash;
+            }
+            set
+            {
+                Set(ref _isCash, value);
+                ConfirmCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public object PaymentMode
+        {
+            get
+            {
+                return _paymentMode;
+            }
+            set
+            {
+                Set(ref _paymentMode, value);
+                if (value != null)
+                {
+                    var a = value as ListBoxItem;
+                    if (a != null && a.Name == "Cash")
+                    {
+                        IsCash = true;
+                    }
+                    if (a != null && a.Name == "Credit")
+                    {
+                        IsCash = false;
+                    }
+                }
+            }
         }
     }
 }

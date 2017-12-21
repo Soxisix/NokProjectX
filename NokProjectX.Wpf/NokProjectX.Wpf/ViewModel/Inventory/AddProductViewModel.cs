@@ -305,12 +305,23 @@
             {
                 return;
             }
-            var result = _context.Products.Select(c => c.ProductCode).OrderByDescending(c => c).FirstOrDefault();
-            int newCode = result + 1;
+            var codeNumber = _context.Products.Select(c => c.CodeNumber).OrderByDescending(c => c).FirstOrDefault();
+            int finalNumber = 0;
+            if (codeNumber > 0)
+            {
+                finalNumber = codeNumber + 1;
+            }
+            else
+            {
+                finalNumber = 1000001;
+            }
+            string codeString = ProductName.Substring(0, 4).ToUpper();
+            
             //var picture = ImageToByteArray(Picture); 
             Product newProduct = new Product()
             {
-                ProductCode = newCode,
+                CodeNumber = finalNumber,
+                CodeString = codeString,
                 Name = ProductName,
                 Description = Description,
                 Type = SelectedType,
