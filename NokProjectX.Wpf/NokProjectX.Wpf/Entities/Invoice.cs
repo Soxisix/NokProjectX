@@ -1,4 +1,6 @@
-﻿namespace NokProjectX.Wpf.Entities
+﻿using System;
+
+namespace NokProjectX.Wpf.Entities
 {
     /// <summary>
     /// Defines the <see cref="Invoice" />
@@ -8,6 +10,10 @@
         public int Id { get; set; }
         
         public double Price { get; set; }
+
+        public double Unit { get; set; }
+
+        public DateTime Date { get; set; }
 
         public virtual Product Product { get; set; }
         

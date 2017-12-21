@@ -1,3 +1,5 @@
+using NokProjectX.Wpf.ViewModel.UserLogin;
+
 namespace NokProjectX.Wpf.ViewModel
 {
     using GalaSoft.MvvmLight;
@@ -45,6 +47,7 @@ namespace NokProjectX.Wpf.ViewModel
             SimpleIoc.Default.Register<EditProductViewModel>();
             SimpleIoc.Default.Register<AddStockViewModel>();
             SimpleIoc.Default.Register<TransactionViewModel>();
+            SimpleIoc.Default.Register<LoginViewModel>();
         }
 
         #endregion
@@ -133,11 +136,17 @@ namespace NokProjectX.Wpf.ViewModel
         /// </summary>
         public TransactionViewModel Transaction
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<TransactionViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<TransactionViewModel>(); }
+
         }
+
+        public LoginViewModel LoginView
+            {
+                get
+                {
+                    return ServiceLocator.Current.GetInstance<LoginViewModel>();
+                }
+            }
 
         #endregion
 

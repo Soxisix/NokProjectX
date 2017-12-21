@@ -335,6 +335,14 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             NewCustomerCommand = new RelayCommand(OnNewCustomer);
             AddCustomerCommand = new RelayCommand(OnAddCustomer);
             CloseCommand = new RelayCommand(OnClose);
+            ConfirmCommand = new RelayCommand(OnConfirm);
+        }
+
+        public RelayCommand ConfirmCommand { get; set; }
+
+        private void OnConfirm()
+        {
+            //code here
         }
 
         public RelayCommand CloseCommand { get; set; }
@@ -399,6 +407,8 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         public string CustomerName { get; set; }
         public string CustomerMobile { get; set; }
         public string CustomerAddress { get; set; }
+
+        
 
         public List<Customer> Customers { get { return _customers; } set { Set(ref _customers, value); } }
 
@@ -471,6 +481,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             var newInvoice = new Invoice()
             {
                 Product = SelectedProduct,
+                Unit = Price,
                 Price = price,
                 Quantity = Quantity.GetValueOrDefault(),
                 Size = $"{Size1} x {Size2}",

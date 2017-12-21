@@ -60,7 +60,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -152,6 +152,7 @@
     <Compile Include="Common\Messages\NavigateTo.cs" />
     <Compile Include="Common\Messages\RefreshMessage.cs" />
     <Compile Include="Common\Messages\SelectedProductMessage.cs" />
+    <Compile Include="Common\PasswordBoxAssistant.cs" />
     <Compile Include="Common\SelectItemOnButtonClick.cs" />
     <Compile Include="Common\Validator\ValidatableViewModelBase.cs" />
     <Compile Include="Context\YumiContext.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Invoice.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\Type.cs" />
     <Compile Include="ViewModel\Inventory\AddProductViewModel.cs" />
     <Compile Include="ViewModel\Inventory\AddStockViewModel.cs" />
@@ -202,6 +204,10 @@
     </Compile>
     <Compile Include="Views\Transaction\TransactionView.xaml.cs">
       <DependentUpon>TransactionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\UserLogin\LoginViewModel.cs" />
+    <Compile Include="Views\UserLogin\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -252,6 +258,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Transaction\TransactionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserLogin\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -446,6 +456,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RealLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
