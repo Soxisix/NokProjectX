@@ -166,6 +166,11 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\Type.cs" />
+    <Compile Include="Migrations\201712210706084_initialcjbaisa.cs" />
+    <Compile Include="Migrations\201712210706084_initialcjbaisa.Designer.cs">
+      <DependentUpon>201712210706084_initialcjbaisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModel\Inventory\AddProductViewModel.cs" />
     <Compile Include="ViewModel\Inventory\AddStockViewModel.cs" />
     <Compile Include="ViewModel\Inventory\EditProductViewModel.cs" />
@@ -280,6 +285,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201712210706084_initialcjbaisa.resx">
+      <DependentUpon>201712210706084_initialcjbaisa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

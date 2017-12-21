@@ -15,14 +15,14 @@
         /// </summary>
         public YumiContext() : base("name=YumiDb")
         {
-            if (Database.Exists())
-            {
-                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<YumiContext>());
-            }
-            else
-            {
-                Database.SetInitializer(new CreateDatabaseIfNotExists<YumiContext>());
-            }
+//            if (Database.Exists())
+//            {
+//                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<YumiContext>());
+//            }
+//            else
+//            {
+//                Database.SetInitializer(new CreateDatabaseIfNotExists<YumiContext>());
+//            }
         }
 
         /// <summary>

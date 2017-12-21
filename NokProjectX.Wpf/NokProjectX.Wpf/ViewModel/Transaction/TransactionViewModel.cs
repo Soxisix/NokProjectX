@@ -329,13 +329,20 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         /// </summary>
         private void LoadCommand()
         {
-            AddInvoiceCommand = new RelayCommand(OnAddInvoice);
+            AddInvoiceCommand = new RelayCommand(OnAddInvoice, () => SelectedProduct != null);
             RemoveInvoiceCommand = new RelayCommand(OnRemoveInvoice);
             ClearPaymentCommand = new RelayCommand(OnClearPayment);
             NewCustomerCommand = new RelayCommand(OnNewCustomer);
             AddCustomerCommand = new RelayCommand(OnAddCustomer);
             CloseCommand = new RelayCommand(OnClose);
-            ConfirmCommand = new RelayCommand(OnConfirm);
+            ConfirmCommand = new RelayCommand(OnConfirm, () =>
+            {
+                if (InvoiceList != null && SelectedCustomer != null )
+                {
+                    return true;
+                }
+                return false;
+            });
         }
 
         public RelayCommand ConfirmCommand { get; set; }
