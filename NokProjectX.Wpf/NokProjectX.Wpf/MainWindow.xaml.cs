@@ -1,4 +1,9 @@
-﻿namespace NokProjectX.Wpf
+﻿using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Practices.ServiceLocation;
+using NokProjectX.Wpf.Common.Messages;
+using NokProjectX.Wpf.ViewModel;
+
+namespace NokProjectX.Wpf
 {
     using System.Windows;
 
@@ -13,6 +18,15 @@
         public MainWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<SignInOutMessage>(this, OnSignInOut);
+            
+        }
+
+        private void OnSignInOut(SignInOutMessage obj)
+        {
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            main.Cleanup();
+            Close();
         }
     }
 }

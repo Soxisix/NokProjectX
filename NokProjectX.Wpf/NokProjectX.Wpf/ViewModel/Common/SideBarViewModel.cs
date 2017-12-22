@@ -1,4 +1,7 @@
-﻿using NokProjectX.Wpf.Views.Reports;
+﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Practices.ServiceLocation;
+using NokProjectX.Wpf.Views.Reports;
+using NokProjectX.Wpf.Views.UserLogin;
 
 namespace NokProjectX.Wpf.ViewModel.Common
 {
@@ -96,6 +99,11 @@ namespace NokProjectX.Wpf.ViewModel.Common
                     break;
                 case 3:
                     MessengerInstance.Send(new NavigateTo { Content = new ReportView() });
+                    break;
+                case 6:
+                    LoginView login = new LoginView();
+                    login.Show();
+                    MessengerInstance.Send(new SignInOutMessage());
                     break;
             }
         }

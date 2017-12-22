@@ -140,6 +140,7 @@
     <Compile Include="Common\Messages\NavigateTo.cs" />
     <Compile Include="Common\Messages\RefreshMessage.cs" />
     <Compile Include="Common\Messages\SelectedProductMessage.cs" />
+    <Compile Include="Common\Messages\SignInOutMessage.cs" />
     <Compile Include="Common\PasswordBoxAssistant.cs" />
     <Compile Include="Common\SelectItemOnButtonClick.cs" />
     <Compile Include="Common\Validator\ValidatableViewModelBase.cs" />
