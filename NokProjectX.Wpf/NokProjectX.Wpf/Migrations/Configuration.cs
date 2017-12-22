@@ -42,13 +42,55 @@ namespace NokProjectX.Wpf.Migrations
 
 
 
-            var product1 = new Product() { };
+            var product1 = new Product()
+            {
+                Name = "Tarpaulin",
+                Description = "Standard",
+                Price = 10.0d,
+                CodeString = "TARP",
+                CodeNumber = 1000001,
+                Stock = 100,
+                Type = ft,
+            };
+            var product2 = new Product()
+            {
+                Name = "Tarpaulin",
+                Description = "Regular",
+                Price = 15.0d,
+                CodeString = "TARP",
+                CodeNumber = 1000002,
+                Stock = 100,
+                Type = ft,
+            };
+            var product3 = new Product()
+            {
+                Name = "Tracing Paper 20 x 30",
+                Description = "Lines",
+                Price = 90.0d,
+                CodeString = "TRAC",
+                CodeNumber = 1000003,
+                Stock = 100,
+                Type = pcs,
+            };
+            var product4 = new Product()
+            {
+                Name = "Tracing Paper 24 x 34",
+                Description = "Graphics",
+                Price = 120.0d,
+                CodeString = "TRAC",
+                CodeNumber = 1000004,
+                Stock = 100,
+                Type = pcs,
+            };
 
-            context.Products.AddOrUpdate(c => c.ProductCode
-
+            context.Products.AddOrUpdate(c => c.CodeNumber,
+                product1,
+                product2,
+                product3,
+                product4
+                
             );
-
-            context.SaveChanges();
+            
         }
     }
 }

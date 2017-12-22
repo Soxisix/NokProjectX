@@ -10,5 +10,7 @@ namespace NokProjectX.Wpf.Entities
         public DateTime Date { get; set; }
         public virtual Invoice Invoice { get; set; }
         public virtual Customer Customer { get; set; }
+
+        public virtual UserAccount UserAccount { get; set; }
     }
 }

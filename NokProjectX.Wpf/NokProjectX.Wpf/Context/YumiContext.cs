@@ -27,6 +27,11 @@ namespace NokProjectX.Wpf.Context
             //            }
 //            Database.SetInitializer(new MigrateDatabaseToLatestVersion<YumiContext, Configuration>());
         }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>().Ignore(t => t.ProductCode);
+            base.OnModelCreating(modelBuilder);
+        }
 
         /// <summary>
         /// Gets or sets the Products

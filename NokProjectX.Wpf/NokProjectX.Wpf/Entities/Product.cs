@@ -1,4 +1,6 @@
-﻿namespace NokProjectX.Wpf.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace NokProjectX.Wpf.Entities
 {
     /// <summary>
     /// Defines the <see cref="Product" />
@@ -18,7 +20,6 @@
         
         public double Price { get; set; }
         
-        public string ProductCode { get { return CodeString + CodeNumber; }}
         public string CodeString { get; set; }
         public int CodeNumber { get; set; }
 
@@ -26,5 +27,7 @@
 
         
         public virtual Type Type { get; set; }
+        
+        public string ProductCode { get { return CodeString + CodeNumber; } }
     }
 }

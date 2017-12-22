@@ -1,4 +1,6 @@
+using NokProjectX.Wpf.ViewModel.Reports;
 using NokProjectX.Wpf.ViewModel.UserLogin;
+using NokProjectX.Wpf.Views.Reports;
 
 namespace NokProjectX.Wpf.ViewModel
 {
@@ -48,6 +50,8 @@ namespace NokProjectX.Wpf.ViewModel
             SimpleIoc.Default.Register<AddStockViewModel>();
             SimpleIoc.Default.Register<TransactionViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<ReportViewModel>();
+
         }
 
         #endregion
@@ -147,6 +151,13 @@ namespace NokProjectX.Wpf.ViewModel
                     return ServiceLocator.Current.GetInstance<LoginViewModel>();
                 }
             }
+        public ReportViewModel ReportView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ReportViewModel>();
+            }
+        }
 
         #endregion
 

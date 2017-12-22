@@ -1,0 +1,272 @@
+﻿<UserControl x:Class="NokProjectX.Wpf.Views.Reports.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             Background="#f1f2f2"
+			 VerticalAlignment="Stretch"
+			 DataContext="{Binding ReportView, Source={StaticResource Locator}}">
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition/>
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<StackPanel Orientation="Horizontal" >
+				<ComboBox materialDesign:HintAssist.Hint="Mode of Payment"
+				          Margin="0" 
+						  SelectedItem="{Binding ReportMode}"
+						  VerticalAlignment="Center">
+					<ComboBoxItem x:Name="All">
+						All Transactions
+					</ComboBoxItem>
+					<ComboBoxItem x:Name="Date">
+						By Date
+					</ComboBoxItem>
+					<ComboBoxItem x:Name="Customer">
+						By Customer
+					</ComboBoxItem>
+				</ComboBox>
+				<DatePicker materialDesign:HintAssist.Hint="From Date"
+							VerticalAlignment="Center"
+				            Visibility="{Binding IsByDate, Converter={StaticResource BoolToVisibilityCollapsed}}"
+				            SelectedDate="{Binding StartDate}"
+							Height="28" Margin="10,0,0,0">
+
+				</DatePicker>
+				<DatePicker materialDesign:HintAssist.Hint="To Date"
+							VerticalAlignment="Center"
+				            Visibility="{Binding IsByDate, Converter={StaticResource BoolToVisibilityCollapsed}}"
+							SelectedDate="{Binding EndDate}"
+				            Height="28" Margin="10,0,0,0">
+
+				</DatePicker>
+				<ComboBox  Height="Auto" HorizontalAlignment="Stretch" 
+				           VerticalAlignment="Center" IsEditable="True"
+						   materialDesign:HintAssist.Hint="Select Customer"
+				          SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+				          ItemsSource="{Binding Customers}">
+					<TextSearch.TextPath>Name</TextSearch.TextPath>
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock DataContext="{Binding}" Text="{Binding Name}">
+							</TextBlock>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+
+				<!--				<ComboBox materialDesign:HintAssist.Hint="Cashier"-->
+				<!--				          Margin="0" -->
+				<!--						  VerticalAlignment="Center"></ComboBox>-->
+
+			</StackPanel>
+			<StackPanel Orientation="Horizontal"
+						Grid.Column="1">
+				<Button >Update</Button>
+				<Button Margin="10,0,0,0" >Print</Button>
+			</StackPanel>
+
+		</Grid>
+
+		<Grid Grid.Row="1"				           
+			  Visibility="{Binding IsByCustomer, Converter={StaticResource BoolNegateToVisibility}}">
+			<ListView ItemsSource="{Binding Transactions}">
+				<ListView.View>
+					<GridView>
+
+						<GridViewColumn Header="Transaction Number">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Invoice.InvoiceCode}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Date and Time">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Date}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Customer Name">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Customer.Name}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Quantity">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Description}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Size">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Description}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Payment">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Payment}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Balance">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding asd}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Unit">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Description}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Price">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding TotalPrice}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+
+					</GridView>
+				</ListView.View>
+			</ListView>
+		</Grid>
+		<Grid Grid.Row="1"				           
+			  Visibility="{Binding IsByCustomer, Converter={StaticResource BoolToVisibilityCollapsed}}">
+			<ListView ItemsSource="{Binding Invoices}">
+				<ListView.View>
+					<GridView>
+
+						<GridViewColumn Header="Invoice Number">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding InvoiceCode}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Date and Time">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Date}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Customer Name">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Customer.Name}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Description">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Left" DataContext="{Binding}">
+										<TextBlock.Text>
+											<MultiBinding StringFormat="{}{0} - {1} - {2}">
+												<Binding Path="Product.Name" />
+												<Binding Path="Product.Description" />
+												<Binding Path="Description" />
+											</MultiBinding>
+										</TextBlock.Text>
+									</TextBlock>
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Quantity">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Quantity}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Size">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Size}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						
+						<GridViewColumn Header="Unit">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Unit}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+						<GridViewColumn Header="Price">
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock TextAlignment="Right"
+									           Text="{Binding Price}" />
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+
+					</GridView>
+				</ListView.View>
+			</ListView>
+		</Grid>
+		<Grid Grid.Row="2" HorizontalAlignment="Right">
+			<StackPanel Orientation="Vertical">
+				<Grid >
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock>Total Payment:</TextBlock>
+					<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding}" FontWeight="Bold"></TextBlock>
+					<TextBlock Grid.Row="1" Grid.Column="0">Credit:</TextBlock>
+					<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding}" FontWeight="Bold"></TextBlock>
+					<TextBlock Grid.Row="2" Grid.Column="0">Total Sales:</TextBlock>
+					<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding}" FontWeight="Bold"></TextBlock>
+					<TextBlock Grid.Row="3" Grid.Column="0">Net Profit:</TextBlock>
+					<TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding}" FontWeight="Bold"></TextBlock>
+				</Grid>
+				
+			</StackPanel>
+		</Grid>
+	</Grid>
+</UserControl>
+

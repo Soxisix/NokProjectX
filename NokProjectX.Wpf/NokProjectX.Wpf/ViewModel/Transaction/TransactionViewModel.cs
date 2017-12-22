@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
 using NokProjectX.Wpf.Common;
@@ -229,7 +230,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 {
                     Price = value.Price;
                     ClearFields();
-                    if (value.Type.Name == "pcs" || value.Type.Name == "pieces" || value.Type.Name == "pc")
+                    if (value.Type.Name != null && (value.Type.Name == "pcs" || value.Type.Name == "pieces" || value.Type.Name == "pc"))
                     {
                         IsPieces = false;
                     }
@@ -379,9 +380,41 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
 
         private void OnConfirm()
         {
-            //code here
+            var payment = 0.0d;
+            if (IsCash)
+            {
+                payment = Total;
+            }
+            else
+            {
+                payment = 0.0d;
+            }
+            var transaction = new Transaction()
+            {
+                Payment = payment,
+                TotalPrice = Total,
+                Date = DateTime.Now,
+                Invoice = NewInvoice,
+                Customer = SelectedCustomer
+            };
+            foreach (var invoice in InvoiceList)
+            {
+                invoice.Customer = SelectedCustomer;
+            }
+            _context.Transactions.Add(transaction);
+            _context.SaveChanges();
+            ClearTransaction();
+            ClearFields();
+            MessageBox.Show("Transaction Successful");
         }
 
+        void ClearTransaction()
+        {
+            InvoiceList = null;
+            SelectedCustomer = null;
+            SearchProduct = null;
+            Payment = 0.0d;
+        }
         public RelayCommand CloseCommand { get; set; }
 
         private void OnClose()
@@ -508,15 +541,18 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             await ValidateAsync();
             if (HasErrors) return;
             double price = 0.0d;
+            string size;
             if (SelectedProduct.Type.Name == "pcs" || SelectedProduct.Type.Name == "pieces" ||
                 SelectedProduct.Type.Name == "pc")
             {
                 price = Price * Quantity.GetValueOrDefault();
+                size = null;
             }
             else
             {
                 price = Price * (Quantity.GetValueOrDefault() *
                                  (Size1.GetValueOrDefault() * Size2.GetValueOrDefault()));
+                size = $"{Size1} x {Size2}";
             }
             var code = _context.Invoices.Select(c => c.InvoiceCode).OrderByDescending(c => c).FirstOrDefault();
             int finalNumber = 0;

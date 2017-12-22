@@ -1,4 +1,6 @@
-﻿namespace NokProjectX.Wpf.ViewModel.Common
+﻿using NokProjectX.Wpf.Views.Reports;
+
+namespace NokProjectX.Wpf.ViewModel.Common
 {
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
@@ -91,6 +93,9 @@
                     break;
                 case 2:
                     MessengerInstance.Send(new NavigateTo { Content = new InventoryView() });
+                    break;
+                case 3:
+                    MessengerInstance.Send(new NavigateTo { Content = new ReportView() });
                     break;
             }
         }

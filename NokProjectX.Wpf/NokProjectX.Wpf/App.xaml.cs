@@ -12,14 +12,14 @@ namespace NokProjectX.Wpf
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-
-            MainWindow w1 = new MainWindow(); // main win
-            Application.Current.MainWindow = w1;
-
-            LoginView w = new LoginView(); // your license win
-            w.ShowDialog();
-
-            w1.Show();
+//
+//            MainWindow w1 = new MainWindow(); // main win
+//            Application.Current.MainWindow = w1;
+//
+//            LoginView w = new LoginView(); // your license win
+//            w.ShowDialog();
+//
+//            w1.Show();
 
             base.OnStartup(e);
         }
