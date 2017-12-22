@@ -11,6 +11,8 @@ namespace NokProjectX.Wpf.Entities
         public virtual Invoice Invoice { get; set; }
         public virtual Customer Customer { get; set; }
 
+        public double Balance { get { return TotalPrice - Payment; } }
+
         public virtual UserAccount UserAccount { get; set; }
     }
 }

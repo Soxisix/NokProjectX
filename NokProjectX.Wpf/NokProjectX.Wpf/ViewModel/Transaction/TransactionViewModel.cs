@@ -400,6 +400,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             foreach (var invoice in InvoiceList)
             {
                 invoice.Customer = SelectedCustomer;
+                invoice.Date = DateTime.Now;
             }
             _context.Transactions.Add(transaction);
             _context.SaveChanges();

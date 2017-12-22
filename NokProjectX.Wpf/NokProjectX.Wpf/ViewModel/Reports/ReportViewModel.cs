@@ -20,8 +20,9 @@ namespace NokProjectX.Wpf.ViewModel.Reports
         public ReportViewModel(YumiContext context)
         {
             _context = context;
-            StartDate = DateTime.Now;
-            EndDate = DateTime.Now;
+            StartDate = DateTime.Now ;
+            EndDate = DateTime.Now ;
+            EndDate = EndDate.AddDays(1);
             LoadData();
         }
 
@@ -50,7 +51,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                     {
                         IsByCustomer = false;
                         IsByDate = true;
-                        Transactions = _context.Transactions.Where(c => c.Date >= StartDate && c.Date <= EndDate).ToList();
+                        Transactions = _context.Transactions.Where(c => c.Date > StartDate && c.Date < EndDate).ToList();
                         CalculateTransaction();
                     }
                     if (a != null && a.Name == "Customer")
@@ -74,7 +75,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             foreach (var transaction in Transactions)
             {
                 TotalPayment = TotalPayment + transaction.Payment;
-                Credit = Credit + (transaction.TotalPrice - TotalPayment);
+                Credit = Credit + (transaction.Balance);
                 TotalSales = TotalSales + transaction.TotalPrice;
             }
         }
@@ -174,7 +175,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             set
             {
                 Set(ref _startDate, value);
-                Transactions = _context.Transactions.Where(c => c.Date >= StartDate && c.Date <= EndDate).ToList();
+                Transactions = _context.Transactions.Where(c => c.Date > StartDate && c.Date <= EndDate).ToList();
             }
         }
 
@@ -184,7 +185,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             set
             {
                 Set(ref _endDate, value);
-                Transactions = _context.Transactions.Where(c => c.Date >= StartDate && c.Date <= EndDate).ToList();
+                Transactions = _context.Transactions.Where(c => c.Date > StartDate && c.Date <= EndDate).ToList();
             }
         }
     }
