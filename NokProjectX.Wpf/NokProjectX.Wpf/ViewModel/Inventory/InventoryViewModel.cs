@@ -190,9 +190,7 @@
             OriginalProductList = _context.Products.ToList();
             ProductList = OriginalProductList;
             TotalCount = ProductList.Count;
-        }
-
-        /// <summary>
+        }/// <summary>
         /// The OnAddProduct
         /// </summary>
         private async void OnAddProduct()

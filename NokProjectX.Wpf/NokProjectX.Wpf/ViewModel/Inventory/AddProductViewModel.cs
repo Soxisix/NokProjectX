@@ -81,6 +81,7 @@
         /// Initializes a new instance of the <see cref="AddProductViewModel"/> class.
         /// </summary>
         /// <param name="context">The <see cref="YumiContext"/></param>
+        /// 
         public AddProductViewModel(YumiContext context)
         {
             _context = context;

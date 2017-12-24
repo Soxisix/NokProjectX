@@ -1,4 +1,5 @@
 ﻿using NokProjectX.Wpf.Views.Reports;
+using NokProjectX.Wpf.Views.Settings;
 
 namespace NokProjectX.Wpf.ViewModel.Common
 {
@@ -81,8 +82,7 @@ namespace NokProjectX.Wpf.ViewModel.Common
         }
 
         /// <summary>
-        /// The NavTo
-        /// </summary>
+        /// The NavTo </summary>
         /// <param name="obj">The <see cref="int"/></param>
         private void NavTo(int obj)
         {
@@ -96,6 +96,9 @@ namespace NokProjectX.Wpf.ViewModel.Common
                     break;
                 case 3:
                     MessengerInstance.Send(new NavigateTo { Content = new ReportView() });
+                    break;
+                case 4:
+                    MessengerInstance.Send(new NavigateTo { Content = new SettingsView() });
                     break;
             }
         }

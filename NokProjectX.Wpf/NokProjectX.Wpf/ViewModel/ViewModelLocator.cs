@@ -11,6 +11,7 @@ namespace NokProjectX.Wpf.ViewModel
     using NokProjectX.Wpf.ViewModel.Common;
     using NokProjectX.Wpf.ViewModel.Inventory;
     using NokProjectX.Wpf.ViewModel.Transaction;
+    using NokProjectX.Wpf.ViewModel.Settings;
 
     /// <summary>
     /// This class contains static references to all the view models in the
@@ -51,7 +52,7 @@ namespace NokProjectX.Wpf.ViewModel
             SimpleIoc.Default.Register<TransactionViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ReportViewModel>();
-
+            SimpleIoc.Default.Register<SettingsViewModel>();
         }
 
         #endregion
@@ -101,6 +102,20 @@ namespace NokProjectX.Wpf.ViewModel
                 return ServiceLocator.Current.GetInstance<InventoryViewModel>();
             }
         }
+
+        /// <summary>
+        /// Gets the Settings
+        /// </summary>
+
+        public  SettingsViewModel Settings
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SettingsViewModel>();
+            }
+        }
+
+
 
         /// <summary>
         /// Gets the Main

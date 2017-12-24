@@ -48,5 +48,7 @@ namespace NokProjectX.Wpf.Context
         public DbSet<Transaction> Transactions { get; set; }
 
         public DbSet<Invoice> Invoices { get; set; }
+
+        public DbSet<UserAccount> Users { get; set; }
     }
 }
