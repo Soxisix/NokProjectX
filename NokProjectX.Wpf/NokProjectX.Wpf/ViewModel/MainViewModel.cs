@@ -47,20 +47,15 @@ namespace NokProjectX.Wpf.ViewModel
         public MainViewModel(YumiContext context)
         {
             _context = context;
-            //            if (IsInDesignMode)
-            //            {
-            //                // Code runs in Blend --> create design time data.
-            //            }
-            //            else
-            //            {
-            //                // Code runs "for real"
-            //            }
-            //            SideBarView = ServiceLocator.Current.GetInstance<SideBarViewModel>();
+            
             MessengerInstance.Register<NavigateTo>(this, NavigateToContent);
             TopBarView = new TopBarView();
             SideBarView = new SideBarView();
             MainView = new TransactionView();
+
         }
+
+        
 
         /// <summary>
         /// Gets or sets the MainView

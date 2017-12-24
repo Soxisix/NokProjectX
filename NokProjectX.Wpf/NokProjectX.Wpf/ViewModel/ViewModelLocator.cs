@@ -183,6 +183,17 @@ namespace NokProjectX.Wpf.ViewModel
         /// </summary>
         public static void Cleanup()
         {
+            SimpleIoc.Default.Unregister<YumiContext>();
+            SimpleIoc.Default.Unregister<MainViewModel>();
+            SimpleIoc.Default.Unregister<SideBarViewModel>();
+            SimpleIoc.Default.Unregister<TopBarViewModel>();
+            SimpleIoc.Default.Unregister<InventoryViewModel>();
+            SimpleIoc.Default.Unregister<AddProductViewModel>();
+            SimpleIoc.Default.Unregister<EditProductViewModel>();
+            SimpleIoc.Default.Unregister<AddStockViewModel>();
+            SimpleIoc.Default.Unregister<TransactionViewModel>();
+            SimpleIoc.Default.Unregister<LoginViewModel>();
+            SimpleIoc.Default.Unregister<ReportViewModel>();
         }
 
         #endregion

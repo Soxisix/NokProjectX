@@ -31,8 +31,11 @@ namespace NokProjectX.Wpf.ViewModel.UserLogin
             }
             if (UserName == "admin" && Password == "admin")
             {
-                obj.Close();
+                
+                MainWindow main = new MainWindow();
                 Validator.Reset();
+                main.Show();
+                obj.Close();
             }
             else
             {
