@@ -56,10 +56,9 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// Initializes a new instance of the <see cref="AddUserAccountViewModel"/> class.
         /// </summary>
         /// <param name="context">The <see cref="YumiContext"/></param>
-        public AddUserAccountViewModel(YumiContext context, string username)
+        public AddUserAccountViewModel(YumiContext context)
         {
             _context = context;
-            Username = username;
             LoadCommands();
 
             ConfigureValidationRules();
@@ -102,10 +101,13 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
         }
 
-        private void OnAdd()
+        private async void OnAdd()
         {
-//            await ValidateAsync();
-
+            await ValidateAsync();
+            if (HasErrors)
+            {
+                return;
+            }
 
             UserAccount newUserAccount = new UserAccount()
             {
@@ -213,11 +215,11 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             //                    return RuleResult.Assert(isAvailable,
             //                        string.Format("LRN {0} is taken. Please choose a different one.", LRN));
             //                });
-            Validator.AddRequiredRule(() => LoginName, "UserAccount Name is required");
-            Validator.AddRule(nameof(LoginName),
+            
+            Validator.AddRule(nameof(LoginUsername),
                 () =>
                 {
-                    var count = _context.Users.Count(c => c.Name.ToLower().Equals(LoginName.Trim().ToLower()));
+                    var count = _context.Users.Count(c => c.Username.ToLower().Equals(LoginUsername.Trim().ToLower()));
                     var result = count == 0;
                     return RuleResult.Assert(result,
                         $"UserAccount already exists");
@@ -234,10 +236,11 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
 
 
-//            private async void Validate()
-//            {
-//                await ValidateAsync();
-//            }
+            
+        }
+        private async void Validate()
+        {
+            await ValidateAsync();
         }
     }
 }

@@ -53,12 +53,26 @@ namespace NokProjectX.Wpf.ViewModel
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ReportViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
+            SimpleIoc.Default.Register<AddUserAccountViewModel>();
         }
 
         #endregion
 
         #region Properties
-
+        public SettingsViewModel SettingsView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SettingsViewModel>();
+            }
+        }
+        public AddUserAccountViewModel AddUser
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddUserAccountViewModel>();
+            }
+        }
         /// <summary>
         /// Gets the AddProduct
         /// </summary>

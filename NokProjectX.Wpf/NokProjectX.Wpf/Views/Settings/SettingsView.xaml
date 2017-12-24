@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
             
              Background="#f1f2f2"
-             DataContext="{Binding Settings, Source={StaticResource Locator}}"
+             DataContext="{Binding SettingsView, Source={StaticResource Locator}}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              TextElement.FontSize="13"
              TextElement.FontWeight="Regular"

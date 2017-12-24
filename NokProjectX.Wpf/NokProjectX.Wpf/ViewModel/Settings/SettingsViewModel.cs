@@ -197,7 +197,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
          /// </summary>
         private async void OnAddUserAccount()
         {
-            await DialogHost.Show(new AddUserAccountView());
+            await DialogHost.Show(new AddUserAccountView() );
         }
 
         /// <summary>

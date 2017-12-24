@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Microsoft.Practices.ServiceLocation;
 using NokProjectX.Wpf.Views.Reports;
+using NokProjectX.Wpf.Views.Settings;
 
 namespace NokProjectX.Wpf.ViewModel.Common
 {
@@ -98,6 +99,10 @@ namespace NokProjectX.Wpf.ViewModel.Common
                 case 3:
                     MessengerInstance.Send(new NavigateTo { Content = new ReportView() });
                     break;
+                case 4:
+                    MessengerInstance.Send(new NavigateTo { Content = new SettingsView() });
+                    break;
+
             }
         }
     }

@@ -15,7 +15,7 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             DataContext="{Binding AddProduct, Source={StaticResource Locator}}">
+             DataContext="{Binding AddUser, Source={StaticResource Locator}}">
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBox}"
                BasedOn="{StaticResource {x:Type TextBox}}">
@@ -59,12 +59,12 @@
            
             
         </Grid>
-        <Grid Grid.Column="1">
+        <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="93.021" />
-                <RowDefinition Height="84.979"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -78,7 +78,7 @@
                 <TextBlock FontSize="16"
                            Margin="0,10"
                            Grid.Column="1"
-                           Text="Add Product"
+                           Text="Add User"
                            Foreground="LightGray"
                            FontWeight="SemiBold" />
                 <Button Grid.Column="2"
@@ -125,7 +125,7 @@
                          materialDesign:HintAssist.Hint="Confirm Password"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                         Text="{Binding LoginConfirmPassword, StringFormat='#.00',  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding ConfirmPassword, StringFormat='#.00',  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
 
             </StackPanel>
