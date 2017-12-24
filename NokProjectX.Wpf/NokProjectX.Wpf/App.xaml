@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:d1P1="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d1P1:Ignorable="d"
-             StartupUri="Views/UserLogin/LoginView.xaml">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <converter:BoolToVisibilityCollapsed x:Key="BoolToVisibilityCollapsed" />

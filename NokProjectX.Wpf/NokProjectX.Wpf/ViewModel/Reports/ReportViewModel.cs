@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using DevExpress.Printing;
+using DevExpress.Xpf.Printing;
+using DevExpress.XtraPrinting;
+using DevExpress.XtraReports;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
+using NokProjectX.Wpf.Reports;
+
 
 namespace NokProjectX.Wpf.ViewModel.Reports
 {
-    public class ReportViewModel : ViewModelBase
+    public class ReportViewModel : ViewModelBase 
     {
         private readonly YumiContext _context;
         private object _reportMode;
@@ -24,7 +32,25 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             EndDate = DateTime.Now ;
             EndDate = EndDate.AddDays(1);
             LoadData();
+            PrintCommand = new RelayCommand(OnPrint);
         }
+
+        private void OnPrint()
+        {
+            var report = new TransactionReport();
+            report.DataSource = _context.Invoices.ToList();
+            
+            var window = new DocumentPreviewWindow();
+            window.PreviewControl.DocumentSource = report;
+            report.CreateDocument(true);
+            report.PrintingSystem.Document.AutoFitToPagesWidth = 1;
+            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            window.WindowState = WindowState.Maximized;
+            window.Style = null;
+            window.ShowDialog();
+        }
+
+        public RelayCommand PrintCommand { get; set; }
 
         private void LoadData()
         {
