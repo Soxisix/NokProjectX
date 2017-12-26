@@ -40,7 +40,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// Defines the _selectedUserAccount
         /// </summary>
         private UserAccount _selectedUserAccount;
-
         /// <summary>
         /// Defines the _totalCount
         /// </summary>
@@ -52,7 +51,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         private List<UserAccount> OriginalUserAccountList;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InventoryViewModel"/> class.
+        /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
         /// </summary>
         /// <param name="context">The <see cref="YumiContext"/></param>
         public SettingsViewModel(YumiContext context)
@@ -77,7 +76,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// <summary>
         /// Gets or sets the BatchDeleteCommand
         /// </summary>
-//        public RelayCommand BatchDeleteCommand { get; set; }
+           public RelayCommand BatchDeleteCommand { get; set; }
 
         /// <summary>
         /// Gets or sets the CloseCommand
@@ -141,7 +140,10 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         public UserAccount SelectedUserAccount
         {
             get { return _selectedUserAccount; }
-            set { Set(ref _selectedUserAccount, value); }
+            set
+            {
+                Set(ref _selectedUserAccount, value);
+                BatchDeleteCommand.RaiseCanExecuteChanged();}
         }
 
         /// <summary>
@@ -176,12 +178,11 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
 //            ViewUserAccountCommand = new RelayCommand(OnView);
            AddUserAccountCommand = new RelayCommand(OnAddUserAccount);
-//            EditUserAccountCommand = new RelayCommand(OnEdit);
-//            DeleteUserAccountCommand = new RelayCommand(OnDelete);
+      //EditUserAccountCommand = new RelayCommand(OnEdit);
+       DeleteUserAccountCommand = new RelayCommand(OnDelete);
 //            BatchAddStockCommand = new RelayCommand(OnBatchAddStock, () => (UserAccountList.Count(c => c.IsSelected) > 0));
-//            BatchDeleteCommand = new RelayCommand(OnBatchDelete, () =>
-//                (UserAccountList.Count(c => c.IsSelected) > 0)
-//            );
+            BatchDeleteCommand = new RelayCommand(OnBatchDelete, () =>
+                (UserAccountList.Count(c => c.IsSelected) > 0));
         }
 
         /// <summary>
@@ -213,21 +214,21 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// <summary>
         /// The OnBatchDelete
         /// </summary>
-        //        private async void OnBatchDelete()
-        //        {
-        //            await DialogHost.Show(new MessageView(), "RootDialog", delegate (object sender, DialogClosingEventArgs args)
-        //            {
-        //                if (Equals(args.Parameter, false)) return;
-        //
-        //                if (Equals(args.Parameter, true))
-        //                {
-        //                    var list = UserAccountList.Where(c => c.IsSelected).ToList();
-        //                    _context.Users.RemoveRange(list);
-        //                    _context.SaveChanges();
-        //                    DoRefresh(null);
-        //                }
-        //            });
-        //        }
+                private async void OnBatchDelete()
+        {
+            await DialogHost.Show(new MessageView(), "RootDialog", delegate (object sender, DialogClosingEventArgs args)
+            {
+                if (Equals(args.Parameter, false)) return;
+
+                if (Equals(args.Parameter, true))
+                {
+                    var list = UserAccountList.Where(c => c.IsSelected).ToList();
+                    _context.Users.RemoveRange(list);
+                    _context.SaveChanges();
+                    DoRefresh(null);
+                }
+            });
+        }
 
         /// <summary>
         /// The OnClose
@@ -255,17 +256,15 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             });
         }
 
-      
-//        private async void OnEdit()
-//        {
-//            ServiceLocator.Current.GetInstance<EditUserAccountViewModel>();
-//            MessengerInstance.Send(new SelectedUserAccountMessage() { SelectedUserAccount = SelectedUserAccount });
-//            await DialogHost.Show(new EditUserAccountView());
-//        }
 
-        /// <summary>
-        /// The OnView
-        /// </summary>
+        //        private async void OnEdit()
+        //        {
+        //            ServiceLocator.Current.GetInstance<EditUserAccountViewModel>();
+        //            MessengerInstance.Send(new SelectedUserAccountMessage() { SelectedUserAccount = SelectedUserAccount });
+        //            await DialogHost.Show(new EditUserAccountView());
+        //        }
+
+
 //        private async void OnView()
 //        {
 //            await DialogHost.Show(new UserAccountView() { DataContext = this });

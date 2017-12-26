@@ -172,8 +172,7 @@ namespace NokProjectX.Wpf.ViewModel
             get { return ServiceLocator.Current.GetInstance<TransactionViewModel>(); }
 
         }
-
-        public LoginViewModel LoginView
+      public LoginViewModel LoginView
             {
                 get
                 {

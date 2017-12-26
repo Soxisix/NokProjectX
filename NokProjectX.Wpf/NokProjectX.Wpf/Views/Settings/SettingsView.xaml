@@ -109,7 +109,7 @@
                             HorizontalAlignment="Right"
                             materialDesign:ShadowAssist.ShadowDepth="Depth0"
                             BorderThickness="0"
-                           
+                            Command="{Binding BatchDeleteCommand}"
                             SnapsToDevicePixels="True">
                         <Button.Style>
                             <Style BasedOn="{StaticResource {x:Type Button}}"
@@ -189,7 +189,7 @@
                 <ListView 
                     ItemsSource="{Binding UserAccountList, IsAsync=True}"
                     SelectedIndex="0"
-               
+                    SelectedItem="{Binding SelectedUserAccount}"
                     SelectionMode="Single">
                     <i:Interaction.Behaviors>
                         <common:SelectItemOnButtonClick />
@@ -243,20 +243,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                           
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Height="30"
-                                                Margin="0,-8"
-                                                
-                                                Style="{StaticResource MaterialDesignToolButton}"
-                                                ToolTip="View">
-                                            <materialDesign:PackIcon Kind="Eye" />
-                                        </Button>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                         
                             <GridViewColumn>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -275,7 +262,7 @@
                                     <DataTemplate>
                                         <Button Height="30"
                                                 Margin="0,-8"
-                                               
+                                                Command="{Binding DataContext.DeleteUserAccountCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource MaterialDesignToolButton}"
                                                 ToolTip="Delete">
                                             <materialDesign:PackIcon Kind="Delete" />
