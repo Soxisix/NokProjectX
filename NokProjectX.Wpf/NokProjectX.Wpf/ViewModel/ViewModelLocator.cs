@@ -48,12 +48,12 @@ namespace NokProjectX.Wpf.ViewModel
             SimpleIoc.Default.Register<InventoryViewModel>();
             SimpleIoc.Default.Register<AddProductViewModel>();
             SimpleIoc.Default.Register<EditProductViewModel>();
-            SimpleIoc.Default.Register<AddStockViewModel>();
-            SimpleIoc.Default.Register<TransactionViewModel>();
+            SimpleIoc.Default.Register<AddStockViewModel>();SimpleIoc.Default.Register<TransactionViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ReportViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<AddUserAccountViewModel>();
+            SimpleIoc.Default.Register<EditUserAccountViewModel>();
         }
 
         #endregion
@@ -71,6 +71,13 @@ namespace NokProjectX.Wpf.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<AddUserAccountViewModel>();
+            }
+        }
+        public EditUserAccountViewModel EditUser
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<EditUserAccountViewModel>();
             }
         }
         /// <summary>

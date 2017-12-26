@@ -203,7 +203,7 @@
                                 <GridViewColumn.CellTemplate>
 
                                     <DataTemplate>
-                                        <CheckBox  />
+                                        <CheckBox IsChecked="{Binding IsSelected}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -249,7 +249,7 @@
                                     <DataTemplate>
                                         <Button Height="30"
                                                 Margin="0,-8"
-                                               
+                                                Command="{Binding DataContext.EditUserAccountCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource MaterialDesignToolButton}"
                                                 ToolTip="Edit">
                                             <materialDesign:PackIcon Kind="Pencil" />

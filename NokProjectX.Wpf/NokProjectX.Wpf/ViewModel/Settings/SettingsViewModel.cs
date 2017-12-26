@@ -178,8 +178,8 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
 //            ViewUserAccountCommand = new RelayCommand(OnView);
            AddUserAccountCommand = new RelayCommand(OnAddUserAccount);
-      //EditUserAccountCommand = new RelayCommand(OnEdit);
-       DeleteUserAccountCommand = new RelayCommand(OnDelete);
+            EditUserAccountCommand = new RelayCommand(OnEdit);
+            DeleteUserAccountCommand = new RelayCommand(OnDelete);
 //            BatchAddStockCommand = new RelayCommand(OnBatchAddStock, () => (UserAccountList.Count(c => c.IsSelected) > 0));
             BatchDeleteCommand = new RelayCommand(OnBatchDelete, () =>
                 (UserAccountList.Count(c => c.IsSelected) > 0));
@@ -257,17 +257,16 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         }
 
 
-        //        private async void OnEdit()
-        //        {
-        //            ServiceLocator.Current.GetInstance<EditUserAccountViewModel>();
-        //            MessengerInstance.Send(new SelectedUserAccountMessage() { SelectedUserAccount = SelectedUserAccount });
-        //            await DialogHost.Show(new EditUserAccountView());
+        private async void OnEdit()
+        {
+            ServiceLocator.Current.GetInstance<EditUserAccountViewModel>();
+            MessengerInstance.Send(new SelectedUserMessage() { SelectedUser = SelectedUserAccount });
+            await DialogHost.Show(new EditUserAccountView());
+        }
+
+
+        //        private async void OnView()//        {
+        //            await DialogHost.Show(new UserAccountView() { DataContext = this });
         //        }
-
-
-//        private async void OnView()
-//        {
-//            await DialogHost.Show(new UserAccountView() { DataContext = this });
-//        }
     }
 }

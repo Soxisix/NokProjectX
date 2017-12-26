@@ -146,9 +146,11 @@
     <Compile Include="Common\ListExtension.cs" />
     <Compile Include="Common\MenuList.cs" />
     <Compile Include="Common\Messages\ListOfProductsMessage.cs" />
+    <Compile Include="Common\Messages\ListOfUserMessage.cs" />
     <Compile Include="Common\Messages\NavigateTo.cs" />
     <Compile Include="Common\Messages\RefreshMessage.cs" />
     <Compile Include="Common\Messages\SelectedProductMessage.cs" />
+    <Compile Include="Common\Messages\SelectedUserMessage.cs" />
     <Compile Include="Common\Messages\SignInOutMessage.cs" />
     <Compile Include="Common\PasswordBoxAssistant.cs" />
     <Compile Include="Common\SelectItemOnButtonClick.cs" />
@@ -181,6 +183,7 @@
     <Compile Include="ViewModel\Common\TopBarViewModel.cs" />
     <Compile Include="ViewModel\Reports\ReportViewModel.cs" />
     <Compile Include="ViewModel\Settings\AddUserAccountViewModel.cs" />
+    <Compile Include="ViewModel\Settings\EditUserAccountViewModel.cs" />
     <Compile Include="ViewModel\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModel\Transaction\TransactionViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -216,6 +219,9 @@
     </Compile>
     <Compile Include="Views\Settings\AddUserAccountView.xaml.cs">
       <DependentUpon>AddUserAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\EditUserAccountView.xaml.cs">
+      <DependentUpon>EditUserAccountView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -280,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\AddUserAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\EditUserAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
