@@ -162,9 +162,7 @@
                 <ComboBoxItem x:Name="Date">
                    Customer Accounts
                 </ComboBoxItem>
-                <ComboBoxItem x:Name="Customer">
-                    By Customer
-                </ComboBoxItem>
+               
             </ComboBox>
     
 
