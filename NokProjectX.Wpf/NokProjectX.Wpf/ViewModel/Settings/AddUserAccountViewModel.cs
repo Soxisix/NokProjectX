@@ -21,7 +21,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 {
     public class AddUserAccountViewModel : ValidatableViewModelBase
     {
-
         /// <summary>
         /// Defines the _context
         /// </summary>
@@ -46,7 +45,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// <summary>
         /// Defines the _selectedType
         /// </summary>
-
         private string _confirmpassword;
 
         private bool _isOpen;
@@ -64,7 +62,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             ConfigureValidationRules();
         }
 
-    
 
         /// <summary>
         /// Gets or sets the AddCommand
@@ -76,8 +73,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// </summary>
         public RelayCommand CloseCommand { get; set; }
 
-     
-        
 
         public bool IsOpen
         {
@@ -98,7 +93,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             Clear();
             IsOpen = false;
             Validator.Reset();
-
         }
 
         private async void OnAdd()
@@ -111,12 +105,9 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
             UserAccount newUserAccount = new UserAccount()
             {
-
                 Name = LoginName,
                 Username = LoginUsername,
                 Password = LoginPassword,
-
-
             };
             _context.Users.Add(newUserAccount);
             _context.SaveChanges();
@@ -167,7 +158,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         }
 
 
-
         /// <summary>
         /// Gets or sets the ViewCommand
         /// </summary>
@@ -178,7 +168,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             get => _username;
             set => _username = value;
         }
-
 
 
         /// <summary>
@@ -198,7 +187,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             LoginName = null;
             LoginUsername = null;
             LoginPassword = null;
-
         }
 
         /// <summary>
@@ -215,7 +203,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             //                    return RuleResult.Assert(isAvailable,
             //                        string.Format("LRN {0} is taken. Please choose a different one.", LRN));
             //                });
-            
+
             Validator.AddRule(nameof(LoginUsername),
                 () =>
                 {
@@ -225,19 +213,15 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                         $"UserAccount already exists");
                 });
 
-            Validator.AddRequiredRule(() => LoginName, "Name is required");
+            Validator.AddRequiredRule(() => LoginName, "Name is Required");
 
+            Validator.AddRequiredRule(() => LoginUsername, "Username is Required");
 
-            Validator.AddRequiredRule(() => LoginUsername, "Username is required");
-
-            Validator.AddRequiredRule(() => LoginPassword, "Password is required");
+            Validator.AddRequiredRule(() => LoginPassword, "Password is Required");
 
             Validator.AddRequiredRule(() => ConfirmPassword, "Please Confirm Password");
-
-
-
-            
         }
+
         private async void Validate()
         {
             await ValidateAsync();

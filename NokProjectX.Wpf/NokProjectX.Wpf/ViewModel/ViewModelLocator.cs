@@ -12,6 +12,7 @@ namespace NokProjectX.Wpf.ViewModel
     using NokProjectX.Wpf.ViewModel.Inventory;
     using NokProjectX.Wpf.ViewModel.Transaction;
     using NokProjectX.Wpf.ViewModel.Settings;
+    using NokProjectX.Wpf.ViewModel.About;
 
     /// <summary>
     /// This class contains static references to all the view models in the
@@ -48,12 +49,13 @@ namespace NokProjectX.Wpf.ViewModel
             SimpleIoc.Default.Register<InventoryViewModel>();
             SimpleIoc.Default.Register<AddProductViewModel>();
             SimpleIoc.Default.Register<EditProductViewModel>();
-            SimpleIoc.Default.Register<AddStockViewModel>();
-            SimpleIoc.Default.Register<TransactionViewModel>();
+            SimpleIoc.Default.Register<AddStockViewModel>();SimpleIoc.Default.Register<TransactionViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<ReportViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<AddUserAccountViewModel>();
+            SimpleIoc.Default.Register<EditUserAccountViewModel>();
+            SimpleIoc.Default.Register<AboutViewModel>();
         }
 
         #endregion
@@ -66,11 +68,25 @@ namespace NokProjectX.Wpf.ViewModel
                 return ServiceLocator.Current.GetInstance<SettingsViewModel>();
             }
         }
+
+        public AboutViewModel AboutView{
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AboutViewModel>();
+            }
+        }
         public AddUserAccountViewModel AddUser
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<AddUserAccountViewModel>();
+            }
+        }
+        public EditUserAccountViewModel EditUser
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<EditUserAccountViewModel>();
             }
         }
         /// <summary>
