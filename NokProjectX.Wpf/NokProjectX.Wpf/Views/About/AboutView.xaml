@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:NokProjectX.Wpf.Views.About"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-             Background="#f1f2f2"
+             Background="white"
              DataContext="{Binding AboutView, Source={StaticResource Locator}}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              TextElement.FontSize="13"
@@ -15,14 +15,85 @@
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              UseLayoutRounding="True"
+             HorizontalAlignment="center"
+         
+        
             
              >
 
-
-
-   
     <Grid>
-        
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="1" 
+         Margin="20,30,20,10"
+         FontSize="20"> About Real Sales Management Tools</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="2" 
+                   Margin="20,0,0,5"
+                   FontSize="12"> Copyright ©2017 DigitalMark Designs</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="3" 
+                   Margin="20,0,0,0"
+                   FontSize="12"> All rights reserved. No part of this application, neither text nor illustration,</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="4" 
+                   Margin="20,0,0,2"
+                   FontSize="12"> may be used or reproduced in any town  in any form  without prior written </TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="5" 
+                   Margin="20,0,0,2"
+                   FontSize="12"> permission from DigitalMark Designs.</TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="6" 
+                   Margin="20,50,0,2"
+                   FontSize="15"> Developed by DigitalMark Designs</TextBlock>
+        <StackPanel Grid.ColumnSpan="2" Margin="20,0,0,2" Orientation="Vertical" Grid.Row="7">
+            
+            <TextBlock
+                FontSize="12" Height="14"><Run Text="Lead Developer : Carl Jeffershon Baisa"/></TextBlock>
+            <TextBlock
+                FontSize="10" Height="14"><Run Text="Email: "/>Cjbbaisa@gmail.com</TextBlock>
+            <TextBlock
+                FontSize="10" Height="14"><Run Text="Mobile: "/>09157775419</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2" Margin="20,0,0,2" Orientation="Vertical" Grid.Row="9">
+            <TextBlock
+                FontSize="12" Height="14"><Run Text="Developer : Ivan Louis Camus"/></TextBlock>
+            <TextBlock
+                FontSize="10" Height="14"><Run Text="Email: ivanlouiscamus@gmail.com"/></TextBlock>
+            <TextBlock
+                FontSize="10" Height="14"><Run Text="Mobile: 09153390665 "/></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2" Margin="20,0,0,2" Orientation="Vertical" Grid.Row="8">
+            <TextBlock
+                FontSize="12" Height="14"><Run Text="Developer/Designer: Mark Richard Macapagal"/></TextBlock>
+            <TextBlock
+                FontSize="10" Height="14"><Run Text="Email: "/></TextBlock>
+            <TextBlock
+                FontSize="10" Height="14"><Run Text="Mobile: "/></TextBlock>
+
+        </StackPanel>
+
+
+
+
+
     </Grid>
 </UserControl>
