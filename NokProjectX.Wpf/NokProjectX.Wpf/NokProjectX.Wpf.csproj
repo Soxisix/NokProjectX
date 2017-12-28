@@ -168,6 +168,18 @@
     <Compile Include="Entities\Type.cs" />
     <Compile Include="Entities\UserAccount.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Reports\SalesReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\SalesReport.Designer.cs">
+      <DependentUpon>SalesReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\SalesReportByCustomer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\SalesReportByCustomer.Designer.cs">
+      <DependentUpon>SalesReportByCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\TransactionReport.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -332,6 +344,12 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\SalesReport.resx">
+      <DependentUpon>SalesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\SalesReportByCustomer.resx">
+      <DependentUpon>SalesReportByCustomer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\TransactionReport.resx">
       <DependentUpon>TransactionReport.cs</DependentUpon>

@@ -12,41 +12,42 @@ using GalaSoft.MvvmLight.Command;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
 using NokProjectX.Wpf.Reports;
-
+using static System.Data.Entity.DbFunctions;
 
 namespace NokProjectX.Wpf.ViewModel.Reports
 {
-    public class ReportViewModel : ViewModelBase 
+    public class ReportViewModel : ViewModelBase
     {
         private readonly YumiContext _context;
         private object _reportMode;
         private List<Entities.Transaction> _transactions;
         private List<Entities.Transaction> _originalTransactions;
-        private DateTime _startDate;
-        private DateTime _endDate;
+        private DateTime? _startDate;
+        private DateTime? _endDate;
 
         public ReportViewModel(YumiContext context)
         {
             _context = context;
-            StartDate = DateTime.Now ;
-            EndDate = DateTime.Now ;
-            EndDate = EndDate.AddDays(1);
+//            StartDate = DateTime.Now ;
+//            EndDate = DateTime.Now ;
+//            EndDate = EndDate.AddDays(1);
             LoadData();
             PrintCommand = new RelayCommand(OnPrint);
+            var modeList = new List<string> {"All Transactions", "By Customer"};
+            ModeList = modeList;
         }
 
         private void OnPrint()
         {
-            var report = new TransactionReport();
-            report.DataSource = _context.Invoices.ToList();
-            
+            var report = new SalesReport();
+            report.DataSource = _context.Transactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+
             var window = new DocumentPreviewWindow();
             window.PreviewControl.DocumentSource = report;
             report.CreateDocument(true);
             report.PrintingSystem.Document.AutoFitToPagesWidth = 1;
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             window.WindowState = WindowState.Maximized;
-            window.Style = null;
             window.ShowDialog();
         }
 
@@ -54,6 +55,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
 
         private void LoadData()
         {
+            _originalTransactions = _context.Transactions.ToList();
             Customers = _context.Customers.ToList();
         }
 
@@ -65,32 +67,40 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                 Set(ref _reportMode, value);
                 if (value != null)
                 {
-                    var a = value as ListBoxItem;
-                    if (a != null && a.Name == "All")
+                    if ((string) value == "All Transactions")
                     {
                         IsByCustomer = false;
-                        IsByDate = false;
-                        Transactions = _context.Transactions.ToList();
+                        Transactions = _originalTransactions.ToList();
                         CalculateTransaction();
+                        FilterAllTransactions();
                     }
-                    if (a != null && a.Name == "Date")
-                    {
-                        IsByCustomer = false;
-                        IsByDate = true;
-                        Transactions = _context.Transactions.Where(c => c.Date > StartDate && c.Date < EndDate).ToList();
-                        CalculateTransaction();
-                    }
-                    if (a != null && a.Name == "Customer")
+                    if ((string) value == "By Customer")
                     {
                         if (SelectedCustomer != null)
                         {
-                            Invoices = _context.Invoices.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+                            Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id)
+                                .ToList();
                         }
                         IsByCustomer = true;
-                        IsByDate = false;
                     }
                 }
             }
+        }
+
+        private void FilterAllTransactions()
+        {
+            if (StartDate != null && EndDate != null)
+            {
+                Transactions = _originalTransactions.Where(c => c.Date.Date >= StartDate && c.Date.Date <= EndDate).ToList();
+            }
+        }
+
+        private List<string> _modeList;
+
+        public List<string> ModeList
+        {
+            get { return _modeList; }
+            set { Set(ref _modeList, value); }
         }
 
         void CalculateTransaction()
@@ -108,7 +118,6 @@ namespace NokProjectX.Wpf.ViewModel.Reports
 
         void CalculateInvoice()
         {
-            
             TotalSales = 0;
             foreach (var transaction in Invoices)
             {
@@ -165,9 +174,9 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                 {
                     Invoices = null;
                 }
-
             }
         }
+
         private List<Customer> _customers;
 
         public List<Customer> Customers
@@ -175,6 +184,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             get { return _customers; }
             set { Set(ref _customers, value); }
         }
+
         public List<Entities.Transaction> Transactions
         {
             get { return _transactions; }
@@ -188,6 +198,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             get { return _isByCustomer; }
             set { Set(ref _isByCustomer, value); }
         }
+
         private bool _isByDate;
 
         public bool IsByDate
@@ -195,23 +206,24 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             get { return _isByDate; }
             set { Set(ref _isByDate, value); }
         }
-        public DateTime StartDate
+
+        public DateTime? StartDate
         {
             get { return _startDate; }
             set
             {
                 Set(ref _startDate, value);
-                Transactions = _context.Transactions.Where(c => c.Date > StartDate && c.Date <= EndDate).ToList();
+                FilterAllTransactions();
             }
         }
 
-        public DateTime EndDate
+        public DateTime? EndDate
         {
             get { return _endDate; }
             set
             {
                 Set(ref _endDate, value);
-                Transactions = _context.Transactions.Where(c => c.Date > StartDate && c.Date <= EndDate).ToList();
+                FilterAllTransactions();
             }
         }
     }
