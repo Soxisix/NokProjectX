@@ -59,9 +59,51 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             _context = context;
             MessengerInstance.Register<RefreshMessage>(this, DoRefresh);
             LoadData();
-
+            ModeList = new List<string>()
+            {
+                "User Accounts",
+                "Customer Accounts"
+            };
             LoadCommands();
         }
+
+        private bool _user;
+
+        public bool IsByUser
+        {
+            get { return _user; }
+            set { Set(ref _user, value); }
+        }
+
+        private string _selectedMode;
+
+        public string SelectedMode
+        {
+            get { return _selectedMode; }
+            set
+            {
+                Set(ref _selectedMode, value);
+                if (!String.IsNullOrEmpty(value))
+                {
+                    if (value == "User Accounts")
+                    {
+                        IsByUser = true;
+                    }
+                    else
+                    {
+                        IsByUser =false;
+                    }
+                }
+            }
+        }
+
+        private List<string> _modeList;
+
+        public List<string> ModeList
+        {
+            get { return _modeList; }
+            set { Set(ref _modeList, value); }
+        }  
 
         /// <summary>
         /// Gets or sets the AddUserAccountCommand
