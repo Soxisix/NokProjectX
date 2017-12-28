@@ -45,10 +45,7 @@
     </UserControl.Resources>
 
     <Grid Background="#231f20">
-        <Grid.ColumnDefinitions>
-
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+        
         <Grid Grid.Column="0"
               Width="250"
             
@@ -126,7 +123,7 @@
                          materialDesign:HintAssist.Hint="Confirm Password"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                         Text="{Binding  LoginPassword, StringFormat='#.00',  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding  LoginConfirmPassword, StringFormat='#.00',  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
 
             </StackPanel>

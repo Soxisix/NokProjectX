@@ -151,7 +151,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             LoginName = null;
             LoginUsername = null;
             LoginPassword = null;
-            LoginPassword = null;
+            LoginConfirmPassword = null;
           
         }
 
@@ -160,24 +160,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// </summary>
         private void ConfigureValidationRules()
         {
-            //            Validator.AddAsyncRule(nameof(LRN),
-            //                async () =>
-            //                {
-            //                    var _context = new MorenoContext();
-            //                    var result = await _context.Students.FirstOrDefaultAsync(e => e.LRN == LRN);
-            //                    bool isAvailable = result == null;
-            //                    return RuleResult.Assert(isAvailable,
-            //                        string.Format("LRN {0} is taken. Please choose a different one.", LRN));
-            //                });
             Validator.AddRequiredRule(() => LoginName, " Name is Required");
-            //            Validator.AddAsyncRule(nameof(UserAccountName),
-            //                validateAction: async () =>
-            //                {
-            //                    var count = _context.UserAccounts.Count(c => c.Name.ToLower().Equals(UserAccountName.Trim().ToLower()));
-            //                    var result = count == 0;
-            //                    return RuleResult.Assert(result,
-            //                        $"UserAccount already exists");
-            //                });
 
             Validator.AddRequiredRule(() => LoginUsername, "Username is Required");
 
@@ -185,14 +168,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
             Validator.AddRequiredRule(() => LoginConfirmPassword, "Please Confirm Password");
 
-            //            Validator.AddAsyncRule(nameof(Stock),
-            //                validateAction: async () =>
-            //                {
-            //                    int num;
-            //                    var result = int.TryParse(Stock, out num);
-            //                    return RuleResult.Assert(result,
-            //                        $"Stock must be a number.");
-            //                });
 
           
         }
@@ -250,7 +225,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                 UserAccount.Name = LoginName;
                 UserAccount.Username = LoginUsername;
                 UserAccount.Password = LoginPassword;
-                UserAccount.ConfirmPassword = LoginConfirmPassword;
+//                UserAccount.ConfirmPassword = LoginConfirmPassword;
             }
             _context.SaveChanges();MessengerInstance.Send(new RefreshMessage());
 
@@ -262,17 +237,19 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// </summary>
         /// <param name="obj">The <see cref="SelectedUserMessage"/></param>
         private void OnUserAccountRecieve(SelectedUserMessage obj)
-        {_currentUserAccount = obj.SelectedUser;
+        {
             if (obj.SelectedUser == null)
             {
                 return;
             }
+            _currentUserAccount = obj.SelectedUser;
             LoginId = _currentUserAccount.Id;
             LoginName = _currentUserAccount.Name;
             LoginUsername = _currentUserAccount.Username;
             LoginPassword = _currentUserAccount.Password;
-            LoginConfirmPassword = _currentUserAccount.ConfirmPassword;
-         
+            LoginConfirmPassword = _currentUserAccount.Password;
+            //            LoginConfirmPassword = _currentUserAccount.ConfirmPassword;;
+
         }
 
        
