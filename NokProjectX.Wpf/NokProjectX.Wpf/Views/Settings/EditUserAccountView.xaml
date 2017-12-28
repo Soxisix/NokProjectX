@@ -101,14 +101,14 @@
                          materialDesign:HintAssist.Hint="Name"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                         Text="{Binding UserAccountName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding  LoginName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox FontSize="12"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          Foreground="White"
                          materialDesign:HintAssist.Hint="Username"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                         Text="{Binding UserAccountUsername, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding  LoginUsername, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBox FontSize="12"
                          Foreground="White"
@@ -116,7 +116,7 @@
                          materialDesign:HintAssist.Hint="Password"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                         Text="{Binding UserAccountPassword,  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         Text="{Binding  LoginPassword,  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          />
 
                 <TextBox FontSize="12"
@@ -126,7 +126,7 @@
                          materialDesign:HintAssist.Hint="Confirm Password"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                         Text="{Binding UserAccountPassword, StringFormat='#.00',  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding  LoginPassword, StringFormat='#.00',  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
 
             </StackPanel>

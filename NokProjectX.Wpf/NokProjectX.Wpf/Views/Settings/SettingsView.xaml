@@ -79,7 +79,7 @@
                                    TargetType="{x:Type Button}">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addProduct.png"
+                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addbtnUser.png"
                                                     RenderOptions.BitmapScalingMode="NearestNeighbor"
                                                     Stretch="None" />
 
@@ -91,7 +91,7 @@
                                         <Setter Property="Background">
                                             <Setter.Value>
                                                 <ImageBrush
-                                                    ImageSource="/NokProjectX.Wpf;component/Resources/addProductHover.png"
+                                                    ImageSource="/NokProjectX.Wpf;component/Resources/addbtnUserHover.png"
                                                     RenderOptions.BitmapScalingMode="NearestNeighbor"
                                                     Stretch="None" />
                                             </Setter.Value>

@@ -512,6 +512,17 @@
   <ItemGroup>
     <Resource Include="Resources\RealLogo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\addbtnCustomer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addbtnCustomerHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addbtnUser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addbtnUserHover.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

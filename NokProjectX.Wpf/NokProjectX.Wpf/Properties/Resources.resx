@@ -268,4 +268,16 @@
   <data name="RealLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RealLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="addbtnCustomer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addbtnCustomer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addbtnCustomerHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addbtnCustomerHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addbtnUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addbtnUser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addbtnUserHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addbtnUserHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

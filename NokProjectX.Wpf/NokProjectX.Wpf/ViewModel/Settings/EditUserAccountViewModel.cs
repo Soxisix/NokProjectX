@@ -83,7 +83,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// <summary>
         /// Gets or sets the Description
         /// </summary>
-        public int Id
+        public int LoginId
         {
             get { return _id; }
             set { Set(ref _id, value); }
@@ -107,25 +107,25 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// <summary>
         /// Gets or sets the UserAccountName
         /// </summary>
-        public string UserAccountName
+        public string LoginName
         {
             get { return _name; }
             set { Set(ref _name, value); }
         }
 
-        public string UserAccountUsername
+        public string LoginUsername
         {
             get { return _username; }
             set { Set(ref _username, value); }
         }
 
-        public string UserAccountPassword
+        public string LoginPassword
         {
             get { return _password; }
             set { Set(ref _password, value); }
         }
 
-        public string UserAccountConfirmPassword
+        public string LoginConfirmPassword
         {
             get { return _confirmpassword; }
             set { Set(ref _confirmpassword, value); }
@@ -148,10 +148,10 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         /// </summary>
         internal void Clear()
         {
-            UserAccountName = null;
-            UserAccountUsername = null;
-            UserAccountPassword = null;
-            UserAccountConfirmPassword = null;
+            LoginName = null;
+            LoginUsername = null;
+            LoginPassword = null;
+            LoginPassword = null;
           
         }
 
@@ -169,7 +169,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             //                    return RuleResult.Assert(isAvailable,
             //                        string.Format("LRN {0} is taken. Please choose a different one.", LRN));
             //                });
-            Validator.AddRequiredRule(() => UserAccountName, " Name is Required");
+            Validator.AddRequiredRule(() => LoginName, " Name is Required");
             //            Validator.AddAsyncRule(nameof(UserAccountName),
             //                validateAction: async () =>
             //                {
@@ -179,11 +179,11 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             //                        $"UserAccount already exists");
             //                });
 
-            Validator.AddRequiredRule(() => UserAccountUsername, "Username is Required");
+            Validator.AddRequiredRule(() => LoginUsername, "Username is Required");
 
-            Validator.AddRequiredRule(() => UserAccountPassword, "Password is Required");
+            Validator.AddRequiredRule(() => LoginPassword, "Password is Required");
 
-            Validator.AddRequiredRule(() => UserAccountConfirmPassword, "Please Confirm Password");
+            Validator.AddRequiredRule(() => LoginConfirmPassword, "Please Confirm Password");
 
             //            Validator.AddAsyncRule(nameof(Stock),
             //                validateAction: async () =>
@@ -247,13 +247,12 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             var UserAccount = _context.Users.FirstOrDefault(c => c.Id.Equals(_currentUserAccount.Id));
             if (UserAccount != null)
             {
-                UserAccount.Name = UserAccountName;
-                UserAccount.Username= UserAccountUsername;
-                UserAccount.Password = UserAccountPassword;
-                UserAccount.ConfirmPassword = UserAccountConfirmPassword;
+                UserAccount.Name = LoginName;
+                UserAccount.Username = LoginUsername;
+                UserAccount.Password = LoginPassword;
+                UserAccount.ConfirmPassword = LoginConfirmPassword;
             }
-            _context.SaveChanges();
-            MessengerInstance.Send(new RefreshMessage());
+            _context.SaveChanges();MessengerInstance.Send(new RefreshMessage());
 
             OnClose();
         }
@@ -268,10 +267,11 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             {
                 return;
             }
-            UserAccountName = _currentUserAccount.Name;
-            UserAccountUsername = _currentUserAccount.Username;
-            UserAccountPassword= _currentUserAccount.Password;
-            UserAccountConfirmPassword = _currentUserAccount.ConfirmPassword;
+            LoginId = _currentUserAccount.Id;
+            LoginName = _currentUserAccount.Name;
+            LoginUsername = _currentUserAccount.Username;
+            LoginPassword = _currentUserAccount.Password;
+            LoginConfirmPassword = _currentUserAccount.ConfirmPassword;
          
         }
 
