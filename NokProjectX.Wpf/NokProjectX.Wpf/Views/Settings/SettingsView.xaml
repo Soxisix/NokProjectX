@@ -203,7 +203,7 @@
                                 <GridViewColumn.CellTemplate>
 
                                     <DataTemplate>
-                                        <CheckBox  />
+                                        <CheckBox  IsChecked="{Binding IsSelected}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
