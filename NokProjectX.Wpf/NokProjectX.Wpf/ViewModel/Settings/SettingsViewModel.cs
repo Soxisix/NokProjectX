@@ -21,38 +21,42 @@ namespace NokProjectX.Wpf.ViewModel.Settings
     {
         
     
-        /// <summary>
-        /// Defines the _context
-        /// </summary>
+     
         private readonly YumiContext _context;
 
-        /// <summary>
-        /// Defines the _useraccountList
-        /// </summary>
         private List<UserAccount> _useraccountList;
 
-        /// <summary>
-        /// Defines the _searchText
-        /// </summary>
+        private List<Customer> _customeraccountList;
+
         private string _searchText;
 
-        /// <summary>
-        /// Defines the _selectedUserAccount
-        /// </summary>
         private UserAccount _selectedUserAccount;
-        /// <summary>
-        /// Defines the _totalCount
-        /// </summary>
+
+        private Customer _selectedCustomerAccount;
+
         private int _totalCount;
 
-        /// <summary>
-        /// Defines the OriginalUserAccountList
-        /// </summary>
         private List<UserAccount> OriginalUserAccountList;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
-        /// </summary>
+        private List<Customer> OriginalCustomerList;
+
+        private List<string> _modeList;
+
+        private bool _user;
+
+        private string _selectedMode;
+
+        public RelayCommand AddUserAccountCommand { get; set; }
+
+
+        public RelayCommand BatchDeleteCommand { get; set; }
+
+        public RelayCommand CloseCommand { get; set; }
+
+        public RelayCommand DeleteUserAccountCommand { get; set; }
+
+        public RelayCommand EditUserAccountCommand { get; set; }
+
         /// <param name="context">The <see cref="YumiContext"/></param>
         public SettingsViewModel(YumiContext context)
         {
@@ -67,15 +71,14 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             LoadCommands();
         }
 
-        private bool _user;
-
+     
         public bool IsByUser
         {
             get { return _user; }
             set { Set(ref _user, value); }
         }
 
-        private string _selectedMode;
+     
 
         public string SelectedMode
         {
@@ -97,7 +100,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             }
         }
 
-        private List<string> _modeList;
+ 
 
         public List<string> ModeList
         {
@@ -105,55 +108,20 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             set { Set(ref _modeList, value); }
         }  
 
-        /// <summary>
-        /// Gets or sets the AddUserAccountCommand
-        /// </summary>
-        public RelayCommand AddUserAccountCommand { get; set; }
+       
+       
 
-        /// <summary>
-        /// Gets or sets the BatchAddStockCommand
-        /// </summary>
-//        public RelayCommand BatchAddStockCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the BatchDeleteCommand
-        /// </summary>
-           public RelayCommand BatchDeleteCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the CloseCommand
-        /// </summary>
-        public RelayCommand CloseCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the DeleteUserAccountCommand
-        /// </summary>
-        public RelayCommand DeleteUserAccountCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the EditUserAccountCommand
-        /// </summary>
-        public RelayCommand EditUserAccountCommand { get; set; }
-
-        /// <summary>
-        /// Gets the ListOfUserAccounts
-        /// </summary>
-//        public List<UserAccount> ListOfUserAccounts
-//        {
-//            get { return UserAccountList.Where(c => c.IsSelected == true).ToList(); }
-//        }
-
-        /// <summary>
-        /// Gets or sets the UserAccountList
-        /// </summary>
         public List<UserAccount> UserAccountList
         {get { return _useraccountList; }
             set { Set(ref _useraccountList, value); }
         }
 
-        /// <summary>
-        /// Gets or sets the SearchText
-        /// </summary>
+        public List<Customer> CustomerList
+        {
+            get { return _customeraccountList; }
+            set { Set(ref _customeraccountList, value); }
+        }
+
         public string SearchText
         {
             get { return _searchText; }
@@ -162,23 +130,42 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                 Set(ref _searchText, value);
                 if (String.IsNullOrEmpty(SearchText))
                 {
-                    UserAccountList = OriginalUserAccountList;
+                    if (IsByUser == true)
+                    {
+                        UserAccountList = OriginalUserAccountList;
+                    }
+                    else
+                    {
+                        CustomerList = OriginalCustomerList;
+                    }
+               
                 }
                 else
                 {
-                    UserAccountList = OriginalUserAccountList.Where(c =>
-                            c.Name.ToLower().Contains(SearchText.Trim().ToLower()) ||
-                            SearchText.Trim().Contains(c.Id.ToString()) ||
-                            c.Username.ToLower().Contains(SearchText.Trim().ToLower())                                   
+                    if (IsByUser == true)
+                    {
+                        UserAccountList = OriginalUserAccountList.Where(c =>
+                                c.Name.ToLower().Contains(SearchText.Trim().ToLower()) ||
+                                SearchText.Trim().Contains(c.Id.ToString()) ||
+                                c.Username.ToLower().Contains(SearchText.Trim().ToLower())
                             )
-                        .ToList();
+                            .ToList();
+                    }
+                    else
+                    {
+                        CustomerList = CustomerList = OriginalCustomerList.Where(c =>
+                                c.Name.ToLower().Contains(SearchText.Trim().ToLower()) ||
+                                SearchText.Trim().Contains(c.Id.ToString())
+                              
+                            )
+                            .ToList();
+
+                    }
                 }
             }
         }
 
-        /// <summary>
-        /// Gets or sets the SelectedUserAccount
-        /// </summary>
+     
         public UserAccount SelectedUserAccount
         {
             get { return _selectedUserAccount; }
@@ -188,74 +175,70 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                 BatchDeleteCommand.RaiseCanExecuteChanged();}
         }
 
-        /// <summary>
-        /// Gets or sets the TotalCount
-        /// </summary>
+        public Customer SelectedCustomer
+        {
+            get { return _selectedCustomerAccount; }
+            set
+            {
+                Set(ref _selectedCustomerAccount, value);
+                BatchDeleteCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         public int TotalCount
         {
             get { return _totalCount; }
             set { Set(ref _totalCount, value); }
         }
 
-        /// <summary>
-        /// Gets or sets the ViewUserAccountCommand
-        /// </summary>
-        public RelayCommand ViewUserAccountCommand { get; set; }
 
-        /// <summary>
-        /// The DoRefresh
-        /// </summary>
+       
+
+   
         /// <param name="obj">The <see cref="RefreshMessage"/></param>
         private void DoRefresh(RefreshMessage obj)
         {
             LoadData();
         }
 
-        /// <summary>
-        /// The LoadCommands
-        /// </summary>
         private void LoadCommands()
         {
             CloseCommand = new RelayCommand(OnClose);
-
-//            ViewUserAccountCommand = new RelayCommand(OnView);
            AddUserAccountCommand = new RelayCommand(OnAddUserAccount);
             EditUserAccountCommand = new RelayCommand(OnEdit);
             DeleteUserAccountCommand = new RelayCommand(OnDelete);
-//            BatchAddStockCommand = new RelayCommand(OnBatchAddStock, () => (UserAccountList.Count(c => c.IsSelected) > 0));
+
+
             BatchDeleteCommand = new RelayCommand(OnBatchDelete, () =>
                 (UserAccountList.Count(c => c.IsSelected) > 0));
         }
 
-        /// <summary>
-        /// The LoadData
-        /// </summary>
+   
         private void LoadData()
         {
-            OriginalUserAccountList = _context.Users.ToList();
-            UserAccountList = OriginalUserAccountList;
-            TotalCount = UserAccountList.Count;
-        }/// <summary>
-         /// The OnAddUserAccount
-         /// </summary>
-        private async void OnAddUserAccount()
-        {
+
+            
+                OriginalUserAccountList = _context.Users.ToList();
+                UserAccountList = OriginalUserAccountList;
+         
+            OriginalCustomerList = _context.Customers.ToList();
+                CustomerList = OriginalCustomerList;
+            
+
+            if (IsByUser == true)
+            {
+                TotalCount = UserAccountList.Count;
+            }
+            else
+            {
+                TotalCount = CustomerList.Count;}
+
+             }
+
+        private async void OnAddUserAccount(){
             await DialogHost.Show(new AddUserAccountView() );
-        }
+            }
 
-        /// <summary>
-        /// The OnBatchAddStock
-        /// </summary>
-        //        private async void OnBatchAddStock()
-        //        {
-        //            ServiceLocator.Current.GetInstance<AddStockViewModel>();
-        //            MessengerInstance.Send(new ListOfUserAccountsMessage() { UserAccounts = ListOfUserAccounts });
-        //            await DialogHost.Show(new AddStockView(), "RootDialog");
-        //        }
-
-        /// <summary>
-        /// The OnBatchDelete
-        /// </summary>
                 private async void OnBatchDelete()
         {
             await DialogHost.Show(new MessageView(), "RootDialog", delegate (object sender, DialogClosingEventArgs args)
@@ -272,9 +255,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             });
         }
 
-        /// <summary>
-        /// The OnClose
-        /// </summary>
+    
         private void OnClose()
         {
             DialogHost.CloseDialogCommand.Execute(this, null);
@@ -291,12 +272,19 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
                 if (Equals(args.Parameter, true))
                 {
-                    _context.Users.Remove(SelectedUserAccount);
+                    if (IsByUser == true)
+                    {
+                        _context.Users.Remove(SelectedUserAccount);
+                    }
+                    else
+                    {
+                        _context.Customers.Remove(SelectedCustomer);
+                    }
+                   
                     _context.SaveChanges();
                     DoRefresh(null);
                 }
-            });
-        }
+            });}
 
 
         private async void OnEdit()
@@ -307,8 +295,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         }
 
 
-        //        private async void OnView()//        {
-        //            await DialogHost.Show(new UserAccountView() { DataContext = this });
-        //        }
+    
     }
 }

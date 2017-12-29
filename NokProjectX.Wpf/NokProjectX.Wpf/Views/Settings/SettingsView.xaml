@@ -173,7 +173,8 @@
                 <TextBlock Margin="20,0,0,20"
                            FontSize="14"
                            FontWeight="SemiBold"
-                           Text="{Binding TotalCount}" />
+                           Text="{Binding TotalCount}" 
+                           />
             </StackPanel>
         </Grid>
         <materialDesign:Card Grid.Row="2"
@@ -182,7 +183,7 @@
             <Grid>
 <!--				Grid for User Accounts-->
 				<Grid VerticalAlignment="Top"
-					  Visibility="{Binding IsByUser, Converter={StaticResource BoolToVisibilityCollapsed}}"
+				      Visibility="{Binding IsByUser, Converter={StaticResource BoolToVisibilityCollapsed}}"
 					  >
 					<ListView 
                     ItemsSource="{Binding UserAccountList, IsAsync=True}"
@@ -277,9 +278,9 @@
 					  Visibility="{Binding IsByUser, Converter={StaticResource BoolNegateToVisibility}}"
 					  >
 					<ListView 
-                    ItemsSource="{Binding UserAccountList, IsAsync=True}"
+                    ItemsSource="{Binding CustomerList, IsAsync=True}"
                     SelectedIndex="0"
-                    SelectedItem="{Binding SelectedUserAccount}"
+                    SelectedItem="{Binding SelectedCustomer}"
                     SelectionMode="Single">
 						<i:Interaction.Behaviors>
 							<common:SelectItemOnButtonClick />
@@ -308,22 +309,22 @@
 								<GridViewColumn Header="Name">
 									<GridViewColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding ad}" />
+                                            <TextBlock Text="{Binding Name}" />
 										</DataTemplate>
 									</GridViewColumn.CellTemplate>
 								</GridViewColumn>
-								<GridViewColumn Header="Username">
+								<GridViewColumn Header="Mobile">
 									<GridViewColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding asd}" />
+                                            <TextBlock Text="{Binding Mobile}" />
 										</DataTemplate>
 									</GridViewColumn.CellTemplate>
 								</GridViewColumn>
-								<GridViewColumn Header="Password">
+								<GridViewColumn Header="Address">
 									<GridViewColumn.CellTemplate>
 										<DataTemplate>
 											<StackPanel Orientation="Horizontal">
-												<TextBlock Text="{Binding asd}"
+                                                <TextBlock Text="{Binding Address}"
                                                        TextAlignment="Right" />
 												<TextBlock Text=" " />
 												<TextBlock Text=""

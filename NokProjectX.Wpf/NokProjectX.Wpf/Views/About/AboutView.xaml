@@ -85,9 +85,9 @@
             <TextBlock
                 FontSize="12" Height="14"><Run Text="Developer/Designer: Mark Richard Macapagal"/></TextBlock>
             <TextBlock
-                FontSize="10" Height="14"><Run Text="Email: "/></TextBlock>
+                FontSize="10" Height="14"><Run Text="Email: digitalmark20@gmail.com "/></TextBlock>
             <TextBlock
-                FontSize="10" Height="14"><Run Text="Mobile: "/></TextBlock>
+                FontSize="10" Height="14"><Run Text="09173336961"/></TextBlock>
 
         </StackPanel>
 
