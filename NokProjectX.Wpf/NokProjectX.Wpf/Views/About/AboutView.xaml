@@ -16,20 +16,17 @@
              TextOptions.TextRenderingMode="Auto"
              UseLayoutRounding="True"
              HorizontalAlignment="center"
-         
+           
+             HorizontalContentAlignment="Center"
         
             
              >
 
-    <Grid>
+    <Grid HorizontalAlignment="Center" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0" />
+
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="0" />
+
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0" />
@@ -38,58 +35,87 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="0" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="1" Grid.Row="1" 
-         Margin="20,30,20,10"
-         FontSize="20"> About Real Sales Management Tools</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="2" 
-                   Margin="20,0,0,5"
-                   FontSize="12"> Copyright ©2017 DigitalMark Designs</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="3" 
-                   Margin="20,0,0,0"
-                   FontSize="12"> All rights reserved. No part of this application, neither text nor illustration,</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="4" 
-                   Margin="20,0,0,2"
-                   FontSize="12"> may be used or reproduced in any town  in any form  without prior written </TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="5" 
-                   Margin="20,0,0,2"
-                   FontSize="12"> permission from DigitalMark Designs.</TextBlock>
 
-        <TextBlock Grid.Column="1" Grid.Row="6" 
-                   Margin="20,50,0,2"
-                   FontSize="15"> Developed by DigitalMark Designs</TextBlock>
-        <StackPanel Grid.ColumnSpan="2" Margin="20,0,0,2" Orientation="Vertical" Grid.Row="7">
-            
-            <TextBlock
-                FontSize="12" Height="14"><Run Text="Lead Developer : Carl Jeffershon Baisa"/></TextBlock>
-            <TextBlock
-                FontSize="10" Height="14"><Run Text="Email: "/>Cjbbaisa@gmail.com</TextBlock>
-            <TextBlock
-                FontSize="10" Height="14"><Run Text="Mobile: "/>09157775419</TextBlock>
+        <TextBlock   Grid.Column="0"   FontWeight="SemiBold"
+               Grid.Row="1" Margin="0,200,0,0"
+                FontSize="20" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="About Real Sales Management Tools"/></TextBlock>
+
+        <TextBlock Grid.Row="2" FontWeight="SemiBold"
+                   Margin="0,30,0,0"
+                   FontSize="15" Height="18" HorizontalAlignment="Center"><Run Text="Developed by DigitalMark Designs"/></TextBlock>
+
+
+        <StackPanel  Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center"  >
+
+            <TextBlock FontWeight="SemiBold"
+                       Margin="0,10,0,0"
+                       FontSize="12" Height="14" ><Run Text="Lead Developer : Carl Jeffershon Baisa"/></TextBlock>
+            <TextBlock 
+                        Margin="0,5,0,0"
+                        FontSize="10" Height="14" HorizontalAlignment="Center"><Run Text="Email: "/><Run Text="Cjbbaisa@gmail.com"/></TextBlock>
+            <TextBlock  
+                        Margin="0,5,0,0"
+                        FontSize="10" Height="14" HorizontalAlignment="Center"><Run Text="Mobile: "/><Run Text="09157775419"/></TextBlock>
         </StackPanel>
-        <StackPanel Grid.ColumnSpan="2" Margin="20,0,0,2" Orientation="Vertical" Grid.Row="9">
+        <StackPanel     Grid.Row="4">
+            <TextBlock FontWeight="SemiBold"
+                       Margin="0,10,0,0"
+                       FontSize="12"  Height="14" HorizontalAlignment="Center"><Run Text="Developer : Ivan Louis Camus"/></TextBlock>
             <TextBlock
-                FontSize="12" Height="14"><Run Text="Developer : Ivan Louis Camus"/></TextBlock>
+                FontSize="10" 
+                Margin="0,5,0,0"
+           
+                Height="14" HorizontalAlignment="Center"><Run Text="Email: ivanlouiscamus@gmail.com"/></TextBlock>
             <TextBlock
-                FontSize="10" Height="14"><Run Text="Email: ivanlouiscamus@gmail.com"/></TextBlock>
-            <TextBlock
-                FontSize="10" Height="14"><Run Text="Mobile: 09153390665 "/></TextBlock>
+                FontSize="10"  
+                Margin="0,5,0,0"
+               
+                Height="14" HorizontalAlignment="Center"><Run Text="Mobile: 09153390665 "/></TextBlock>
         </StackPanel>
-        <StackPanel Grid.ColumnSpan="2" Margin="20,0,0,2" Orientation="Vertical" Grid.Row="8">
+        <StackPanel Grid.Row="5" VerticalAlignment="Center">
             <TextBlock
-                FontSize="12" Height="14"><Run Text="Developer/Designer: Mark Richard Macapagal"/></TextBlock>
+                Margin="0,10,0,0"
+                FontWeight="SemiBold"
+                       FontSize="12"  Height="14" HorizontalAlignment="Center"><Run Text="Developer/Designer: Mark Richard Macapagal"/></TextBlock>
             <TextBlock
-                FontSize="10" Height="14"><Run Text="Email: digitalmark20@gmail.com "/></TextBlock>
+                Margin="0,5,0,0"
+                FontSize="10"  
+             
+                Height="14" HorizontalAlignment="Center"><Run Text="Email: digitalmark20@gmail.com "/></TextBlock>
             <TextBlock
-                FontSize="10" Height="14"><Run Text="09173336961"/></TextBlock>
+                FontSize="10"  
+                Margin="0,5,0,0"
+     
+                Height="14" HorizontalAlignment="Center"><Run Text="Mobile: 09173336961"/></TextBlock>
 
         </StackPanel>
+
+
+
+        <StackPanel   Grid.Row="6" VerticalAlignment="Bottom" Margin="0,0,0,30" >
+            <TextBlock  TextAlignment="Center"
+              
+                FontSize="12" Height="14"><Run Text="Copyright ©2017 DigitalMark Designs"/></TextBlock>
+            <TextBlock TextAlignment="Center"
+              
+                       FontSize="12" Height="14"><Run Text="All rights reserved. No part of this application, "/></TextBlock>
+
+            <TextBlock TextAlignment="Center"
+              
+                       FontSize="12" Height="14"><Run Text=" neither text nor illustration,may be used or reproduced "/></TextBlock>
+            <TextBlock TextAlignment="Center"
+              
+                       FontSize="12" Height="14"><Run Text="in any town in any form without prior written permission "/></TextBlock>
+            <TextBlock TextAlignment="Center"
+              
+                       FontSize="12" Height="14"><Run Text="from DigitalMark Designs."/></TextBlock>
+
+
+        </StackPanel>
+
 
 
 

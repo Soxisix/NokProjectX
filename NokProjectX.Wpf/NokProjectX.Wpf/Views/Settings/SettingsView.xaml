@@ -66,84 +66,38 @@
                             SnapsToDevicePixels="True">
                     <Button Width="101"
                             Height="30"
-                            Margin="10,0,0,0"
+                            Margin="0,0,0,0"
                             HorizontalAlignment="Right"
                             materialDesign:ShadowAssist.ShadowDepth="Depth0"
                             BorderThickness="0"
+                            Content="Add"
+                            Foreground="White"
                             Command="{Binding AddUserAccountCommand}"
                             SnapsToDevicePixels="True">
-                      
 
-                        <Button.Style>
-                            <Style BasedOn="{StaticResource {x:Type Button}}"
-                                   TargetType="{x:Type Button}">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addbtnUser.png"
-                                                    RenderOptions.BitmapScalingMode="NearestNeighbor"
-                                                    Stretch="None" />
 
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <ImageBrush
-                                                    ImageSource="/NokProjectX.Wpf;component/Resources/addbtnUserHover.png"
-                                                    RenderOptions.BitmapScalingMode="NearestNeighbor"
-                                                    Stretch="None" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </Style.Triggers>
 
-                            </Style>
-                        </Button.Style>
                     </Button>
-                  
+
                     <Button Width="101"
                             Height="30"
                             Margin="10,0,0,0"
                             HorizontalAlignment="Right"
                             materialDesign:ShadowAssist.ShadowDepth="Depth0"
                             BorderThickness="0"
+                            Content="Delete"
                             Command="{Binding BatchDeleteCommand}"
+                            Background="Brown"
                             SnapsToDevicePixels="True">
-                        <Button.Style>
-                            <Style BasedOn="{StaticResource {x:Type Button}}"
-                                   TargetType="{x:Type Button}">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/delProduct.png"
-                                                    Stretch="None" />
 
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <ImageBrush
-                                                    ImageSource="/NokProjectX.Wpf;component/Resources/delProductHover.png"
-                                                    Stretch="None" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-
-                            </Style>
-                        </Button.Style>
                     </Button>
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="995*" />
+                <ColumnDefinition Width="144*" />
             </Grid.ColumnDefinitions>
 
             <ComboBox materialDesign:HintAssist.Hint="Accounts"
@@ -157,10 +111,10 @@
 						ItemsSource="{Binding ModeList}"
 					  SelectedItem ="{Binding SelectedMode}"
                       VerticalAlignment="Stretch">
-                
-               
+
+
             </ComboBox>
-    
+
 
 
             <StackPanel Grid.Column="1"
@@ -181,191 +135,191 @@
                              Margin="10,0,10,10"
                              materialDesign:ShadowAssist.ShadowDepth="Depth0">
             <Grid>
-<!--				Grid for User Accounts-->
-				<Grid VerticalAlignment="Top"
+                <!--				Grid for User Accounts-->
+                <Grid VerticalAlignment="Top"
 				      Visibility="{Binding IsByUser, Converter={StaticResource BoolToVisibilityCollapsed}}"
 					  >
-					<ListView 
+                    <ListView 
                     ItemsSource="{Binding UserAccountList, IsAsync=True}"
                     SelectedIndex="0"
                     SelectedItem="{Binding SelectedUserAccount}"
                     SelectionMode="Single">
-						<i:Interaction.Behaviors>
-							<common:SelectItemOnButtonClick />
-						</i:Interaction.Behaviors>
+                        <i:Interaction.Behaviors>
+                            <common:SelectItemOnButtonClick />
+                        </i:Interaction.Behaviors>
 
-						<ListView.View>
-							<GridView>
+                        <ListView.View>
+                            <GridView>
 
-								<GridViewColumn>
+                                <GridViewColumn>
 
-									<GridViewColumn.CellTemplate>
+                                    <GridViewColumn.CellTemplate>
 
-										<DataTemplate>
-											<CheckBox IsChecked="{Binding IsSelected}" />
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn Header="User ID">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<TextBlock Text="{Binding Id}"
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding IsSelected}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="User ID">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Id}"
                                                    TextAlignment="Right" />
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn Header="Name">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<TextBlock Text="{Binding Name}" />
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn Header="Username">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<TextBlock Text="{Binding Username}" />
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn Header="Password">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<StackPanel Orientation="Horizontal">
-												<TextBlock Text="{Binding Password}"
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Name">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Username">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Username}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Password">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Password}"
                                                        TextAlignment="Right" />
-												<TextBlock Text=" " />
-												<TextBlock Text=""
+                                                <TextBlock Text=" " />
+                                                <TextBlock Text=""
                                                        TextAlignment="Left" />
 
-											</StackPanel>
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
 
-								<GridViewColumn>
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<Button Height="30"
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Height="30"
                                                 Margin="0,-8"
                                                 Command="{Binding DataContext.EditUserAccountCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource MaterialDesignToolButton}"
                                                 ToolTip="Edit">
-												<materialDesign:PackIcon Kind="Pencil" />
-											</Button>
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn>
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<Button Height="30"
+                                                <materialDesign:PackIcon Kind="Pencil" />
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Height="30"
                                                 Margin="0,-8"
                                                 Command="{Binding DataContext.DeleteUserAccountCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource MaterialDesignToolButton}"
                                                 ToolTip="Delete">
-												<materialDesign:PackIcon Kind="Delete" />
-											</Button>
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-							</GridView>
-						</ListView.View>
-					</ListView>
-				</Grid>
-<!--				Grid for Customer Accounts-->
-				<Grid VerticalAlignment="Top"
+                                                <materialDesign:PackIcon Kind="Delete" />
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+                <!--				Grid for Customer Accounts-->
+                <Grid VerticalAlignment="Top"
 					  Visibility="{Binding IsByUser, Converter={StaticResource BoolNegateToVisibility}}"
 					  >
-					<ListView 
+                    <ListView 
                     ItemsSource="{Binding CustomerList, IsAsync=True}"
                     SelectedIndex="0"
                     SelectedItem="{Binding SelectedCustomer}"
                     SelectionMode="Single">
-						<i:Interaction.Behaviors>
-							<common:SelectItemOnButtonClick />
-						</i:Interaction.Behaviors>
+                        <i:Interaction.Behaviors>
+                            <common:SelectItemOnButtonClick />
+                        </i:Interaction.Behaviors>
 
-						<ListView.View>
-							<GridView>
+                        <ListView.View>
+                            <GridView>
 
-								<GridViewColumn>
+                                <GridViewColumn>
 
-									<GridViewColumn.CellTemplate>
+                                    <GridViewColumn.CellTemplate>
 
-										<DataTemplate>
-											<CheckBox IsChecked="{Binding IsSelected}" />
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn Header="User ID">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<TextBlock Text="{Binding Id}"
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding IsSelected}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="User ID">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Id}"
                                                    TextAlignment="Right" />
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn Header="Name">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Name">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <TextBlock Text="{Binding Name}" />
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn Header="Mobile">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Mobile">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
                                             <TextBlock Text="{Binding Mobile}" />
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn Header="Address">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<StackPanel Orientation="Horizontal">
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Address">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Address}"
                                                        TextAlignment="Right" />
-												<TextBlock Text=" " />
-												<TextBlock Text=""
+                                                <TextBlock Text=" " />
+                                                <TextBlock Text=""
                                                        TextAlignment="Left" />
 
-											</StackPanel>
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
 
-								<GridViewColumn>
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<Button Height="30"
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Height="30"
                                                 Margin="0,-8"
                                                 Command="{Binding DataContext.EditUserAccountCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource MaterialDesignToolButton}"
                                                 ToolTip="Edit">
-												<materialDesign:PackIcon Kind="Pencil" />
-											</Button>
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-								<GridViewColumn>
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<Button Height="30"
+                                                <materialDesign:PackIcon Kind="Pencil" />
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Height="30"
                                                 Margin="0,-8"
                                                 Command="{Binding DataContext.DeleteUserAccountCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                 Style="{StaticResource MaterialDesignToolButton}"
                                                 ToolTip="Delete">
-												<materialDesign:PackIcon Kind="Delete" />
-											</Button>
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-							</GridView>
-						</ListView.View>
-					</ListView>
-				</Grid>
-			</Grid>
+                                                <materialDesign:PackIcon Kind="Delete" />
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Grid>
         </materialDesign:Card>
 
     </Grid>
