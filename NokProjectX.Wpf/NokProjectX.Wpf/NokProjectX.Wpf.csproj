@@ -195,7 +195,9 @@
     <Compile Include="ViewModel\Common\SideBarViewModel.cs" />
     <Compile Include="ViewModel\Common\TopBarViewModel.cs" />
     <Compile Include="ViewModel\Reports\ReportViewModel.cs" />
+    <Compile Include="ViewModel\Settings\AddCustomerViewModel.cs" />
     <Compile Include="ViewModel\Settings\AddUserAccountViewModel.cs" />
+    <Compile Include="ViewModel\Settings\EditCustomerViewModel.cs" />
     <Compile Include="ViewModel\Settings\EditUserAccountViewModel.cs" />
     <Compile Include="ViewModel\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModel\Transaction\TransactionViewModel.cs" />
@@ -233,8 +235,14 @@
     <Compile Include="Views\Reports\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\AddCustomerView.xaml.cs">
+      <DependentUpon>AddCustomerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\AddUserAccountView.xaml.cs">
       <DependentUpon>AddUserAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\EditCustomerView.xaml.cs">
+      <DependentUpon>EditCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\EditUserAccountView.xaml.cs">
       <DependentUpon>EditUserAccountView.xaml</DependentUpon>
@@ -305,7 +313,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Settings\AddCustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Settings\AddUserAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\EditCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

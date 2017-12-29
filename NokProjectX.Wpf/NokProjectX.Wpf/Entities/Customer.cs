@@ -8,6 +8,7 @@ namespace NokProjectX.Wpf.Entities
         public string Name { get; set; }
         public string Mobile { get; set; }
         public string Address { get; set; }
+        public bool IsSelected { get; set; }
         public virtual List<Transaction> Transactions { get; set; }
     }
 }

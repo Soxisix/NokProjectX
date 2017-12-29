@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -187,6 +188,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             LoginName = null;
             LoginUsername = null;
             LoginPassword = null;
+            ConfirmPassword = null;
         }
 
         /// <summary>

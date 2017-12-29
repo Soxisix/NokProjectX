@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NokProjectX.Wpf.Views.Settings.AddUserAccountView"
+﻿<UserControl x:Class="NokProjectX.Wpf.Views.Settings.AddCustomerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:common="clr-namespace:NokProjectX.Wpf.Common"
              mc:Ignorable="d" 
-            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              MinWidth="250"
@@ -16,7 +16,10 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             DataContext="{Binding AddUser, Source={StaticResource Locator}}">
+             DataContext="{Binding AddUser, Source={StaticResource Locator}}"
+            >
+
+
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBox}"
                BasedOn="{StaticResource {x:Type TextBox}}">
@@ -45,22 +48,26 @@
     </UserControl.Resources>
 
     <Grid Background="#231f20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-         
+
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0"
               Width="250"
             
-              Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisibilityCollapsed}}">
+              Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisibilityCollapsed}}" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-           
-            
+
+
         </Grid>
-        <Grid >
+        <Grid Grid.RowSpan="2" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -71,22 +78,22 @@
             </Grid.RowDefinitions>
             <Grid Background="#082f90">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="7*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock FontSize="16"
                            Margin="0,10"
                            Grid.Column="1"
-                           Text="Add User"
+                           Text="Add Customer"
                            Foreground="LightGray"
                            FontWeight="SemiBold" />
                 <Button Grid.Column="2"
                         HorizontalAlignment="Right"
                         Style="{StaticResource MaterialDesignToolButton}"
-                        Margin="0,0,5,0"
-                        Command="{Binding CloseCommand}">
+                        Margin="0,4,5,4"
+                        Command="{Binding CloseCommand}" Height="Auto" Width="24">
                     <materialDesign:PackIcon Foreground="LightGray"
                                              Kind="Close" />
                 </Button>
@@ -107,48 +114,31 @@
                 <TextBox FontSize="12"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          Foreground="White"
-                         materialDesign:HintAssist.Hint="Username"
+                         materialDesign:HintAssist.Hint="Mobile"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
                          Text="{Binding LoginUsername, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
-                <PasswordBox FontSize="12"
+                <TextBox FontSize="12"
                              Padding="3,0,0,0"
                          Foreground="White"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
-                         materialDesign:HintAssist.Hint="Password"
+                         materialDesign:HintAssist.Hint="Address"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                             common:PasswordBoxAssistant.BindPassword="True"
-                             common:PasswordBoxAssistant.BoundPassword="{Binding LoginPassword, 
-                             ValidatesOnDataErrors=True,
-                         Mode=TwoWay}"
-                         />
+                         Text="{Binding LoginUsername, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
-                <PasswordBox  FontSize="12"
-                              Padding="3,0,0,0"
-                         Foreground="White"
-                         materialDesign:ValidationAssist.OnlyShowOnFocus="True"
-                         materialDesign:ValidationAssist.UsePopup="True"
-                         materialDesign:HintAssist.Hint="Confirm Password"
-                         Margin="0,0,0,15"
-                         FontFamily="Arial"
-                         common:PasswordBoxAssistant.BindPassword="True"
-                         common:PasswordBoxAssistant.BoundPassword="{Binding ConfirmPassword, 
-                      ValidatesOnDataErrors=True,
-                    Mode=TwoWay}"
-                              
-                              
-                     />
+
+
 
 
             </StackPanel>
 
-            <Button Grid.Row="4"
+            <Button Grid.Row="5"
                     Height="30"
                     Width="220"
                     BorderThickness="0"
-                    Command="{Binding AddCommand}" Margin="0,1,0,0">
+                    Command="{Binding AddCommand}" Margin="15,38,15,-22">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}"
                            BasedOn="{StaticResource {x:Type Button}}">
@@ -175,7 +165,7 @@
             <Button Grid.Row="5"
                     Height="30"
                     Width="220"
-                    Margin="0,10,0,1"
+                    Margin="15,85,15,-70"
                     Command="{Binding CloseCommand}"
                     BorderThickness="0">
                 <Button.Style>
@@ -204,5 +194,6 @@
             </Button>
         </Grid>
     </Grid>
+
 
 </UserControl>
