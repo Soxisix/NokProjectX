@@ -9,6 +9,7 @@ using DevExpress.XtraPrinting;
 using DevExpress.XtraReports;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
 using NokProjectX.Wpf.Reports;
@@ -35,6 +36,12 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             PrintCommand = new RelayCommand(OnPrint);
             var modeList = new List<string> {"All Transactions", "By Customer"};
             ModeList = modeList;
+            MessengerInstance.Register<RefreshMessage>(this, OnRefresh);
+        }
+
+        private void OnRefresh(RefreshMessage obj)
+        {
+            LoadData();
         }
 
         private void OnPrint()
@@ -82,6 +89,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                                 .ToList();
                         }
                         IsByCustomer = true;
+                        CalculateTransaction();
                     }
                 }
             }
@@ -108,11 +116,14 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             TotalPayment = 0;
             Credit = 0;
             TotalSales = 0;
-            foreach (var transaction in Transactions)
+            if (Transactions != null)
             {
-                TotalPayment = TotalPayment + transaction.Payment;
-                Credit = Credit + (transaction.Balance);
-                TotalSales = TotalSales + transaction.TotalPrice;
+                foreach (var transaction in Transactions)
+                {
+                    TotalPayment = TotalPayment + transaction.Payment;
+                    Credit = Credit + (transaction.Balance);
+                    TotalSales = TotalSales + transaction.TotalPrice;
+                }
             }
         }
 
@@ -166,13 +177,15 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             set
             {
                 Set(ref _selectedCustomer, value);
-                if (value != null)
+                if (value != null && IsByCustomer)
                 {
-                    Invoices = _context.Invoices.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+                    Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+                    CalculateTransaction();
                 }
                 else
                 {
-                    Invoices = null;
+                    Transactions = null;
+                    CalculateTransaction();
                 }
             }
         }

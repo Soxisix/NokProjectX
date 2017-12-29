@@ -194,7 +194,7 @@
 							</StackPanel>
 							<TextBlock Grid.Row="1"
 							           Grid.Column="0">
-								Credit:
+								Total Balance:
 							</TextBlock>
 							<StackPanel Grid.Row="1"
 							            Grid.Column="1"

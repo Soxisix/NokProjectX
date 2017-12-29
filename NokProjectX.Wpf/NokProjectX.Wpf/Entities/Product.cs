@@ -23,7 +23,7 @@ namespace NokProjectX.Wpf.Entities
         public string CodeString { get; set; }
         public int CodeNumber { get; set; }
 
-        public int Stock { get; set; }
+        public double Stock { get; set; }
 
         
         public virtual Type Type { get; set; }

@@ -170,6 +170,7 @@
                                   IsChecked="False"
                                   ToolTip="Edit Price">
                         <ToggleButton.Style>
+	                        <!-- ReSharper disable once Xaml.StaticResourceNotResolved -->
                             <Style TargetType="ToggleButton"
                                    BasedOn="{StaticResource MaterialDesignFlatPrimaryToggleButton}">
                                 <Style.Triggers>
@@ -553,6 +554,7 @@
                                                Margin="0,0,0,5">
                                         <Run Text="{Binding Description}" />
                                     </TextBlock>
+	                                <!-- ReSharper disable once Xaml.StaticResourceNotResolved -->
                                     <Button Grid.Column="3"
                                             Grid.RowSpan="4"
                                             Grid.Row="0"
@@ -875,6 +877,7 @@
                         </Grid>
 
                     </Border>
+	                <!-- ReSharper disable once Xaml.StaticResourceNotResolved -->
                     <ListBox materialDesign:ShadowAssist.ShadowDepth="Depth0"
                              Grid.Row="1"
 							 SelectedItem="{Binding PaymentMode}"
@@ -979,6 +982,7 @@
                     </Button>
                     <Button Grid.Row="1"
                             Margin="5,5,0,0"
+							Command="{Binding ResetCommand}"
                             materialDesign:ShadowAssist.ShadowDepth="Depth0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}"

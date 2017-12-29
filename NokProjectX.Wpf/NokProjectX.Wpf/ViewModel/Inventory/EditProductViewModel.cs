@@ -64,7 +64,7 @@
         /// <summary>
         /// Defines the _stock
         /// </summary>
-        private int? _stock;
+        private double? _stock;
 
         /// <summary>
         /// Defines the _type
@@ -156,7 +156,7 @@
         /// <summary>
         /// Gets or sets the Stock
         /// </summary>
-        public int? Stock
+        public double? Stock
         {
             get { return _stock; }
             set { Set(ref _stock, value); }
@@ -317,7 +317,7 @@
             //                Price = Double.Parse(Price)
             //            };
             //            _context.Products.AddOrUpdate(newProduct);
-            var product = _context.Products.FirstOrDefault(c => c.ProductCode.Equals(_currentProduct.ProductCode));
+            var product = _context.Products.FirstOrDefault(c => c.CodeString + c.CodeNumber == _currentProduct.ProductCode);
             if (product != null)
             {
                 product.Name = ProductName;

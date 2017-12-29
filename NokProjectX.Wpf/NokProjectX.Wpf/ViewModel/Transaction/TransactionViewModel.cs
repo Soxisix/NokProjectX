@@ -2,7 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Practices.ServiceLocation;
 using NokProjectX.Wpf.Common;
+using NokProjectX.Wpf.ViewModel.Reports;
 using NokProjectX.Wpf.Views.Customer;
 
 namespace NokProjectX.Wpf.ViewModel.Transaction
@@ -327,6 +329,32 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             //                        string.Format("LRN {0} is taken. Please choose a different one.", LRN));
             //                });
             Validator.AddRequiredRule(() => Quantity, "Quantity is required");
+            Validator.AddAsyncRule(() => Quantity,
+                async () =>
+                {
+                    if (SelectedProduct.Type.Name == "ft")
+                    {
+                        if (SelectedProduct.Stock >= (Size1 * Size2) * Quantity)
+                        {
+                            return RuleResult.Valid();
+                        }
+                        else
+                        {
+                            return RuleResult.Invalid("Out of stock!");
+                        }
+                    }
+                    else
+                    {
+                        if (SelectedProduct.Stock >=  Quantity)
+                        {
+                            return RuleResult.Valid();
+                        }
+                        else
+                        {
+                            return RuleResult.Invalid("Out of stock!");
+                        }
+                    }
+                });
 
             Validator.AddRequiredRule(() => Description, "Description is required");
 
@@ -342,6 +370,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         /// </summary>
         private void LoadCommand()
         {
+            ResetCommand = new RelayCommand(OnReset);
             AddInvoiceCommand = new RelayCommand(OnAddInvoice, () => SelectedProduct != null);
             RemoveInvoiceCommand = new RelayCommand(OnRemoveInvoice);
             ClearPaymentCommand = new RelayCommand(OnClearPayment);
@@ -357,6 +386,20 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 }
                 return false;
             });
+        }
+
+        public RelayCommand ResetCommand { get; set; }
+
+        private void OnReset()
+        {
+            foreach (var invoice in InvoiceList)
+            {
+                _context.Entry(invoice.Product).ReloadAsync();
+            }
+            ClearTransaction();
+            ClearFields();
+            RaisePropertyChanged(() => SelectedProduct);
+            RaisePropertyChanged(() => Products);
         }
 
         bool PaymentMethod()
@@ -407,6 +450,8 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             ClearTransaction();
             ClearFields();
             MessageBox.Show("Transaction Successful");
+            ServiceLocator.Current.GetAllInstances<ReportViewModel>();
+            MessengerInstance.Send(new RefreshMessage());
         }
 
         void ClearTransaction()
@@ -543,18 +588,26 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             if (HasErrors) return;
             double price = 0.0d;
             string size;
+            double unit = 0.0d;
             if (SelectedProduct.Type.Name == "pcs" || SelectedProduct.Type.Name == "pieces" ||
                 SelectedProduct.Type.Name == "pc")
             {
                 price = Price * Quantity.GetValueOrDefault();
+                unit = Price;
                 size = null;
+                SelectedProduct.Stock -= Quantity.GetValueOrDefault();
             }
             else
             {
-                price = Price * (Quantity.GetValueOrDefault() *
-                                 (Size1.GetValueOrDefault() * Size2.GetValueOrDefault()));
+                unit = (Quantity.GetValueOrDefault() *
+                        (Size1.GetValueOrDefault() * Size2.GetValueOrDefault()));
+                price = Price * unit;
+                SelectedProduct.Stock -= (Quantity.GetValueOrDefault() *
+                                          (Size1.GetValueOrDefault() * Size2.GetValueOrDefault()));
                 size = $"{Size1} x {Size2}";
             }
+            RaisePropertyChanged(() => SelectedProduct);
+            RaisePropertyChanged(() => Products);
             var code = _context.Invoices.Select(c => c.InvoiceCode).OrderByDescending(c => c).FirstOrDefault();
             int finalNumber = 0;
             if (code > 0)
@@ -569,12 +622,15 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             {
                 InvoiceCode = finalNumber,
                 Product = SelectedProduct,
-                Unit = Price,
+                Unit = unit,
                 Price = price,
+                Length = Size1.GetValueOrDefault(),
+                Width = Size2.GetValueOrDefault(),
                 Quantity = Quantity.GetValueOrDefault(),
                 Size = $"{Size1} x {Size2}",
                 Description = Description
             };
+
             InvoiceList.Add(NewInvoice);
             CalculateTotal();
             Total = Total;
@@ -603,7 +659,19 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         {
             if (SelectedInvoice != null)
             {
+
+                if (SelectedInvoice.Product.Type.Name == "ft")
+                {
+                    SelectedInvoice.Product.Stock +=
+                        (SelectedInvoice.Length * SelectedInvoice.Width) * SelectedInvoice.Quantity;
+                }
+                else
+                {
+                    SelectedInvoice.Product.Stock += SelectedInvoice.Quantity;
+                }
                 InvoiceList.Remove(SelectedInvoice);
+                RaisePropertyChanged(() => Products);
+                RaisePropertyChanged(() => SelectedProduct);
             }
             CalculateTotal();
         }
