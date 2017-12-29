@@ -145,10 +145,12 @@
     </ApplicationDefinition>
     <Compile Include="Common\ListExtension.cs" />
     <Compile Include="Common\MenuList.cs" />
+    <Compile Include="Common\Messages\ListOfCustomerMessage.cs" />
     <Compile Include="Common\Messages\ListOfProductsMessage.cs" />
     <Compile Include="Common\Messages\ListOfUserMessage.cs" />
     <Compile Include="Common\Messages\NavigateTo.cs" />
     <Compile Include="Common\Messages\RefreshMessage.cs" />
+    <Compile Include="Common\Messages\SelectedCustomerMessage.cs" />
     <Compile Include="Common\Messages\SelectedProductMessage.cs" />
     <Compile Include="Common\Messages\SelectedUserMessage.cs" />
     <Compile Include="Common\Messages\SignInOutMessage.cs" />

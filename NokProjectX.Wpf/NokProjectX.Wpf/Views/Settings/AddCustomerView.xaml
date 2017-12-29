@@ -16,7 +16,7 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
-             DataContext="{Binding AddUser, Source={StaticResource Locator}}"
+             DataContext="{Binding AddCustomer, Source={StaticResource Locator}}"
             >
 
 
@@ -110,14 +110,14 @@
                          materialDesign:HintAssist.Hint="Name"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                         Text="{Binding LoginName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding CustomerName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox FontSize="12"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          Foreground="White"
                          materialDesign:HintAssist.Hint="Mobile"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                         Text="{Binding LoginUsername, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding CustomerMobile, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBox FontSize="12"
                              Padding="3,0,0,0"
@@ -126,7 +126,7 @@
                          materialDesign:HintAssist.Hint="Address"
                          Margin="0,0,0,15"
                          FontFamily="Arial"
-                         Text="{Binding LoginUsername, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding CustomerAddress, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
 
 

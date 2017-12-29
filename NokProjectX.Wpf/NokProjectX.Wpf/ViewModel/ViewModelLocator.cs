@@ -54,6 +54,8 @@ namespace NokProjectX.Wpf.ViewModel
             SimpleIoc.Default.Register<ReportViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
             SimpleIoc.Default.Register<AddUserAccountViewModel>();
+            SimpleIoc.Default.Register<AddCustomerViewModel>();
+            SimpleIoc.Default.Register<EditCustomerViewModel>();
             SimpleIoc.Default.Register<EditUserAccountViewModel>();
             SimpleIoc.Default.Register<AboutViewModel>();
         }
@@ -80,6 +82,22 @@ namespace NokProjectX.Wpf.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<AddUserAccountViewModel>();
+            }
+        }
+
+        public AddCustomerViewModel AddCustomer
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddCustomerViewModel>();
+            }
+        }
+
+        public EditCustomerViewModel EditCustomer
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<EditCustomerViewModel>();
             }
         }
         public EditUserAccountViewModel EditUser

@@ -48,14 +48,18 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
         public RelayCommand AddUserAccountCommand { get; set; }
 
+        public RelayCommand AddCustomerCommand { get; set; }
 
         public RelayCommand BatchDeleteCommand { get; set; }
+    
 
         public RelayCommand CloseCommand { get; set; }
 
         public RelayCommand DeleteUserAccountCommand { get; set; }
 
         public RelayCommand EditUserAccountCommand { get; set; }
+        public RelayCommand EditCustomerCommand { get; set; }
+        public RelayCommand DeleteCustomerCommand { get; set; }
 
         /// <param name="context">The <see cref="YumiContext"/></param>
         public SettingsViewModel(YumiContext context)
@@ -91,11 +95,15 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                     if (value == "User Accounts")
                     {
                         IsByUser = true;
+
+                      
+                            TotalCount = UserAccountList.Count;
+   
                     }
                     else
                     {
                         IsByUser =false;
-                    }
+                        TotalCount = CustomerList.Count;}
                 }
             }
         }
@@ -200,17 +208,36 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         {
             LoadData();
         }
-
         private void LoadCommands()
         {
             CloseCommand = new RelayCommand(OnClose);
-           AddUserAccountCommand = new RelayCommand(OnAddUserAccount);
-            EditUserAccountCommand = new RelayCommand(OnEdit);
+            if (IsByUser == true)
+            {
+                EditUserAccountCommand = new RelayCommand(OnEditUserAccount);
+
+                BatchDeleteCommand = new RelayCommand(OnUserAccountBatchDelete, () =>
+                    (UserAccountList.Count(c => c.IsSelected) > 0));
+
+
+            }
+            else
+            {
+                EditCustomerCommand = new RelayCommand(OnEditCustomer);
+                BatchDeleteCommand = new RelayCommand(OnCustomerBatchDelete, () =>
+                    (CustomerList.Count(c => c.IsSelected) > 0));
+
+
+            }
+
+
+           
+
             DeleteUserAccountCommand = new RelayCommand(OnDelete);
 
-
-            BatchDeleteCommand = new RelayCommand(OnBatchDelete, () =>
-                (UserAccountList.Count(c => c.IsSelected) > 0));
+        
+            AddUserAccountCommand = new RelayCommand(OnAddUserAccount);
+         
+                
         }
 
    
@@ -225,21 +252,23 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                 CustomerList = OriginalCustomerList;
             
 
+         
+             }
+
+        private async void OnAddUserAccount() {
             if (IsByUser == true)
             {
-                TotalCount = UserAccountList.Count;
+                await DialogHost.Show(new AddUserAccountView()
+
+                );
             }
             else
             {
-                TotalCount = CustomerList.Count;}
+                await DialogHost.Show(new AddCustomerView());}
+        }
 
-             }
 
-        private async void OnAddUserAccount(){
-            await DialogHost.Show(new AddUserAccountView() );
-            }
-
-                private async void OnBatchDelete()
+        private async void OnUserAccountBatchDelete()
         {
             await DialogHost.Show(new MessageView(), "RootDialog", delegate (object sender, DialogClosingEventArgs args)
             {
@@ -255,7 +284,25 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             });
         }
 
-    
+        private async void OnCustomerBatchDelete()
+        {
+            await DialogHost.Show(new MessageView(), "RootDialog", delegate (object sender, DialogClosingEventArgs args)
+            {
+                if (Equals(args.Parameter, false)) return;
+
+                if (Equals(args.Parameter, true))
+                {
+                    var list = CustomerList.Where(c => c.IsSelected).ToList();
+                    _context.Customers.RemoveRange(list);
+                    _context.SaveChanges();
+                    DoRefresh(null);
+                }
+            });
+        }
+
+
+
+
         private void OnClose()
         {
             DialogHost.CloseDialogCommand.Execute(this, null);
@@ -287,14 +334,25 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             });}
 
 
-        private async void OnEdit()
+
+
+        private async void OnEditUserAccount()
         {
+         
             ServiceLocator.Current.GetInstance<EditUserAccountViewModel>();
             MessengerInstance.Send(new SelectedUserMessage() { SelectedUser = SelectedUserAccount });
             await DialogHost.Show(new EditUserAccountView());
         }
 
+        private async void OnEditCustomer()
+        {
 
-    
+            ServiceLocator.Current.GetInstance<EditCustomerViewModel>();
+            MessengerInstance.Send(new SelectedCustomerMessage() { SelectedCustomer = SelectedCustomer });
+            await DialogHost.Show(new EditCustomerView());
+        }
+
+
+
     }
 }
