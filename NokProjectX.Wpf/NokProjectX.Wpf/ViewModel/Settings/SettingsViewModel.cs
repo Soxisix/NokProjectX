@@ -217,7 +217,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
                 BatchDeleteCommand = new RelayCommand(OnUserAccountBatchDelete, () =>
                     (UserAccountList.Count(c => c.IsSelected) > 0));
-
+                
 
             }
             else
@@ -225,7 +225,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                 EditCustomerCommand = new RelayCommand(OnEditCustomer);
                 BatchDeleteCommand = new RelayCommand(OnCustomerBatchDelete, () =>
                     (CustomerList.Count(c => c.IsSelected) > 0));
-
+              
 
             }
 
@@ -255,16 +255,24 @@ namespace NokProjectX.Wpf.ViewModel.Settings
          
              }
 
-        private async void OnAddUserAccount() {
+        private async void OnAddUserAccount()
+        {
             if (IsByUser == true)
             {
                 await DialogHost.Show(new AddUserAccountView()
-
+                
                 );
+              
+                TotalCount = UserAccountList.Count();
             }
             else
             {
-                await DialogHost.Show(new AddCustomerView());}
+                await DialogHost.Show(new AddCustomerView());
+
+                    TotalCount = CustomerList.Count;
+                
+            }
+            LoadData();
         }
 
 
@@ -280,9 +288,10 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                     _context.Users.RemoveRange(list);
                     _context.SaveChanges();
                     DoRefresh(null);
+                 
                 }
             });
-        }
+            LoadData();}
 
         private async void OnCustomerBatchDelete()
         {
@@ -296,16 +305,25 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                     _context.Customers.RemoveRange(list);
                     _context.SaveChanges();
                     DoRefresh(null);
-                }
+                    }
             });
+            LoadData();
+            if (IsByUser == true)
+            {
+                TotalCount = UserAccountList.Count();
+            }
+            else
+            {
+                TotalCount = CustomerList.Count();
+            }
+
         }
 
 
 
 
         private void OnClose()
-        {
-            DialogHost.CloseDialogCommand.Execute(this, null);
+        {DialogHost.CloseDialogCommand.Execute(this, null);
         }
 
         /// <summary>
@@ -331,7 +349,17 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                     _context.SaveChanges();
                     DoRefresh(null);
                 }
-            });}
+            });
+
+            if (IsByUser == true)
+            {
+                TotalCount = UserAccountList.Count();
+            }
+            else
+            {
+                TotalCount = CustomerList.Count();
+            }
+        }
 
 
 
