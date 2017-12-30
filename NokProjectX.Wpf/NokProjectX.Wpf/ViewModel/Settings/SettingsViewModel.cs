@@ -66,13 +66,16 @@ namespace NokProjectX.Wpf.ViewModel.Settings
         {
             _context = context;
             MessengerInstance.Register<RefreshMessage>(this, DoRefresh);
-            LoadData();
+           
             ModeList = new List<string>()
             {
                 "User Accounts",
                 "Customer Accounts"
             };
+            CustomerList = new List<Customer>();
+            UserAccountList = new List<UserAccount>();
             LoadCommands();
+
         }
 
      
@@ -96,12 +99,13 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                     {
                         IsByUser = true;
 
-                      
+                      LoadData();
                             TotalCount = UserAccountList.Count;
    
                     }
                     else
                     {
+                        LoadData();
                         IsByUser =false;
                         TotalCount = CustomerList.Count;}
                 }
