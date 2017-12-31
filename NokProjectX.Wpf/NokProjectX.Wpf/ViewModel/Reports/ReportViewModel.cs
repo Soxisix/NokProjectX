@@ -47,8 +47,10 @@ namespace NokProjectX.Wpf.ViewModel.Reports
         private void OnPrint()
         {
             var report = new SalesReport();
-            report.DataSource = _context.Transactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
-
+            if (SelectedCustomer != null)
+            {
+                report.DataSource = _context.Transactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+            }
             var window = new DocumentPreviewWindow();
             window.PreviewControl.DocumentSource = report;
             report.CreateDocument(true);

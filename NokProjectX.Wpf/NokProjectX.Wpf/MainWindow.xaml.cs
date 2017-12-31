@@ -2,6 +2,7 @@
 using Microsoft.Practices.ServiceLocation;
 using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.ViewModel;
+using NokProjectX.Wpf.Views.UserLogin;
 
 namespace NokProjectX.Wpf
 {
@@ -26,7 +27,13 @@ namespace NokProjectX.Wpf
         {
             var main = ServiceLocator.Current.GetInstance<MainViewModel>();
             main.Cleanup();
-            Close();
+            LoginView login = new LoginView();
+            login.Show();Close();
+        }
+
+        private void MainWindow_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.Cleanup();
         }
     }
 }
