@@ -16,7 +16,7 @@
              TextOptions.TextRenderingMode="Auto"
              UseLayoutRounding="True"
              HorizontalAlignment="center"
-           
+           VerticalAlignment="Center"
              HorizontalContentAlignment="Center"
         
             
@@ -30,17 +30,17 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition />
             <RowDefinition Height="0" />
         </Grid.RowDefinitions>
 
         <TextBlock   Grid.Column="0"   FontWeight="SemiBold"
-               Grid.Row="1" Margin="0,200,0,0"
+               Grid.Row="1" Margin="0,0,0,0"
                 FontSize="20" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="About Real Sales Management Tools"/></TextBlock>
 
         <TextBlock Grid.Row="2" FontWeight="SemiBold"

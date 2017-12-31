@@ -106,6 +106,9 @@ namespace NokProjectX.Wpf.ViewModel.Common
                 case 5:
                     MessengerInstance.Send(new NavigateTo { Content = new AboutView() });
                     break;
+                case 6:
+                    MessengerInstance.Send(new SignInOutMessage());
+                    break;
 
             }
         }
