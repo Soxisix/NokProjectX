@@ -217,7 +217,8 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
                 BatchDeleteCommand = new RelayCommand(OnUserAccountBatchDelete, () =>
                     (UserAccountList.Count(c => c.IsSelected) > 0));
-                
+                DeleteUserAccountCommand = new RelayCommand(OnDelete);
+
 
             }
             else
@@ -225,14 +226,14 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                 EditCustomerCommand = new RelayCommand(OnEditCustomer);
                 BatchDeleteCommand = new RelayCommand(OnCustomerBatchDelete, () =>
                     (CustomerList.Count(c => c.IsSelected) > 0));
-              
+                DeleteCustomerCommand = new RelayCommand(OnDelete);
 
             }
 
 
            
 
-            DeleteUserAccountCommand = new RelayCommand(OnDelete);
+        
 
         
             AddUserAccountCommand = new RelayCommand(OnAddUserAccount);
@@ -291,7 +292,16 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                  
                 }
             });
-            LoadData();}
+            LoadData();
+            if (IsByUser == true)
+            {
+                TotalCount = UserAccountList.Count();
+            }
+            else
+            {
+                TotalCount = CustomerList.Count();
+            }
+        }
 
         private async void OnCustomerBatchDelete()
         {
