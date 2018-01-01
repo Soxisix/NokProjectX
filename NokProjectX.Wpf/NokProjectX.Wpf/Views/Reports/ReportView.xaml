@@ -73,7 +73,7 @@
 				</StackPanel>
 				<StackPanel Orientation="Horizontal"
 				            Grid.Column="1">
-					<Button>Update</Button>
+                    <Button Command="{Binding UpdateCommand}">Update</Button>
 					<Button Margin="10,0,0,0"
 					        Command="{Binding PrintCommand}">
 						Print
@@ -93,7 +93,8 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 				<Grid >
-					<ListView ItemsSource="{Binding Transactions}">
+					<ListView ItemsSource="{Binding Transactions}"
+					          SelectedItem="{Binding SelectedTransaction}">
 						<ListView.View>
 							<GridView>
 

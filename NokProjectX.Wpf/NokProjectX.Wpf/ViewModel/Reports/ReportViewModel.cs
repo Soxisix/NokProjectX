@@ -1,26 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using DevExpress.Printing;
 using DevExpress.Xpf.Printing;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraReports;
+using DevExpress.XtraReports.UI;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MaterialDesignThemes.Wpf;
+using MvvmValidation;
 using NokProjectX.Wpf.Common.Messages;
+using NokProjectX.Wpf.Common.Validator;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
 using NokProjectX.Wpf.Reports;
+using NokProjectX.Wpf.Views.Reports;
 using static System.Data.Entity.DbFunctions;
 
 namespace NokProjectX.Wpf.ViewModel.Reports
 {
-    public class ReportViewModel : ViewModelBase
+    public class ReportViewModel : ValidatableViewModelBase
     {
         private readonly YumiContext _context;
-        private object _reportMode;
+        private string _reportMode;
         private List<Entities.Transaction> _transactions;
         private List<Entities.Transaction> _originalTransactions;
         private DateTime? _startDate;
@@ -32,13 +38,99 @@ namespace NokProjectX.Wpf.ViewModel.Reports
 //            StartDate = DateTime.Now ;
 //            EndDate = DateTime.Now ;
 //            EndDate = EndDate.AddDays(1);
+            ConfigureRules();
             LoadData();
-            PrintCommand = new RelayCommand(OnPrint);
+            OkCommand = new RelayCommand(OnOk);
+            UpdateCommand = new RelayCommand(OnUpdate, () => SelectedTransaction != null && SelectedTransaction.Balance > 0);
+            PrintCommand = new RelayCommand(OnPrint, () => Transactions != null);
             var modeList = new List<string> {"All Transactions", "By Customer"};
             ModeList = modeList;
             MessengerInstance.Register<RefreshMessage>(this, OnRefresh);
         }
+        public async Task ValidateAsync()
+        {
+            await Validator.ValidateAllAsync();
+        }
+        void ConfigureRules()
+        {
+            Validator.AddAsyncRule(() => UpdatePayment, async () =>
+            {
+                if (SelectedTransaction.Balance < UpdatePayment || UpdatePayment == null)
+                {
+                    return RuleResult.Invalid("Invalid Payment");
+                }
+                else
+                {
+                    return RuleResult.Valid();
+                }
+            });
+        }
 
+        public RelayCommand OkCommand { get; set; }
+
+        private async void OnOk()
+        {
+           await ValidateAsync();
+            if (HasErrors)
+            {
+                return;
+            }
+
+            Entities.Transaction selectedTransaction = SelectedTransaction;
+            SelectedTransaction.Payment += UpdatePayment.GetValueOrDefault();
+            _context.SaveChanges();
+            UpdatePayment = null;
+            LoadData();
+            if (_isByCustomer)
+            {
+                Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+                SelectedTransaction = selectedTransaction;
+            }
+            else
+            {
+                Transactions = _originalTransactions;
+                SelectedTransaction = selectedTransaction;
+
+            }
+            UpdateCommand.RaiseCanExecuteChanged();
+            CalculateTransaction();
+            DialogHost.CloseDialogCommand.Execute(this, null);
+            
+        }
+
+        private double? _updatePayment;
+        public double? UpdatePayment
+        {
+            get { return _updatePayment; }
+            set { Set(ref _updatePayment, value); }
+        }
+
+        public RelayCommand UpdateCommand { get; set; }
+
+        private async void OnUpdate()
+        {
+            await DialogHost.Show(new UpdateTransactionView() {DataContext = this}, "RootDialog",
+                delegate(object sender, DialogClosingEventArgs args)
+                {
+                    if (Equals(args.Parameter, false))
+                    {
+                        UpdatePayment = null;
+                    }
+                });
+        }
+
+        private Entities.Transaction _selectedTransaction;
+
+        public Entities.Transaction SelectedTransaction
+        {
+            get { return _selectedTransaction; }
+            set
+            {
+                Set(ref _selectedTransaction, value);
+                UpdateCommand.RaiseCanExecuteChanged();
+            }
+        }
+        
         private void OnRefresh(RefreshMessage obj)
         {
             LoadData();
@@ -46,11 +138,21 @@ namespace NokProjectX.Wpf.ViewModel.Reports
 
         private void OnPrint()
         {
-            var report = new SalesReport();
-            if (SelectedCustomer != null)
+            XtraReport report;
+            if (IsByCustomer)
             {
-                report.DataSource = _context.Transactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+                report = new SalesReport();
+                if (SelectedCustomer != null)
+                {
+                    report.DataSource = _context.Transactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+                }
             }
+            else
+            {
+                report = new AllTransactionReport();
+                report.DataSource = Transactions;
+            }
+            
             var window = new DocumentPreviewWindow();
             window.PreviewControl.DocumentSource = report;
             report.CreateDocument(true);
@@ -66,9 +168,10 @@ namespace NokProjectX.Wpf.ViewModel.Reports
         {
             _originalTransactions = _context.Transactions.ToList();
             Customers = _context.Customers.ToList();
+            
         }
 
-        public object ReportMode
+        public string ReportMode
         {
             get { return _reportMode; }
             set
@@ -203,7 +306,10 @@ namespace NokProjectX.Wpf.ViewModel.Reports
         public List<Entities.Transaction> Transactions
         {
             get { return _transactions; }
-            set { Set(ref _transactions, value); }
+            set
+            {
+                Set(ref _transactions, value);
+                PrintCommand.RaiseCanExecuteChanged();}
         }
 
         private bool _isByCustomer;

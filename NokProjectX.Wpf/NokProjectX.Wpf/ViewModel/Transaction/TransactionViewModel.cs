@@ -456,11 +456,10 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
 
         void ClearTransaction()
         {
-            InvoiceList = null;
+            InvoiceList = new ObservableCollection<Invoice>();
             SelectedCustomer = null;
             SearchProduct = null;
-            Payment = 0.0d;
-        }
+            Payment = 0.0d;}
         public RelayCommand CloseCommand { get; set; }
 
         private void OnClose()

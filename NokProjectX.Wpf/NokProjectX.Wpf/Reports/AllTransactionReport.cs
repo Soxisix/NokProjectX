@@ -6,9 +6,9 @@ using DevExpress.XtraReports.UI;
 
 namespace NokProjectX.Wpf.Reports
 {
-    public partial class SalesReportByCustomer : DevExpress.XtraReports.UI.XtraReport
+    public partial class AllTransactionReport : DevExpress.XtraReports.UI.XtraReport
     {
-        public SalesReportByCustomer()
+        public AllTransactionReport()
         {
             InitializeComponent();
         }

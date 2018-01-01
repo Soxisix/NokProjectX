@@ -1,11 +1,4 @@
-﻿using System;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
@@ -14,8 +7,6 @@ using NokProjectX.Wpf.Common.Messages;
 using NokProjectX.Wpf.Common.Validator;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
-using NokProjectX.Wpf.ViewModel.Settings;
-using Microsoft.Win32;
 
 
 namespace NokProjectX.Wpf.ViewModel.Settings

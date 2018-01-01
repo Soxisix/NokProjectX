@@ -176,11 +176,11 @@
     <Compile Include="Reports\SalesReport.Designer.cs">
       <DependentUpon>SalesReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\SalesReportByCustomer.cs">
+    <Compile Include="Reports\AllTransactionReport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\SalesReportByCustomer.Designer.cs">
-      <DependentUpon>SalesReportByCustomer.cs</DependentUpon>
+    <Compile Include="Reports\AllTransactionReport.Designer.cs">
+      <DependentUpon>AllTransactionReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\TransactionReport.cs">
       <SubType>Component</SubType>
@@ -236,6 +236,9 @@
     </Compile>
     <Compile Include="Views\Reports\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\UpdateTransactionView.xaml.cs">
+      <DependentUpon>UpdateTransactionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\AddCustomerView.xaml.cs">
       <DependentUpon>AddCustomerView.xaml</DependentUpon>
@@ -315,6 +318,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Reports\UpdateTransactionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Settings\AddCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -366,8 +373,8 @@
     <EmbeddedResource Include="Reports\SalesReport.resx">
       <DependentUpon>SalesReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\SalesReportByCustomer.resx">
-      <DependentUpon>SalesReportByCustomer.cs</DependentUpon>
+    <EmbeddedResource Include="Reports\AllTransactionReport.resx">
+      <DependentUpon>AllTransactionReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\TransactionReport.resx">
       <DependentUpon>TransactionReport.cs</DependentUpon>
