@@ -35,7 +35,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition />
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="0" />
         </Grid.RowDefinitions>
 
@@ -95,7 +95,7 @@
 
 
 
-        <StackPanel   Grid.Row="6" VerticalAlignment="Bottom" Margin="0,0,0,30" >
+        <StackPanel   Grid.Row="6" VerticalAlignment="Bottom" Margin="0,300,0,5" >
             <TextBlock  TextAlignment="Center"
               
                 FontSize="12" Height="14"><Run Text="Copyright ©2017 DigitalMark Designs"/></TextBlock>

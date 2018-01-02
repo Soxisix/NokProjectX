@@ -69,6 +69,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
            
             ModeList = new List<string>()
             {
+                
                 "User Accounts",
                 "Customer Accounts"
             };
@@ -166,7 +167,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                     else
                     {
                         CustomerList = CustomerList = OriginalCustomerList.Where(c =>
-                                c.Name.ToLower().Contains(SearchText.Trim().ToLower()) ||
+                                c.Name.ToLower().Contains(SearchText.Trim().ToLower()) ||   
                                 SearchText.Trim().Contains(c.Id.ToString())
                               
                             )
@@ -218,7 +219,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             if (IsByUser == true)
             {
                 EditUserAccountCommand = new RelayCommand(OnEditUserAccount);
-
                 BatchDeleteCommand = new RelayCommand(OnUserAccountBatchDelete, () =>
                     (UserAccountList.Count(c => c.IsSelected) > 0));
                 DeleteUserAccountCommand = new RelayCommand(OnDelete);

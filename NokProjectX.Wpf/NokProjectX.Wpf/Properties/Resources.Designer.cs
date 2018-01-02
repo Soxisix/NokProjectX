@@ -223,6 +223,26 @@ namespace NokProjectX.Wpf.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap addUser {
+            get {
+                object obj = ResourceManager.GetObject("addUser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap addUserHover {
+            get {
+                object obj = ResourceManager.GetObject("addUserHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap btnAdd {
             get {
                 object obj = ResourceManager.GetObject("btnAdd", resourceCulture);
@@ -393,6 +413,26 @@ namespace NokProjectX.Wpf.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap editCostumer {
+            get {
+                object obj = ResourceManager.GetObject("editCostumer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap editCostumerHover {
+            get {
+                object obj = ResourceManager.GetObject("editCostumerHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap editProduct {
             get {
                 object obj = ResourceManager.GetObject("editProduct", resourceCulture);
@@ -406,6 +446,26 @@ namespace NokProjectX.Wpf.Properties {
         internal static System.Drawing.Bitmap editProductHover {
             get {
                 object obj = ResourceManager.GetObject("editProductHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap editUser {
+            get {
+                object obj = ResourceManager.GetObject("editUser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap editUserHover {
+            get {
+                object obj = ResourceManager.GetObject("editUserHover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

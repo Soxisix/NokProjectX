@@ -540,12 +540,6 @@
     <Resource Include="Resources\btnCredit.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\addCustomer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\addCustomerHover.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
@@ -566,6 +560,30 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\addbtnUserHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addCustomer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addCustomerHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addUser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addUserHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\editCostumer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\editCostumerHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\editUser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\editUserHover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

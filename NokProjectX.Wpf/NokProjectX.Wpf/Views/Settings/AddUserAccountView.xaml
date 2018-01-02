@@ -113,7 +113,7 @@
                          Text="{Binding LoginUsername, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
                 <PasswordBox FontSize="12"
-                             Padding="3,0,0,0"
+                             Padding="0,0,0,0"
                          Foreground="White"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          materialDesign:HintAssist.Hint="Password"
@@ -126,7 +126,7 @@
                          />
 
                 <PasswordBox  FontSize="12"
-                              Padding="3,0,0,0"
+                              Padding="0,0,0,0"
                          Foreground="White"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          materialDesign:ValidationAssist.UsePopup="True"
@@ -154,7 +154,7 @@
                            BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnAdd.png" />
+                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addUser.png" />
 
                             </Setter.Value>
                         </Setter>
@@ -163,7 +163,7 @@
                                      Value="True">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnAddHover.png" />
+                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addUserHover.png" />
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>

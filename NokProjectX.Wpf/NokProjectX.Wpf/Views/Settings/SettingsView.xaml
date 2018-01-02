@@ -72,6 +72,7 @@
                             BorderThickness="0"
                             Content="Add"
                             Foreground="White"
+                            Background="Blue"
                             Command="{Binding AddUserAccountCommand}"
                             SnapsToDevicePixels="True">
 
@@ -86,8 +87,7 @@
                             materialDesign:ShadowAssist.ShadowDepth="Depth0"
                             BorderThickness="0"
                             Content="Delete"
-                            Command="{Binding BatchDeleteCommand}"
-                          
+                            Command="{Binding BatchDeleteCommand}"                         
                             Background="Brown"
                             SnapsToDevicePixels="True">
 
@@ -105,7 +105,7 @@
 
             <ComboBox materialDesign:HintAssist.Hint="Accounts"
                       materialDesign:HintAssist.IsFloating="True"
-                      
+                     SelectedIndex="0"
                       VerticalContentAlignment="Bottom"
                       Grid.Column="0"
                       Margin="20,0,900,20"

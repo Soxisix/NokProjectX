@@ -94,7 +94,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             {
                 return;
             }
-
             UserAccount newUserAccount = new UserAccount()
             {
                 Name = LoginName,
@@ -206,6 +205,8 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                         $"UserAccount already exists");
                 });
 
+         
+
             Validator.AddRequiredRule(() => LoginName, "Name is Required");
 
             Validator.AddRequiredRule(() => LoginUsername, "Username is Required");
@@ -214,7 +215,6 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
             Validator.AddRequiredRule(() => ConfirmPassword, "Please Confirm Password");
         }
-
         private async void Validate()
         {
             await ValidateAsync();
