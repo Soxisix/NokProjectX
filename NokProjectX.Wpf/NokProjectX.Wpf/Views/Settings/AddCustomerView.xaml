@@ -144,7 +144,7 @@
                            BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnAdd.png" />
+                                <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addCustomer.png" />
 
                             </Setter.Value>
                         </Setter>
@@ -153,7 +153,7 @@
                                      Value="True">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/btnAddHover.png" />
+                                        <ImageBrush ImageSource="/NokProjectX.Wpf;component/Resources/addCustomerHover.png" />
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
