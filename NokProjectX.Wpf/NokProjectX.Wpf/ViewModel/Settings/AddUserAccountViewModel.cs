@@ -214,6 +214,18 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             Validator.AddRequiredRule(() => LoginPassword, "Password is Required");
 
             Validator.AddRequiredRule(() => ConfirmPassword, "Please Confirm Password");
+            Validator.AddRule(nameof(LoginUsername),
+                () =>
+                {
+                    if (LoginPassword == ConfirmPassword)
+                    {
+                        return RuleResult.Valid();
+                    }
+                    else
+                    {
+                        return RuleResult.Invalid("Password does not match");
+                    }
+                });
         }
         private async void Validate()
         {

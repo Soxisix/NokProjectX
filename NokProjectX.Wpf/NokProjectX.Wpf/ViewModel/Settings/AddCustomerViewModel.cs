@@ -168,7 +168,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
                     var count = _context.Customers.Count(c => c.Name.ToLower().Equals(CustomerName.Trim().ToLower()));
                     var result = count == 0;
                     return RuleResult.Assert(result,
-                        $"UserAccount already exists");
+                        $"Customer already exists");
                 });
 
             Validator.AddRequiredRule(() => CustomerName, "Name is Required");
