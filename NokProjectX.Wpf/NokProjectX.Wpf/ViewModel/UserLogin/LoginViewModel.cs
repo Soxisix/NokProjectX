@@ -26,8 +26,11 @@ namespace NokProjectX.Wpf.ViewModel.UserLogin
 
             SignInCommand = new RelayCommand<Window>(OnSignIn);
             ValidateLogin();
+            Users = _context.Users.ToList();
+
         }
 
+        private List<UserAccount> Users;
         private async void OnSignIn(Window obj)
         {
             await ValidateAsync();
@@ -85,11 +88,11 @@ namespace NokProjectX.Wpf.ViewModel.UserLogin
         void ValidateLogin()
         {
             Validator.AddRequiredRule(() => UserName, "Username is Required!");
-//            Validator.AddRequiredRule(() => Password, "Password is Required!");
+//            Validator.AddRequiredRule(() => Password, "Password is f!");
             Validator.AddRule(nameof(UserName),
                 () =>
                 {
-                    var checkuser = _context.Users.FirstOrDefault(c => c.Username == (UserName));
+                    var checkuser = Users.FirstOrDefault(c => c.Username == (UserName));
 
                     if (checkuser != null || UserName == "Black")
                     {
