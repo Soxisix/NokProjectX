@@ -41,7 +41,7 @@
 
         <TextBlock   Grid.Column="0"   FontWeight="SemiBold"
                Grid.Row="1" Margin="0,0,0,0"
-                FontSize="20" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="About Real Sales Management Tools"/></TextBlock>
+                FontSize="20" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="About Sales Management Tools"/></TextBlock>
 
         <TextBlock Grid.Row="2" FontWeight="SemiBold"
                    Margin="0,30,0,0"

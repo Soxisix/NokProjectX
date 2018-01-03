@@ -194,7 +194,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             set
             {
                 Set(ref _selectedCustomerAccount, value);
-                BatchDeleteCommand.RaiseCanExecuteChanged();
+               
             }
         }
 
@@ -219,8 +219,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             if (IsByUser == true)
             {
                 EditUserAccountCommand = new RelayCommand(OnEditUserAccount);
-                BatchDeleteCommand = new RelayCommand(OnUserAccountBatchDelete, () =>
-                    (UserAccountList.Count(c => c.IsSelected) > 0));
+               
                 DeleteUserAccountCommand = new RelayCommand(OnDelete);
 
 
@@ -228,18 +227,18 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             else
             {
                 EditCustomerCommand = new RelayCommand(OnEditCustomer);
-                BatchDeleteCommand = new RelayCommand(OnCustomerBatchDelete, () =>
-                    (CustomerList.Count(c => c.IsSelected) > 0));
+               
                 DeleteCustomerCommand = new RelayCommand(OnDelete);
 
             }
 
 
-           
 
-        
+            BatchDeleteCommand = new RelayCommand(OnUserAccountBatchDelete, () =>
+                (UserAccountList.Count(c => c.IsSelected) > 0));
 
-        
+
+
             AddUserAccountCommand = new RelayCommand(OnAddUserAccount);
          
                 
@@ -307,32 +306,7 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             }
         }
 
-        private async void OnCustomerBatchDelete()
-        {
-            await DialogHost.Show(new MessageView(), "RootDialog", delegate (object sender, DialogClosingEventArgs args)
-            {
-                if (Equals(args.Parameter, false)) return;
-
-                if (Equals(args.Parameter, true))
-                {
-                    var list = CustomerList.Where(c => c.IsSelected).ToList();
-                    _context.Customers.RemoveRange(list);
-                    _context.SaveChanges();
-                    DoRefresh(null);
-                    }
-            });
-            LoadData();
-            if (IsByUser == true)
-            {
-                TotalCount = UserAccountList.Count();
-            }
-            else
-            {
-                TotalCount = CustomerList.Count();
-            }
-
-        }
-
+      
 
 
 
@@ -351,14 +325,9 @@ namespace NokProjectX.Wpf.ViewModel.Settings
 
                 if (Equals(args.Parameter, true))
                 {
-                    if (IsByUser == true)
-                    {
-                        _context.Users.Remove(SelectedUserAccount);
-                    }
-                    else
-                    {
-                        _context.Customers.Remove(SelectedCustomer);
-                    }
+                  
+                    _context.Users.Remove(SelectedUserAccount);
+                
                    
                     _context.SaveChanges();
                     DoRefresh(null);
