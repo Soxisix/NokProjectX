@@ -214,24 +214,16 @@ namespace NokProjectX.Wpf.ViewModel.Settings
             LoadData();
         }
         private void LoadCommands()
-        {
-            CloseCommand = new RelayCommand(OnClose);
-            if (IsByUser == true)
-            {
+        {CloseCommand = new RelayCommand(OnClose);
+           
                 EditUserAccountCommand = new RelayCommand(OnEditUserAccount);
-               
+             
                 DeleteUserAccountCommand = new RelayCommand(OnDelete);
-
-
-            }
-            else
-            {
+           
                 EditCustomerCommand = new RelayCommand(OnEditCustomer);
                
                 DeleteCustomerCommand = new RelayCommand(OnDelete);
-
-            }
-
+           
 
 
             BatchDeleteCommand = new RelayCommand(OnUserAccountBatchDelete, () =>

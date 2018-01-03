@@ -774,6 +774,7 @@
                                  Margin="5,0,0,0">
                 <Grid>
                     <ListView ItemsSource="{Binding Customers}"
+                               HorizontalContentAlignment="Stretch"
                               SelectedItem="{Binding SelectedCustomer}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem"
@@ -787,6 +788,7 @@
                                         <Setter Property="Foreground"
                                                 Value="White">
                                         </Setter>
+                                       
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -795,23 +797,37 @@
 
                             <DataTemplate>
                                 <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock>
-                                            <Run Text="Name : " />
-                                        </TextBlock>
-                                        <TextBlock Text="{Binding Name}"></TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Grid.Row="1"
-                                                Orientation="Horizontal">
-                                        <TextBlock>
-                                            <Run Text="Contact : " />
-                                        </TextBlock>
-                                        <TextBlock Text="{Binding Mobile}"></TextBlock>
-                                    </StackPanel>
+                                    
+                                    <Border BorderBrush="#FFE0E0E0"
+                                            BorderThickness="0,0,0,1">
+                                        <Grid >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock>
+                                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Account"
+                                                                             VerticalAlignment="Center" />
+                                                </TextBlock>
+                                                <TextBlock FontSize="12"
+                                                           VerticalAlignment="Center"
+                                                           Text="{Binding Name}">
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="1"
+                                                        Orientation="Horizontal" Margin="0,0,0,10">
+                                                <TextBlock>
+                                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Cellphone"
+                                                                             VerticalAlignment="Center" />
+                                                </TextBlock>
+                                                <TextBlock FontSize="10"
+                                                           VerticalAlignment="Center"
+                                                           Text="{Binding Mobile}">
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>

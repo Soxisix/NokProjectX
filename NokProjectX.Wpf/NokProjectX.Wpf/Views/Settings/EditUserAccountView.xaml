@@ -10,7 +10,7 @@
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
              MinWidth="250"
-             Height="350"
+            
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
@@ -159,7 +159,7 @@
             <Button Grid.Row="5"
                     Height="30"
                     Width="220"
-                    Margin="0,10,0,1"
+                    Margin="0,10,0,15"
                     Command="{Binding CloseCommand}"
                     BorderThickness="0">
                 <Button.Style>

@@ -213,6 +213,9 @@
     <Compile Include="Views\Common\SideBarView.xaml.cs">
       <DependentUpon>SideBarView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Common\SuccessView.xaml.cs">
+      <DependentUpon>SuccessView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Common\TopBarView.xaml.cs">
       <DependentUpon>TopBarView.xaml</DependentUpon>
     </Compile>
@@ -283,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Common\SideBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\SuccessView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
