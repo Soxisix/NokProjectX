@@ -503,6 +503,14 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         {
             Validator.AddRequiredRule(() => CustomerName, "Customer Name is Required!");
             Validator.AddRequiredRule(() => CustomerMobile, "Mobile Number is Required!");
+            Validator.AddRule(nameof(CustomerName),
+                () =>
+                {
+                    var count = _context.Customers.Count(c => c.Name.ToLower().Equals(CustomerName.Trim().ToLower()));
+                    var result = count == 0;
+                    return RuleResult.Assert(result,
+                        $"Customer already exists");
+                });
         }
 
         public RelayCommand NewCustomerCommand { get; set; }

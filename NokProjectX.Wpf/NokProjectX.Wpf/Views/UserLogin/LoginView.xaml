@@ -8,13 +8,15 @@
         mc:Ignorable="d"
 		x:Name="LoginWindow"
         WindowState="Normal"
+        Title="Real Digital Printing"
+		
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         BorderThickness="0"
         Width="600"
         Height="400"
         ResizeMode="NoResize"
-        DataContext="{Binding LoginView, Source={StaticResource Locator}}">
+        DataContext="{Binding LoginView, Source={StaticResource Locator}}" Icon="/NokProjectX.Wpf;component/Resources/RealLogo.png">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="0" />
@@ -110,11 +112,12 @@ Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
 			             Height="30"
 			             Margin="20,0,20,0" />
 
-			<Button Margin="80,15,80,0"
+			<Button Margin="80,25,80,0"
+					materialDesign:ShadowAssist.ShadowDepth="Depth0"
 					Command="{Binding SignInCommand}"
 					CommandParameter="{Binding ElementName=LoginWindow}"
 			        BorderBrush="Transparent"
-			        Height="50">
+			        Height="45">
 				<Button.Style>
 					<Style TargetType="{x:Type Button}"
 					       BasedOn="{StaticResource {x:Type Button}}">
