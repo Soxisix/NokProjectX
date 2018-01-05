@@ -120,7 +120,7 @@
                          Text="{Binding CustomerMobile, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBox FontSize="12"
-                             Padding="3,0,0,0"
+                            
                          Foreground="White"
                          materialDesign:ValidationAssist.OnlyShowOnFocus="True"
                          materialDesign:HintAssist.Hint="Address"
