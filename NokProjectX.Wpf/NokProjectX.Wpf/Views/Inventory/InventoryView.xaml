@@ -275,7 +275,7 @@
 													<Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
 														<Style.Triggers>
 															<DataTrigger Binding="{Binding Stock}" Value="0">
-																<Setter Property="Foreground" Value="IndianRed"></Setter>
+																<Setter Property="Foreground" Value="Red"></Setter>
 															</DataTrigger>
 														</Style.Triggers>
 													</Style>
@@ -288,8 +288,8 @@
 		                                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
 			                                            <Style.Triggers>
 				                                            <DataTrigger Binding="{Binding Stock}" Value="0">
-					                                            <Setter Property="Foreground" Value="IndianRed"></Setter>
-				                                            </DataTrigger>
+																<Setter Property="Foreground" Value="Red"></Setter>
+															</DataTrigger>
 			                                            </Style.Triggers>
 		                                            </Style>
 	                                            </TextBlock.Style>

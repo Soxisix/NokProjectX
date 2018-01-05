@@ -127,10 +127,29 @@
                                Height="16">
                         <Run Text="Current Stock: " />
                     </TextBlock>
-                    <TextBlock Text="{Binding SelectedProduct.Stock}"></TextBlock>
+                    <TextBlock Text="{Binding SelectedProduct.Stock}">
+	                    <TextBlock.Style>
+		                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+			                    <Style.Triggers>
+									<DataTrigger Binding="{Binding SelectedProduct.Stock}" Value="0">
+					                    <Setter Property="Foreground" Value="Red"></Setter>
+				                    </DataTrigger>
+			                    </Style.Triggers>
+		                    </Style>
+	                    </TextBlock.Style>
+					</TextBlock>
                     <TextBlock Text="{Binding SelectedProduct.Type.Name}"
                                Margin="5,0,0,0">
-                    </TextBlock>
+	                    <TextBlock.Style>
+		                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+			                    <Style.Triggers>
+				                    <DataTrigger Binding="{Binding SelectedProduct.Stock}" Value="0">
+					                    <Setter Property="Foreground" Value="Red"></Setter>
+				                    </DataTrigger>
+			                    </Style.Triggers>
+		                    </Style>
+	                    </TextBlock.Style>
+					</TextBlock>
                 </StackPanel>
                 <Border Grid.Row="2"
                         BorderBrush="#FFE0E0E0"
@@ -383,7 +402,17 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock TextAlignment="Right"
-                                               Text="{Binding ProductCode}" />
+                                               Text="{Binding ProductCode}">
+	                                    <TextBlock.Style>
+		                                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+			                                    <Style.Triggers>
+				                                    <DataTrigger Binding="{Binding Stock}" Value="0">
+														<Setter Property="Foreground" Value="Red"></Setter>
+													</DataTrigger>
+			                                    </Style.Triggers>
+		                                    </Style>
+	                                    </TextBlock.Style>
+									</TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -391,7 +420,17 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock TextAlignment="Right"
-                                               Text="{Binding Name}" />
+                                               Text="{Binding Name}">
+	                                    <TextBlock.Style>
+		                                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+			                                    <Style.Triggers>
+				                                    <DataTrigger Binding="{Binding Stock}" Value="0">
+														<Setter Property="Foreground" Value="Red"></Setter>
+													</DataTrigger>
+			                                    </Style.Triggers>
+		                                    </Style>
+	                                    </TextBlock.Style>
+									</TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -399,7 +438,17 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock TextAlignment="Right"
-                                               Text="{Binding Description}" />
+                                               Text="{Binding Description}">
+	                                    <TextBlock.Style>
+		                                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+			                                    <Style.Triggers>
+				                                    <DataTrigger Binding="{Binding Stock}" Value="0">
+														<Setter Property="Foreground" Value="Red"></Setter>
+													</DataTrigger>
+			                                    </Style.Triggers>
+		                                    </Style>
+	                                    </TextBlock.Style>
+									</TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -441,10 +490,10 @@
 					<TextBlock FontSize="14"
 						Foreground="#6d6e71"
 						HorizontalAlignment="Right" Height="21"><Run Text="#" /></TextBlock>
-					<TextBlock FontSize="14"
-					           Foreground="#6d6e71"
-					           HorizontalAlignment="Right" Height="21"
-							   Text="{Binding NewInvoice.InvoiceCode}"></TextBlock>
+<!--					<TextBlock FontSize="14"-->
+<!--					           Foreground="#6d6e71"-->
+<!--					           HorizontalAlignment="Right" Height="21"-->
+<!--							   Text="{Binding NewInvoice.InvoiceCode}"></TextBlock>-->
 
 				</StackPanel>
 				<TextBlock Grid.Row="1"

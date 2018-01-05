@@ -436,7 +436,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             var payment = 0.0d;
             if (IsCash)
             {
-                payment = Total;
+                payment = Payment;
             }
             else
             {
