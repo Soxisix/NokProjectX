@@ -169,7 +169,7 @@
                          Text="{Binding Stock,  ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          PreviewTextInput="TextBox_PreviewTextInput" />
                 <ComboBox Width="220"
-                          Padding="5,10"
+                          Padding="0,5,5,5"
                           DisplayMemberPath="Name"
                           FontSize="12"
                           Foreground="White"
