@@ -935,8 +935,8 @@
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Stretch"
                                      TextAlignment="Center"
-                                     Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityCollapsed}, ElementName=Cash}"
                                      BorderThickness="0,0,0,0"
+									 IsReadOnly="{Binding IsSelected, ElementName=Cash}"
                                      Text="{Binding Payment, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
                                      materialDesign:ValidationAssist.UsePopup="True"
                                      Padding="5,0"
@@ -954,11 +954,11 @@
                              HorizontalContentAlignment="Stretch"
                              SelectedIndex="0"
                              Style="{StaticResource MaterialDesignToolToggleListBox}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding ClearPaymentCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+<!--                        <i:Interaction.Triggers>-->
+<!--                            <i:EventTrigger EventName="SelectionChanged">-->
+<!--                                <i:InvokeCommandAction Command="{Binding ClearPaymentCommand}" />-->
+<!--                            </i:EventTrigger>-->
+<!--                        </i:Interaction.Triggers>-->
                         <ListBoxItem x:Name="Cash" >
 
                             <ListBoxItem.Style>
@@ -1005,7 +1005,7 @@
                             </ListBoxItem.Style>
                             <TextBlock Width="125"
                                        TextAlignment="Center"
-                                       Text="CREDIT">
+                                       Text="DOWNPAYMENT">
                             </TextBlock>
                         </ListBoxItem>
 

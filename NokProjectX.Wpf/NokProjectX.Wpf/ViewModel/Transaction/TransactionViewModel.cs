@@ -181,6 +181,8 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             set
             {
                 Set(ref _invoiceList, value);
+                
+                RaisePropertyChanged(() => Payment);
                 ConfirmCommand.RaiseCanExecuteChanged();
             }
         }
@@ -398,7 +400,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             ConfirmCommand = new RelayCommand(OnConfirm, () =>
             {
                 
-                if (InvoiceList != null && SelectedCustomer != null && PaymentMethod())
+                if (InvoiceList != null && SelectedCustomer != null)
                 {
                     return true;
                 }
@@ -444,11 +446,18 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             var payment = 0.0d;
             if (IsCash)
             {
-                payment = Payment;
+                payment = Total;
             }
             else
             {
-                payment = 0.0d;
+                if (Payment > Total)
+                {
+                    payment = Total;
+                }
+                else
+                {
+                    payment = Payment;
+                }
             }
             int finalNumber = 0;
             using (var context = new YumiContext())
@@ -733,6 +742,14 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 total = total + invoice.Price;
             }
             Total = total;
+            if (IsCash)
+            {
+                Payment = Total;
+            }
+            else
+            {
+                Payment = 0.0d;
+            }
         }
 
         void ClearFields()
@@ -741,6 +758,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             Size1 = null;
             Size2 = null;
             Description = null;
+            Payment = 0.0d;
         }
 
         public bool IsCash
@@ -771,10 +789,13 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                     if (a != null && a.Name == "Cash")
                     {
                         IsCash = true;
+                        Payment = Total;
+                        RaisePropertyChanged(() => Payment);
                     }
                     if (a != null && a.Name == "Credit")
                     {
                         IsCash = false;
+                        Payment = 0.0d;
                     }
                 }
             }
