@@ -26,6 +26,7 @@ namespace NokProjectX.Wpf.Context
             //                Database.SetInitializer(new CreateDatabaseIfNotExists<YumiContext>());
             //            }
 //            Database.SetInitializer(new MigrateDatabaseToLatestVersion<YumiContext, Configuration>());
+            
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

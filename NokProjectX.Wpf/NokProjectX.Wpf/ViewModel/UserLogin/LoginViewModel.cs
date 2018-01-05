@@ -27,7 +27,7 @@ namespace NokProjectX.Wpf.ViewModel.UserLogin
             SignInCommand = new RelayCommand<Window>(OnSignIn);
             ValidateLogin();
             Users = _context.Users.ToList();
-
+            
         }
 
         private List<UserAccount> Users;

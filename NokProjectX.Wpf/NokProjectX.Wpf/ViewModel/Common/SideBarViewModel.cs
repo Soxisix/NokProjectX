@@ -1,5 +1,11 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using GalaSoft.MvvmLight.Ioc;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Practices.ServiceLocation;
+using NokProjectX.Wpf.Context;
+using NokProjectX.Wpf.ViewModel.Inventory;
+using NokProjectX.Wpf.ViewModel.Reports;
+using NokProjectX.Wpf.ViewModel.Settings;
+using NokProjectX.Wpf.ViewModel.Transaction;
 using NokProjectX.Wpf.Views.About;
 using NokProjectX.Wpf.Views.Reports;
 using NokProjectX.Wpf.Views.Settings;
@@ -92,15 +98,19 @@ namespace NokProjectX.Wpf.ViewModel.Common
             switch (obj)
             {
                 case 1:
+                    ViewModelLocator.Cleanup();
                     MessengerInstance.Send(new NavigateTo { Content = new TransactionView() });
                     break;
                 case 2:
+                    ViewModelLocator.Cleanup();
                     MessengerInstance.Send(new NavigateTo { Content = new InventoryView() });
                     break;
                 case 3:
+                    ViewModelLocator.Cleanup();
                     MessengerInstance.Send(new NavigateTo { Content = new ReportView() });
                     break;
                 case 4:
+                    ViewModelLocator.Cleanup();
                     MessengerInstance.Send(new NavigateTo { Content = new SettingsView() });
                     break;
                 case 5:
