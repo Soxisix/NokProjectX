@@ -5,6 +5,7 @@ using MaterialDesignThemes.Wpf;
 using Microsoft.Practices.ServiceLocation;
 using NokProjectX.Wpf.Common;
 using NokProjectX.Wpf.ViewModel.Reports;
+using NokProjectX.Wpf.Views.Common;
 using NokProjectX.Wpf.Views.Customer;
 
 namespace NokProjectX.Wpf.ViewModel.Transaction
@@ -107,13 +108,22 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         {
             _context = context;
             LoadData();
+            OkCommand = new RelayCommand(OnOk);
             MessengerInstance.Register<RefreshMessage>(this, OnRefresh);
             LoadCommand();
             InvoiceList = new ObservableCollection<Invoice>();
         }
+        public RelayCommand OkCommand { get; set; }
 
-        public string SearchProduct
+        private async void OnOk()
         {
+            DialogHost.CloseDialogCommand.Execute(this, null);
+
+        }
+
+
+
+        public string SearchProduct{
             get { return _searchProduct; }
             set
             {
@@ -463,10 +473,10 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 invoice.InvoiceCode = transaction.TransactionNumber;
             }
             _context.Transactions.Add(transaction);
-            _context.SaveChanges();
-            ClearTransaction();
+            _context.SaveChanges();ClearTransaction();
             ClearFields();
-            MessageBox.Show("Transaction Successful");
+
+           DialogHost.Show(new SuccessView(), "RootDialog");
             ServiceLocator.Current.GetAllInstances<ReportViewModel>();
             MessengerInstance.Send(new RefreshMessage());
         }
