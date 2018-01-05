@@ -442,18 +442,35 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             {
                 payment = 0.0d;
             }
+            int finalNumber = 0;
+            using (var context = new YumiContext())
+            {
+                var code = context.Transactions.Select(c => c.TransactionNumber).OrderByDescending(c => c)
+                    .FirstOrDefault();
+
+                if (code > 0)
+                {
+                    finalNumber = code + 1;
+                }
+                else
+                {
+                    finalNumber = 1000001;
+                }
+            }
             var transaction = new Transaction()
             {
+                TransactionNumber = finalNumber,
                 Payment = payment,
                 TotalPrice = Total,
                 Date = DateTime.Now,
-                Invoice = NewInvoice,
+                Invoice = InvoiceList,
                 Customer = SelectedCustomer
             };
             foreach (var invoice in InvoiceList)
             {
                 invoice.Customer = SelectedCustomer;
                 invoice.Date = DateTime.Now;
+                invoice.InvoiceCode = transaction.TransactionNumber;
             }
             _context.Transactions.Add(transaction);
             _context.SaveChanges();ClearTransaction();
@@ -469,7 +486,9 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             InvoiceList = new ObservableCollection<Invoice>();
             SelectedCustomer = null;
             SearchProduct = null;
-            Payment = 0.0d;}
+            Payment = 0.0d;
+        }
+
         public RelayCommand CloseCommand { get; set; }
 
         private void OnClose()
@@ -625,19 +644,18 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             }
             RaisePropertyChanged(() => SelectedProduct);
             RaisePropertyChanged(() => Products);
-            var code = _context.Invoices.Select(c => c.InvoiceCode).OrderByDescending(c => c).FirstOrDefault();
-            int finalNumber = 0;
-            if (code > 0)
-            {
-                finalNumber = code + 1;
-            }
-            else
-            {
-                finalNumber = 1000001;
-            }
+//            var code = _context.Invoices.Select(c => c.InvoiceCode).OrderByDescending(c => c).FirstOrDefault();
+//            int finalNumber = 0;
+//            if (code > 0)
+//            {
+//                finalNumber = code + 1;
+//            }
+//            else
+//            {
+//                finalNumber = 1000001;
+//            }
             NewInvoice = new Invoice()
             {
-                InvoiceCode = finalNumber,
                 Product = SelectedProduct,
                 Unit = unit,
                 Price = price,

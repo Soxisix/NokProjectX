@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using DevExpress.Printing;
+using DevExpress.Xpf.Docking;
 using DevExpress.Xpf.Printing;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraReports;
@@ -39,14 +40,53 @@ namespace NokProjectX.Wpf.ViewModel.Reports
 //            EndDate = DateTime.Now ;
 //            EndDate = EndDate.AddDays(1);
             ConfigureRules();
-            LoadData();
+
+            CloseDialogCommand = new RelayCommand(OnClose);
+            ViewTransactionCommand = new RelayCommand(OnViewTransaction);
             OkCommand = new RelayCommand(OnOk);
             UpdateCommand = new RelayCommand(OnUpdate, () => SelectedTransaction != null && SelectedTransaction.Balance > 0);
             PrintCommand = new RelayCommand(OnPrint, () => Transactions != null);
-            var modeList = new List<string> {"All Transactions", "By Customer"};
+            var modeList = new List<string> { "All Transactions", "By Customer" };
             ModeList = modeList;
+            PaymentModeList = new List<string> { "All","Paid", "Unpaid" };
             MessengerInstance.Register<RefreshMessage>(this, OnRefresh);
+            LoadData();
         }
+
+        private string _selectedPaymentMode;
+
+        public string SelectedPaymentMode
+        {
+            get { return _selectedPaymentMode; }
+            set
+            {
+                Set(ref _selectedPaymentMode, value);
+                FilterAllTransactions();
+            }
+        }
+        private List<string> _paymentModeList;
+
+        public List<string> PaymentModeList
+        {
+            get { return _paymentModeList; }
+            set { Set(ref _paymentModeList, value); }
+        }
+        public RelayCommand CloseDialogCommand { get; set; }
+
+        private void OnClose()
+        {
+            DialogHost.CloseDialogCommand.Execute(this, null);
+        }
+
+        public RelayCommand ViewTransactionCommand { get; set; }
+
+        private async void OnViewTransaction()
+        {
+            Invoices = SelectedTransaction.Invoice.ToList();
+            await DialogHost.Show(new SelectedTransactionView() {DataContext = this});
+        }
+
+        
         public async Task ValidateAsync()
         {
             await Validator.ValidateAllAsync();
@@ -144,7 +184,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                 report = new SalesReport();
                 if (SelectedCustomer != null)
                 {
-                    report.DataSource = _context.Transactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+                    report.DataSource = Transactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
                 }
             }
             else
@@ -167,6 +207,8 @@ namespace NokProjectX.Wpf.ViewModel.Reports
         private void LoadData()
         {
             _originalTransactions = _context.Transactions.ToList();
+
+            Transactions = _originalTransactions;
             Customers = _context.Customers.ToList();
             
         }
@@ -182,19 +224,17 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                     if ((string) value == "All Transactions")
                     {
                         IsByCustomer = false;
-                        Transactions = _originalTransactions.ToList();
-                        CalculateTransaction();
                         FilterAllTransactions();
+                        
                     }
                     if ((string) value == "By Customer")
                     {
+                        IsByCustomer = true;
                         if (SelectedCustomer != null)
                         {
-                            Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id)
-                                .ToList();
+                            FilterAllTransactions();
                         }
-                        IsByCustomer = true;
-                        CalculateTransaction();
+                        
                     }
                 }
             }
@@ -202,10 +242,65 @@ namespace NokProjectX.Wpf.ViewModel.Reports
 
         private void FilterAllTransactions()
         {
-            if (StartDate != null && EndDate != null)
+            if (ReportMode == "All Transactions")
             {
-                Transactions = _originalTransactions.Where(c => c.Date.Date >= StartDate && c.Date.Date <= EndDate).ToList();
+                if (StartDate != null && EndDate != null && SelectedPaymentMode == "All")
+                {
+                    Transactions = _originalTransactions.Where(c => c.Date.Date >= StartDate && c.Date.Date <= EndDate).ToList();
+                }
+                if (StartDate != null && EndDate != null && SelectedPaymentMode == "Paid")
+                {
+                    Transactions = _originalTransactions.Where(c => c.Date.Date >= StartDate && c.Date.Date <= EndDate && Math.Abs(c.TotalPrice - c.Payment) < 1).ToList();
+                }
+                if (StartDate != null && EndDate != null && SelectedPaymentMode == "Unpaid")
+                {
+                    Transactions = _originalTransactions.Where(c => c.Date.Date >= StartDate && c.Date.Date <= EndDate && Math.Abs(c.TotalPrice - c.Payment) < 0).ToList();
+                }
+                if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "All")
+                {
+                    Transactions = _originalTransactions.ToList();
+                }
+                if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "Paid")
+                {
+                    Transactions = _originalTransactions.Where(c => Math.Abs(c.TotalPrice - c.Payment) < 1).ToList();
+                }
+                if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "Unpaid")
+                {
+                    Transactions = _originalTransactions.Where(c => Math.Abs(c.TotalPrice - c.Payment) < 0).ToList();
+                }
             }
+            else
+            {
+                if (SelectedCustomer != null)
+                {
+                    if (StartDate != null && EndDate != null && SelectedPaymentMode == "All")
+                    {
+                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id && c.Date.Date >= StartDate && c.Date.Date <= EndDate).ToList();
+                    }
+                    if (StartDate != null && EndDate != null && SelectedPaymentMode == "Paid")
+                    {
+                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id && c.Date.Date >= StartDate && c.Date.Date <= EndDate && Math.Abs(c.TotalPrice - c.Payment) < 1).ToList();
+                    }
+                    if (StartDate != null && EndDate != null && SelectedPaymentMode == "Unpaid")
+                    {
+                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id && c.Date.Date >= StartDate && c.Date.Date <= EndDate && Math.Abs(c.TotalPrice - c.Payment) < 0).ToList();
+                    }
+                    if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "All")
+                    {
+                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
+                    }
+                    if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "Paid")
+                    {
+                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id && Math.Abs(c.TotalPrice - c.Payment) < 1).ToList();
+                    }
+                    if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "Unpaid")
+                    {
+                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id && Math.Abs(c.TotalPrice - c.Payment) < 0).ToList();
+                    }
+                }
+            }
+            CalculateTransaction();
+            
         }
 
         private List<string> _modeList;
@@ -284,10 +379,9 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                 Set(ref _selectedCustomer, value);
                 if (value != null && IsByCustomer)
                 {
-                    Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id).ToList();
-                    CalculateTransaction();
+                    FilterAllTransactions();
                 }
-                else
+                if (value == null && !IsByCustomer)
                 {
                     Transactions = null;
                     CalculateTransaction();
@@ -309,7 +403,8 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             set
             {
                 Set(ref _transactions, value);
-                PrintCommand.RaiseCanExecuteChanged();}
+                PrintCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private bool _isByCustomer;

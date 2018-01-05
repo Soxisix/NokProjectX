@@ -6,26 +6,22 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:common="clr-namespace:NokProjectX.Wpf.Common"
         mc:Ignorable="d"
-		x:Name="LoginWindow"
+        x:Name="LoginWindow"
         WindowState="Normal"
         Title="Real Digital Printing"
-		
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         BorderThickness="0"
         Width="600"
         Height="400"
         ResizeMode="NoResize"
-        DataContext="{Binding LoginView, Source={StaticResource Locator}}" Icon="/NokProjectX.Wpf;component/Resources/RealLogo.png">
+        DataContext="{Binding LoginView, Source={StaticResource Locator}}"
+        Icon="/NokProjectX.Wpf;component/Resources/RealLogo.png">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="0" />
-			<ColumnDefinition Width="auto" />
-			<ColumnDefinition Width="auto" />
-			<ColumnDefinition Width="auto" />
-			<ColumnDefinition Width="auto" />
 			<ColumnDefinition Width="300" />
-			<ColumnDefinition Width="0" />
+			<ColumnDefinition Width="300" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="0" />
@@ -39,11 +35,10 @@
 
 		<TextBlock Height="400"
 		           Grid.Column="1"
-		           Grid.Row="1"
-		           Grid.ColumnSpan="2"
-		           Grid.RowSpan="2">
+		           Grid.Row="1">
 
 			<Image Height="400"
+			       RenderOptions.BitmapScalingMode="Fant"
 			       Width="300"
 			       Source="/NokProjectX.Wpf;component/Resources/signinImage.png"
 			       Stretch="Fill" />
@@ -51,16 +46,16 @@
 		</TextBlock>
 
 		<StackPanel Background="White"
-		            Grid.Column="3"
+		            Grid.Column="2"
 		            Grid.Row="1"
 		            Margin="0,0,0,0"
-		            Grid.ColumnSpan="4"
 		            Height="400"
 		            Width="300">
 
 			<StackPanel>
 				<Grid>
 					<Image Height="50"
+					       RenderOptions.BitmapScalingMode="Fant"
 					       Width="300"
 					       Source="/NokProjectX.Wpf;component/Resources/siginTop.png"
 					       Stretch="UniformToFill"
@@ -78,6 +73,7 @@
 
 			</StackPanel>
 			<Image SnapsToDevicePixels="True"
+			       RenderOptions.BitmapScalingMode="Fant"
 			       Margin="0,10,0,0"
 			       Height="120"
 			       Width="120"
@@ -89,12 +85,10 @@
 			<TextBox materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
 			         BorderThickness="0"
 			         Background="#f1f2f2"
-Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
-					 FontSize="16"
-			         MinWidth="80"
-			         Width="250"
-			         Height="30"
-			         Margin="20,0,20,0" />
+			         Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
+			         FontSize="16"
+			         VerticalContentAlignment="Center"
+					 Width="250" />
 
 			<TextBlock Foreground="#6d6e71"
 			           Text="PASSWORD"
@@ -103,19 +97,18 @@ Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
 			<PasswordBox materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
 			             BorderThickness="0"
 			             Background="#f1f2f2"
-			             Grid.Column="4"
 			             FontSize="16"
-			             MinWidth="80"
 			             Width="250"
+						 Height="30"
+						 VerticalContentAlignment="Center"
 			             common:PasswordBoxAssistant.BindPassword="True"
-						 common:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay}"
-			             Height="30"
-			             Margin="20,0,20,0" />
+			             common:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay}" />
 
 			<Button Margin="80,25,80,0"
-					materialDesign:ShadowAssist.ShadowDepth="Depth0"
-					Command="{Binding SignInCommand}"
-					CommandParameter="{Binding ElementName=LoginWindow}"
+			        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+			        Command="{Binding SignInCommand}"
+			        CommandParameter="{Binding ElementName=LoginWindow}"
+			        RenderOptions.BitmapScalingMode="Fant"
 			        BorderBrush="Transparent"
 			        Height="45">
 				<Button.Style>
@@ -123,7 +116,7 @@ Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
 					       BasedOn="{StaticResource {x:Type Button}}">
 						<Setter Property="Background">
 							<Setter.Value>
-								<ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+								<ImageBrush RenderOptions.BitmapScalingMode="Fant"
 								            ImageSource="/NokProjectX.Wpf;component/Resources/signin.png" />
 
 							</Setter.Value>
@@ -133,7 +126,7 @@ Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
 							         Value="True">
 								<Setter Property="Background">
 									<Setter.Value>
-										<ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+										<ImageBrush RenderOptions.BitmapScalingMode="Fant"
 										            ImageSource="/NokProjectX.Wpf;component/Resources/signinHover.png" />
 									</Setter.Value>
 								</Setter>
