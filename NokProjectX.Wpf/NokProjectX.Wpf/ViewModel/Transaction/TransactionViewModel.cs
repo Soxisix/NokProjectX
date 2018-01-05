@@ -101,25 +101,33 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
         private object _paymentMode;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TransactionViewModel"/> class.
-        /// </summary>
+        /// Initializes a new instance of the <see cref="TransactionViewModel"/> class. </summary>
         /// <param name="context">The <see cref="YumiContext"/></param>
         public TransactionViewModel(YumiContext context)
         {
             _context = context;
             LoadData();
             OkCommand = new RelayCommand(OnOk);
+            CancelCommand = new RelayCommand(OnCancel);
             MessengerInstance.Register<RefreshMessage>(this, OnRefresh);
             LoadCommand();
             InvoiceList = new ObservableCollection<Invoice>();
         }
         public RelayCommand OkCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
 
         private async void OnOk()
         {
             DialogHost.CloseDialogCommand.Execute(this, null);
 
         }
+
+        private async void OnCancel()
+        {
+            DialogHost.CloseDialogCommand.Execute(this, null);
+
+        }
+
 
 
 
@@ -619,10 +627,16 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
                 return;
             }
             Validator.RemoveAllRules();
-            ConfigureValidationRules();
-            await ValidateAsync();
-            if (HasErrors) return;
-            double price = 0.0d;
+            ConfigureValidationRules();await ValidateAsync();
+            if (HasErrors)
+            {
+
+              await  DialogHost.Show(new FailedView(), "RootDialog");
+                return; 
+                
+            }
+
+        double price = 0.0d;
             string size;
             double unit = 0.0d;
             if (SelectedProduct.Type.Name == "pcs" || SelectedProduct.Type.Name == "pieces" ||
@@ -670,18 +684,18 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             CalculateTotal();
             Total = Total;
             ClearFields();
+          
+
         }
 
         public Invoice NewInvoice
         {
-            get { return _newInvoice; }
-            set { Set(ref _newInvoice, value); }
+            get { return _newInvoice; }set { Set(ref _newInvoice, value); }
         }
 
         /// <summary>
         /// The OnRefresh
-        /// </summary>
-        /// <param name="obj">The <see cref="RefreshMessage"/></param>
+        /// </summary> <param name="obj">The <see cref="RefreshMessage"/></param>
         private void OnRefresh(RefreshMessage obj)
         {
             LoadData();

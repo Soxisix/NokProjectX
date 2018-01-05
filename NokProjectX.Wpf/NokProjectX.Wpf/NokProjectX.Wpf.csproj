@@ -207,6 +207,9 @@
     <Compile Include="Views\About\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Common\FailedView.xaml.cs">
+      <DependentUpon>FailedView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Common\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
     </Compile>
@@ -281,6 +284,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\About\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\FailedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
