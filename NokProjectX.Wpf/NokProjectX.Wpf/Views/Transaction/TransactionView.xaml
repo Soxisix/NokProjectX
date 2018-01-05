@@ -952,7 +952,7 @@
 							 SelectedItem="{Binding PaymentMode}"
                              HorizontalAlignment="Center"
                              HorizontalContentAlignment="Stretch"
-                             SelectedIndex="0"
+                             SelectedIndex="1"
                              Style="{StaticResource MaterialDesignToolToggleListBox}">
 <!--                        <i:Interaction.Triggers>-->
 <!--                            <i:EventTrigger EventName="SelectionChanged">-->

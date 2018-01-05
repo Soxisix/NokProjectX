@@ -181,7 +181,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             set
             {
                 Set(ref _invoiceList, value);
-                
+                CalculateTotal();
                 RaisePropertyChanged(() => Payment);
                 ConfirmCommand.RaiseCanExecuteChanged();
             }
@@ -492,7 +492,7 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             _context.Transactions.Add(transaction);
             _context.SaveChanges();ClearTransaction();
             ClearFields();
-
+            Payment = 0.0d;
            DialogHost.Show(new SuccessView(), "RootDialog");
             ServiceLocator.Current.GetAllInstances<ReportViewModel>();
             MessengerInstance.Send(new RefreshMessage());
@@ -758,7 +758,6 @@ namespace NokProjectX.Wpf.ViewModel.Transaction
             Size1 = null;
             Size2 = null;
             Description = null;
-            Payment = 0.0d;
         }
 
         public bool IsCash
