@@ -823,6 +823,7 @@
                                                 </TextBlock>
                                                 <TextBlock FontSize="10"
                                                            VerticalAlignment="Center"
+                                                           Foreground="DeepSkyBlue"
                                                            Text="{Binding Mobile}">
                                                 </TextBlock>
                                             </StackPanel>
