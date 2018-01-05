@@ -236,6 +236,8 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                         }
                         
                     }
+                    StartDate = null;
+                    EndDate = null;
                 }
             }
         }
