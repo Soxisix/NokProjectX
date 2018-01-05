@@ -44,6 +44,7 @@
                              Padding="10">
             <Image Width="260"
                    Stretch="Fill"
+                   RenderOptions.BitmapScalingMode="Fant"
                    Height="260">
                 <Image.Source>
                     <Binding Path="SelectedProduct.Image">
@@ -334,6 +335,7 @@
                         SnapsToDevicePixels="True"
                         BorderThickness="0"
                         Grid.Row="7"
+                        RenderOptions.BitmapScalingMode="Fant"
                         Command="{Binding AddInvoiceCommand}"
                         Margin="20,9"
                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
@@ -342,7 +344,7 @@
                                BasedOn="{StaticResource {x:Type Button}}">
                             <Setter Property="Background">
                                 <Setter.Value>
-                                    <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                    <ImageBrush RenderOptions.BitmapScalingMode="Fant"
                                                 ImageSource="/NokProjectX.Wpf;component/Resources/addtoCart.png" />
 
                                 </Setter.Value>
@@ -352,7 +354,7 @@
                                          Value="True">
                                     <Setter Property="Background">
                                         <Setter.Value>
-                                            <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                            <ImageBrush RenderOptions.BitmapScalingMode="Fant"
                                                         ImageSource="/NokProjectX.Wpf;component/Resources/addtoCartHover.png" />
                                         </Setter.Value>
                                     </Setter>
@@ -738,6 +740,7 @@
                     <Button ToolTip="Add Customer"
                             Grid.Column="1"
                             Margin="5,0,0,0"
+                            RenderOptions.BitmapScalingMode="Fant"
                             Command="{Binding NewCustomerCommand}"
                             materialDesign:ShadowAssist.ShadowDepth="Depth0">
                         <Button.Style>
@@ -745,7 +748,7 @@
                                    BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                        <ImageBrush RenderOptions.BitmapScalingMode="Fant"
                                                     ImageSource="/NokProjectX.Wpf;component/Resources/addClient.png" />
 
                                     </Setter.Value>
@@ -755,7 +758,7 @@
                                              Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
-                                                <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                <ImageBrush RenderOptions.BitmapScalingMode="Fant"
                                                             ImageSource="/NokProjectX.Wpf;component/Resources/addClientHover.png" />
                                             </Setter.Value>
                                         </Setter>
@@ -960,7 +963,7 @@
                                    BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                        <ImageBrush RenderOptions.BitmapScalingMode="Fant"
                                                     ImageSource="/NokProjectX.Wpf;component/Resources/confirmTransaction.png" />
 
                                     </Setter.Value>
@@ -970,7 +973,7 @@
                                              Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
-                                                <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                <ImageBrush RenderOptions.BitmapScalingMode="Fant"
                                                             ImageSource="/NokProjectX.Wpf;component/Resources/confirmTransactionHover.png" />
                                             </Setter.Value>
                                         </Setter>
@@ -982,6 +985,7 @@
                     </Button>
                     <Button Grid.Row="1"
                             Margin="5,5,0,0"
+                            RenderOptions.BitmapScalingMode="Fant"
 							Command="{Binding ResetCommand}"
                             materialDesign:ShadowAssist.ShadowDepth="Depth0">
                         <Button.Style>
@@ -989,7 +993,7 @@
                                    BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                        <ImageBrush RenderOptions.BitmapScalingMode="Fant"
                                                     ImageSource="/NokProjectX.Wpf;component/Resources/btnCancel.png" />
 
                                     </Setter.Value>
@@ -999,7 +1003,7 @@
                                              Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
-                                                <ImageBrush RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                <ImageBrush RenderOptions.BitmapScalingMode="Fant"
                                                             ImageSource="/NokProjectX.Wpf;component/Resources/btnCancelHover.png" />
                                             </Setter.Value>
                                         </Setter>

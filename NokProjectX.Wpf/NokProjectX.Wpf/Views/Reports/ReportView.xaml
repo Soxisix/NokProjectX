@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:dxp="http://schemas.devexpress.com/winfx/2008/xaml/printing"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              Background="#f1f2f2"
              VerticalAlignment="Stretch"
@@ -23,33 +24,15 @@
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<StackPanel Orientation="Horizontal">
-					<ComboBox materialDesign:HintAssist.Hint="Mode of Payment"
-					          materialDesign:HintAssist.IsFloating="True"
+					<ComboBox 
 					          ItemsSource="{Binding ModeList}"
 					          VerticalContentAlignment="Bottom"
+							  SelectedIndex="0"
 					          Margin="0"
 					          SelectedItem="{Binding ReportMode}"
 					          VerticalAlignment="Stretch">
 
 					</ComboBox>
-					<DatePicker materialDesign:HintAssist.Hint="From Date"
-					            VerticalAlignment="Stretch"
-					            materialDesign:HintAssist.IsFloating="True"
-					            Visibility="{Binding IsByCustomer, Converter={StaticResource BoolNegateToVisibility}}"
-					            SelectedDate="{Binding StartDate}"
-					            VerticalContentAlignment="Bottom"
-					            Margin="10,0,0,0">
-
-					</DatePicker>
-					<DatePicker materialDesign:HintAssist.Hint="To Date"
-					            materialDesign:HintAssist.IsFloating="True"
-					            VerticalAlignment="Stretch"
-					            VerticalContentAlignment="Bottom"
-					            Visibility="{Binding IsByCustomer, Converter={StaticResource BoolNegateToVisibility}}"
-					            SelectedDate="{Binding EndDate}"
-					            Margin="10,0,0,0">
-
-					</DatePicker>
 					<ComboBox Height="Auto"
 					          VerticalContentAlignment="Bottom"
 					          VerticalAlignment="Stretch"
@@ -62,6 +45,32 @@
 					          materialDesign:HintAssist.Hint="Select Customer"
 					          SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
 					          ItemsSource="{Binding Customers}">
+						<TextSearch.TextPath>Name</TextSearch.TextPath>
+					</ComboBox>
+					<DatePicker materialDesign:HintAssist.Hint="From Date"
+					            VerticalAlignment="Stretch"
+					            materialDesign:HintAssist.IsFloating="True"
+					            SelectedDate="{Binding StartDate}"
+					            VerticalContentAlignment="Bottom"
+					            Margin="10,0,0,0">
+
+					</DatePicker>
+					<DatePicker materialDesign:HintAssist.Hint="To Date"
+					            materialDesign:HintAssist.IsFloating="True"
+					            VerticalAlignment="Stretch"
+					            VerticalContentAlignment="Bottom"
+					            SelectedDate="{Binding EndDate}"
+					            Margin="10,0,0,0">
+
+					</DatePicker>
+					
+					<ComboBox Height="Auto"
+					          VerticalContentAlignment="Bottom"
+					          VerticalAlignment="Stretch"
+					          Margin="10,0,0,0"
+					          SelectedIndex="0"
+					          SelectedItem="{Binding SelectedPaymentMode, Mode=TwoWay}"
+					          ItemsSource="{Binding PaymentModeList}">
 						<TextSearch.TextPath>Name</TextSearch.TextPath>
 					</ComboBox>
 
@@ -95,6 +104,11 @@
 				<Grid >
 					<ListView ItemsSource="{Binding Transactions}"
 					          SelectedItem="{Binding SelectedTransaction}">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="MouseDoubleClick">
+								<i:InvokeCommandAction Command="{Binding ViewTransactionCommand}"/>
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
 						<ListView.View>
 							<GridView>
 
@@ -102,7 +116,7 @@
 									<GridViewColumn.CellTemplate>
 										<DataTemplate>
 											<TextBlock TextAlignment="Right"
-											           Text="{Binding Invoice.InvoiceCode}" />
+											           Text="{Binding TransactionNumber}" />
 										</DataTemplate>
 									</GridViewColumn.CellTemplate>
 								</GridViewColumn>

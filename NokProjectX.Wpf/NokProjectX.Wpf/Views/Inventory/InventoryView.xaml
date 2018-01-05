@@ -228,7 +228,9 @@
                         <common:SelectItemOnButtonClick />
                     </i:Interaction.Behaviors>
 
-                    <ListView.View>
+					
+
+					<ListView.View>
                         <GridView>
 
                             <GridViewColumn>
@@ -266,11 +268,32 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
+											
                                             <TextBlock Text="{Binding Stock}"
-                                                       TextAlignment="Right" />
-                                            <TextBlock Text=" " />
+                                                       TextAlignment="Right">
+												<TextBlock.Style>
+													<Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+														<Style.Triggers>
+															<DataTrigger Binding="{Binding Stock}" Value="0">
+																<Setter Property="Foreground" Value="IndianRed"></Setter>
+															</DataTrigger>
+														</Style.Triggers>
+													</Style>
+												</TextBlock.Style>
+                                            </TextBlock>
+	                                        <TextBlock Text=" " />
                                             <TextBlock Text="{Binding Type.Name}"
-                                                       TextAlignment="Left" />
+                                                       TextAlignment="Left">
+	                                            <TextBlock.Style>
+		                                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+			                                            <Style.Triggers>
+				                                            <DataTrigger Binding="{Binding Stock}" Value="0">
+					                                            <Setter Property="Foreground" Value="IndianRed"></Setter>
+				                                            </DataTrigger>
+			                                            </Style.Triggers>
+		                                            </Style>
+	                                            </TextBlock.Style>
+                                            </TextBlock>
 
                                         </StackPanel>
                                     </DataTemplate>

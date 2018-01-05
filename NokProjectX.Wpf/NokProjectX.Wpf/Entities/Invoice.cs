@@ -27,6 +27,7 @@ namespace NokProjectX.Wpf.Entities
         public double Width { get; set; }
 
         public string Description { get; set; }
+        
 
         public double TotalPrice { get; set; }
         public virtual Customer Customer { get; set; }
