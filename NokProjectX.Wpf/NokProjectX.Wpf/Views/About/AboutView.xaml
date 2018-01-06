@@ -36,6 +36,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="0" />
         </Grid.RowDefinitions>
 
@@ -94,8 +95,46 @@
         </StackPanel>
 
 
+        <StackPanel Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    Grid.Row="6"
+                    Orientation="Horizontal"
+                    SnapsToDevicePixels="True">
+            <Button Width="101"
+                    Height="30"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    BorderThickness="0"
+                    Content="Import"
+                    Foreground="White"
+                    Background="Blue"
+                    Command="{Binding ImportCommand}"
+                    SnapsToDevicePixels="True">
 
-        <StackPanel   Grid.Row="6" VerticalAlignment="Bottom" Margin="0,300,0,5" >
+
+
+            </Button>
+
+            <Button Width="101"
+                    Height="30"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Right"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    BorderThickness="0"
+                    Content="Export"
+                    Command="{Binding ExportCommand}"                         
+                    Background="Brown"
+                    SnapsToDevicePixels="True">
+
+            </Button>
+
+
+        </StackPanel>
+
+
+
+        <StackPanel   Grid.Row="7" VerticalAlignment="Bottom" Margin="0,300,0,5" >
             <TextBlock  TextAlignment="Center"
               
                 FontSize="12" Height="14"><Run Text="Copyright ©2017 DigitalMark Designs"/></TextBlock>
@@ -122,4 +161,6 @@
 
 
     </Grid>
+    
+    
 </UserControl>
