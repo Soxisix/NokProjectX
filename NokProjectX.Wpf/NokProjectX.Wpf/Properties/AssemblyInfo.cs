@@ -5,11 +5,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NokProjectX.Wpf")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("RSMT")]
+[assembly: AssemblyDescription("PROJECT X")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NokProjectX.Wpf")]
+[assembly: AssemblyCompany("DigitalMark Designs")]
+[assembly: AssemblyProduct("Real Sales Management Tool")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
