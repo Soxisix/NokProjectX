@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NokProjectX.Wpf.Context;
-using System.Windows;
+using System.Windows.Forms;
 using GalaSoft.MvvmLight.Command;
 using MaterialDesignThemes.Wpf;
 using MvvmValidation;
@@ -12,6 +12,10 @@ using MySql.Data.MySqlClient;
 using NokProjectX.Wpf.Common.Validator;
 using NokProjectX.Wpf.Entities;
 using NokProjectX.Wpf.Views.Common;
+using RSMT.Views.Common;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using ViewModelBase = GalaSoft.MvvmLight.ViewModelBase;
 
 namespace NokProjectX.Wpf.ViewModel.About
@@ -32,48 +36,108 @@ namespace NokProjectX.Wpf.ViewModel.About
         private async void OnExport()
         {
             Backup();
-            await DialogHost.Show(new SuccessView(), "RootDialog");
+            
         }
         private async void OnImport()
         {
             Restore();
-            await DialogHost.Show(new SuccessView(), "RootDialog");}
+            
+        }
         
-        private void Backup()
+        private async void Backup()
         {
-            string constring = "Server=localhost;Port=3307;Database=projectx;Uid=real;Pwd=real";
-            string file = "C:\\xampp\\htdocs\\backup.sql";
-            using (MySqlConnection conn = new MySqlConnection(constring))
+            string constring = "Server=localhost;Port=3306;Database=projectx;Uid=real;Pwd=real";
+//            string file = "C:\\backup.sql";
+
+            SaveFileDialog fileDialog = new SaveFileDialog();
+            fileDialog.Filter = "Sql files (*.Sql)|*.Sql";
+            fileDialog.FileName = "backup" + DateTime.Now.ToString("MM-dd-yyyy") + ".sql";
+            var result = fileDialog.ShowDialog();
+            if (result == false)
             {
-                using (MySqlCommand cmd = new MySqlCommand())
-                {
-                    using (MySqlBackup mb = new MySqlBackup(cmd))
-                    {
-                        cmd.Connection = conn; conn.Open();
-                        mb.ExportToFile(file);
-                        conn.Close();
-                    }
-                }
+                return;
             }
+            await DialogHost.Show(new PleaseWaitView(), "RootDialog",
+                delegate (object sender, DialogOpenedEventArgs args)
+                {
+                    
+                    Task.Run(() =>
+                    {
+                        try
+                        {
+                            using (MySqlConnection conn = new MySqlConnection(constring))
+                            {
+                                using (MySqlCommand cmd = new MySqlCommand())
+                                {
+                                    using (MySqlBackup mb = new MySqlBackup(cmd))
+                                    {
+
+                                        cmd.Connection = conn; conn.Open();
+
+                                        mb.ExportToFile(fileDialog.FileName);
+                                        conn.Close();
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message);
+                        }
+                    }).ContinueWith((t, _) =>
+                    {
+                       args.Session.UpdateContent(new SuccessView());
+                    }, null, TaskScheduler.FromCurrentSynchronizationContext());
+                });
+
+            
+            
         }
 
-        private void Restore()
+        private async void Restore()
         {
-            string constring = "Server=localhost;Port=3307;Database=projectx;Uid=real;Pwd=real";
-            string file = "C:\\xampp\\htdocs\\backup.sql";
-            using (MySqlConnection conn = new MySqlConnection(constring))
+            string constring = "Server=localhost;Port=3306;Database=projectx;Uid=real;Pwd=real";
+            //            string file = "C:\\backup.sql";
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Sql files (*.Sql)|*.Sql";
+            var result = fileDialog.ShowDialog();
+            if (result == false)
             {
-                using (MySqlCommand cmd = new MySqlCommand())
-                {
-                    using (MySqlBackup mb = new MySqlBackup(cmd))
-                    {
-                        cmd.Connection = conn;
-                        conn.Open();
-                        mb.ImportFromFile(file);
-                        conn.Close();
-                    }
-                }
+                return;
             }
+            await DialogHost.Show(new PleaseWaitView(), "RootDialog",
+                delegate (object sender, DialogOpenedEventArgs args)
+                {
+
+                    Task.Run(() =>
+                    {
+                        try
+                        {
+                            using (MySqlConnection conn = new MySqlConnection(constring))
+                            {
+                                using (MySqlCommand cmd = new MySqlCommand())
+                                {
+                                    using (MySqlBackup mb = new MySqlBackup(cmd))
+                                    {
+
+                                        cmd.Connection = conn; conn.Open();
+
+                                        mb.ImportFromFile(fileDialog.FileName);
+                                        conn.Close();
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message);
+                        }
+                    }).ContinueWith((t, _) =>
+                    {
+                        args.Session.UpdateContent(new SuccessView());
+                    }, null, TaskScheduler.FromCurrentSynchronizationContext());
+                });
+
         }
     }
 }
