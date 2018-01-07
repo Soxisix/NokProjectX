@@ -46,7 +46,7 @@ namespace NokProjectX.Wpf.ViewModel.About
         
         private async void Backup()
         {
-            string constring = "Server=localhost;Port=3306;Database=projectx;Uid=real;Pwd=real";
+            string constring = "Server=localhost;Port=3306;Database=projectx;Uid=root;Pwd=admin";
 //            string file = "C:\\backup.sql";
 
             SaveFileDialog fileDialog = new SaveFileDialog();
@@ -96,7 +96,7 @@ namespace NokProjectX.Wpf.ViewModel.About
 
         private async void Restore()
         {
-            string constring = "Server=localhost;Port=3306;Database=projectx;Uid=real;Pwd=real";
+            string constring = "Server=localhost;Port=3306;Database=projectx;Uid=root;Pwd=admin";
             //            string file = "C:\\backup.sql";
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Sql files (*.Sql)|*.Sql";
