@@ -256,7 +256,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                 }
                 if (StartDate != null && EndDate != null && SelectedPaymentMode == "Unpaid")
                 {
-                    Transactions = _originalTransactions.Where(c => c.Date.Date >= StartDate && c.Date.Date <= EndDate && Math.Abs(c.TotalPrice - c.Payment) < 0).ToList();
+                    Transactions = _originalTransactions.Where(c => c.Date.Date >= StartDate && c.Date.Date <= EndDate && Math.Abs(c.TotalPrice - c.Payment) > 0).ToList();
                 }
                 if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "All")
                 {
@@ -268,7 +268,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                 }
                 if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "Unpaid")
                 {
-                    Transactions = _originalTransactions.Where(c => Math.Abs(c.TotalPrice - c.Payment) < 0).ToList();
+                    Transactions = _originalTransactions.Where(c => Math.Abs(c.TotalPrice - c.Payment) > 0).ToList();
                 }
             }
             else
@@ -285,7 +285,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                     }
                     if (StartDate != null && EndDate != null && SelectedPaymentMode == "Unpaid")
                     {
-                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id && c.Date.Date >= StartDate && c.Date.Date <= EndDate && Math.Abs(c.TotalPrice - c.Payment) < 0).ToList();
+                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id && c.Date.Date >= StartDate && c.Date.Date <= EndDate && Math.Abs(c.TotalPrice - c.Payment) > 0).ToList();
                     }
                     if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "All")
                     {
@@ -297,7 +297,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
                     }
                     if ((StartDate == null || EndDate == null) && SelectedPaymentMode == "Unpaid")
                     {
-                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id && Math.Abs(c.TotalPrice - c.Payment) < 0).ToList();
+                        Transactions = _originalTransactions.Where(c => c.Customer.Id == SelectedCustomer.Id && Math.Abs(c.TotalPrice - c.Payment) > 0).ToList();
                     }
                 }
             }

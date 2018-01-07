@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using MvvmValidation;
+using MySql.Data.MySqlClient;
 using NokProjectX.Wpf.Common.Validator;
 using NokProjectX.Wpf.Context;
 using NokProjectX.Wpf.Entities;
@@ -19,6 +20,9 @@ namespace NokProjectX.Wpf.ViewModel.UserLogin
         private string _username;
         private string _password;
 
+     
+
+
         public LoginViewModel(YumiContext context)
         {
             _context = context;
@@ -28,6 +32,7 @@ namespace NokProjectX.Wpf.ViewModel.UserLogin
             ValidateLogin();
             Users = _context.Users.ToList();
             
+
         }
 
         private List<UserAccount> Users;
@@ -60,10 +65,12 @@ namespace NokProjectX.Wpf.ViewModel.UserLogin
 
         public RelayCommand CloseCommand { get; set; }
 
+      
         private void OnClose()
         {
+            
 //           Application.Current.Shutdown();
-            Environment.Exit(0);
+         Environment.Exit(0);
         }
 
         public string UserName
