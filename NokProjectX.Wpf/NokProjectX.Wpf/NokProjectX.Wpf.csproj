@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C28E8486-2CB1-473D-8D75-1A8C6F360446}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>NokProjectX.Wpf</RootNamespace>
+    <RootNamespace>RSMT</RootNamespace>
     <AssemblyName>NokProjectX.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -15,7 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\baisa\Desktop\real\</PublishUrl>
+    <PublishUrl>D:\REAL\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -27,7 +27,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <ProductName>Real Sales Management Tool</ProductName>
     <PublisherName>DigitalMark Design</PublisherName>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
