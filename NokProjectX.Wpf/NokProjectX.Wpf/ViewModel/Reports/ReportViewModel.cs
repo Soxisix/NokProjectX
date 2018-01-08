@@ -200,6 +200,7 @@ namespace NokProjectX.Wpf.ViewModel.Reports
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             window.WindowState = WindowState.Maximized;
             window.ShowDialog();
+            
         }
 
         public RelayCommand PrintCommand { get; set; }

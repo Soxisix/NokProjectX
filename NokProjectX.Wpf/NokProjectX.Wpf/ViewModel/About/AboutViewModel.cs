@@ -25,6 +25,8 @@ namespace NokProjectX.Wpf.ViewModel.About
         private readonly YumiContext _context;
         public RelayCommand ExportCommand { get; set; }
         public RelayCommand ImportCommand { get; set; }
+
+        string constring = "Server=192.168.0.101;Port=3307;Database=projectx;Uid=real;Pwd=real;charset=utf8";
         public AboutViewModel(YumiContext context)
         {
             _context = context;
@@ -46,7 +48,7 @@ namespace NokProjectX.Wpf.ViewModel.About
         
         private async void Backup()
         {
-            string constring = "Server=localhost;Port=3306;Database=projectx;Uid=root;Pwd=admin";
+//            string constring = "Server=localhost;Port=3307;Database=projectx;Uid=root;Pwd=admin;charset=utf8";
 //            string file = "C:\\backup.sql";
 
             SaveFileDialog fileDialog = new SaveFileDialog();
@@ -96,7 +98,7 @@ namespace NokProjectX.Wpf.ViewModel.About
 
         private async void Restore()
         {
-            string constring = "Server=localhost;Port=3306;Database=projectx;Uid=root;Pwd=admin";
+            
             //            string file = "C:\\backup.sql";
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Sql files (*.Sql)|*.Sql";
